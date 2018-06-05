@@ -18,3 +18,11 @@ def test_is_epsilon_ZD_for_not_valid_ZD_strategy():
 def test_is_epsilon_ZD_for_not_valid_ZD_strategy_with_high_epsilon():
     p = np.array([8 / 9, 1, 1 / 3, 0])
     assert zd.is_epsilon_ZD(p, epsilon=10) == True
+
+def test_find_lowest_epsilon():
+    p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
+    assert zd.find_lowest_epsilon(p) == 0
+
+def test_find_lowest_epsilon_with_non_ZD():
+    p = np.array([8 / 9, 1, 1 / 3, 0])
+    assert np.isclose(zd.find_lowest_epsilon(p), 0.333399)

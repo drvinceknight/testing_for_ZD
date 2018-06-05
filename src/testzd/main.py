@@ -40,3 +40,18 @@ def is_epsilon_ZD(p, rstp=np.array([3, 0, 5, 1]), epsilon=10 ** (-7)):
 
     return np.min([np.abs(np.dot(M[i], x) - p_tilde[i])
                    for i, x in enumerate(xbars)]) <= epsilon
+
+
+def find_lowest_epsilon(p, step= 10 ** -4):
+    """
+    Find the lowest value of $\epsilon$
+    for which p is $\epsilon$-ZD.
+    """
+    epsilon = 0
+
+    while not is_epsilon_ZD(p, epsilon=epsilon):
+        epsilon += step
+
+    assert is_epsilon_ZD(p, epsilon=epsilon)
+
+    return epsilon
