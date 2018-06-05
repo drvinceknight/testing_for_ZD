@@ -32,4 +32,4 @@ def test_analyse_tournament_behaviour():
     results = tournament.play()
     df = dc.analyse_tournament_behaviour(results, epsilons=epsilons)
     assert type(df) is pd.DataFrame
-    assert df.shape == (3, 14)
+    assert df.shape == (3, 22)
