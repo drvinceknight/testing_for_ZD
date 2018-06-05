@@ -36,17 +36,25 @@ def analyse_tournament_behaviour(result_set, epsilons):
 
     data = {"epsilon":epsilons,
             "counts":[],
+            "five_percent_quantile_ranks":[],
             "min_ranks":[],
             "median_ranks":[],
+            "ninetyfive_percent_quantile_ranks":[],
             "max_ranks":[],
             "min_score_per_turn":[],
+            "five_percent_quantile_score_per_turn":[],
             "mean_score_per_turn":[],
+            "ninetyfive_percent_quantile_score_per_turn":[],
             "max_score_per_turn":[],
             "min_number_of_wins":[],
+            "five_percent_quantile_number_of_wins":[],
             "median_number_of_wins":[],
+            "ninetyfive_percent_quantile_number_of_wins":[],
             "max_number_of_wins":[],
             "min_cooperation_rate":[],
+            "five_percent_quantile_cooperation_rate":[],
             "mean_cooperation_rate":[],
+            "ninetyfive_percent_quantile_cooperation_rate":[],
             "max_cooperation_rate":[]}
 
     for epsilon in epsilons:
@@ -61,18 +69,26 @@ def analyse_tournament_behaviour(result_set, epsilons):
         zd_df = df[played_ZD]
 
         data["min_ranks"].append(zd_df["Rank"].min())
+        data["five_percent_quantile_ranks"].append(zd_df["Rank"].quantile(q=0.05))
         data["median_ranks"].append(zd_df["Rank"].median())
+        data["ninetyfive_percent_quantile_ranks"].append(zd_df["Rank"].quantile(q=0.95))
         data["max_ranks"].append(zd_df["Rank"].max())
 
         data["min_score_per_turn"].append(zd_df["Median_score"].min())
+        data["five_percent_quantile_score_per_turn"].append(zd_df["Median_score"].quantile(q=0.05))
         data["mean_score_per_turn"].append(zd_df["Median_score"].mean())
+        data["ninetyfive_percent_quantile_score_per_turn"].append(zd_df["Median_score"].quantile(q=0.95))
         data["max_score_per_turn"].append(zd_df["Median_score"].max())
 
         data["min_number_of_wins"].append(zd_df["Wins"].min())
+        data["five_percent_quantile_number_of_wins"].append(zd_df["Wins"].quantile(q=0.05))
         data["median_number_of_wins"].append(zd_df["Wins"].median())
+        data["ninetyfive_percent_quantile_number_of_wins"].append(zd_df["Wins"].quantile(q=0.95))
         data["max_number_of_wins"].append(zd_df["Wins"].max())
 
         data["min_cooperation_rate"].append(zd_df["Cooperation_rating"].min())
+        data["five_percent_quantile_cooperation_rate"].append(zd_df["Cooperation_rating"].quantile(q=0.05))
         data["mean_cooperation_rate"].append(zd_df["Cooperation_rating"].mean())
+        data["ninetyfive_percent_quantile_cooperation_rate"].append(zd_df["Cooperation_rating"].quantile(q=0.95))
         data["max_cooperation_rate"].append(zd_df["Cooperation_rating"].max())
     return pd.DataFrame(data)
