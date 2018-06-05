@@ -98,9 +98,15 @@ dependencies:
   - zeromq=4.2.5
   - zlib=1.2.11
   - pip:
+    - atomicwrites==1.1.5
+    - attrs==18.1.0
     - axelrod==4.2.0
     - cloudpickle==0.5.3
     - dask==0.17.5
+    - more-itertools==4.2.0
+    - pluggy==0.6.0
+    - py==1.5.3
+    - pytest==3.6.0
     - scipy==1.1.0
     - toolz==0.9.0
     - tqdm==4.23.4
