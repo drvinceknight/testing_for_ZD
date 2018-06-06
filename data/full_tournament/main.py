@@ -14,6 +14,7 @@ import sys
 
 import axelrod as axl
 import numpy as np
+import pandas as pd
 
 parameters = imp.load_source('paremeters', '../paremeters.py')
 
@@ -42,9 +43,12 @@ def main(players,
     out_path.mkdir(exist_ok=True, parents=True)
 
     axl.seed(seed)
-    tournament.play(processes=0,
-                    filename=str(out_path / "main.csv"),
-                    build_results=False)
+    results = tournament.play(processes=0, filename=str(out_path / "main.csv"))
+
+    out_path = path / f"./summary/{tournament_type}"
+    out_path.mkdir(exist_ok=True, parents=True)
+    df = pd.DataFrame(results.summarise())
+    df.to_csv(str(out_path / "main.csv"), index=False)
 
 if __name__ == "__main__":
     if len(sys.argv) == 2:

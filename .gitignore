@@ -2,3 +2,5 @@
 *__pycache__*
 *.mypy_cache*
 *ipynb_checkpoints*
+data/stewart_plotkin_tournament/interactions/*
+data/full_tournament/interactions/*
