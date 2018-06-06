@@ -19,4 +19,6 @@ if __name__ == "__main__":
                                    axl.WinStayLoseShift(),
                                    axl.Random(),
                                    axl.ZDGTFT2()]
-    main.main(players=stewart_and_plotkin_players)
+    for tournament_type in ("std", "noisy", "probend"):
+        main.main(players=stewart_and_plotkin_players,
+                  tournament_type=tournament_type)
