@@ -15,8 +15,6 @@ import sys
 import axelrod as axl
 import numpy as np
 
-import testzd.data_collection as dc
-
 parameters = imp.load_source('paremeters', '../paremeters.py')
 
 def main(players,
