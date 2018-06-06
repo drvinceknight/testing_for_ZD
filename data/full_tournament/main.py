@@ -16,7 +16,7 @@ import axelrod as axl
 import numpy as np
 import pandas as pd
 
-parameters = imp.load_source('paremeters', '../paremeters.py')
+parameters = imp.load_source('parameters', '../parameters.py')
 
 def main(players,
          tournament_type="std",
