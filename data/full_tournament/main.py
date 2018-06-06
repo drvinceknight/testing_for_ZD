@@ -10,6 +10,7 @@ Outputs two data sets:
 """
 import pathlib
 import imp
+import sys
 
 import axelrod as axl
 import numpy as np
@@ -19,10 +20,10 @@ import testzd.data_collection as dc
 parameters = imp.load_source('paremeters', '../paremeters.py')
 
 def main(players,
+         tournament_type="std",
          turns=parameters.TURNS,
          noise=parameters.NOISE,
          prob_end=parameters.PROBEND,
-         epsilons=parameters.EPSILONS,
          repetitions=parameters.REPETITIONS,
          seed=parameters.SEED):
 
@@ -38,22 +39,19 @@ def main(players,
                                              repetitions=repetitions)}
 
     path = pathlib.Path("./")
-    for key, tournament in tournaments.items():
-        axl.seed(seed)
-        result_set = tournament.play(processes=0)
+    tournament = tournaments[tournament_type]
+    out_path = path / f"./interactions/{tournament_type}"
+    out_path.mkdir(exist_ok=True, parents=True)
 
-        out_path = path / f"./pairwise_epsilon/{key}"
-        out_path.mkdir(exist_ok=True, parents=True)
-        pairwise_epsilon = dc.obtain_pairwise_epsilons(result_set)
-        np.savetxt(str(out_path / "main.csv"), pairwise_epsilon)
-
-        out_path = path / f"./behaviour/{key}"
-        out_path.mkdir(exist_ok=True, parents=True)
-        behaviour = dc.analyse_tournament_behaviour(result_set,
-                                                    epsilons=epsilons)
-        behaviour.to_csv(str(out_path / "main.csv"), index=False)
-
+    axl.seed(seed)
+    tournament.play(processes=0,
+                    filename=str(out_path / "main.csv"),
+                    build_results=False)
 
 if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        tournament_type = sys.argv[1]
+    else:
+        tournament_type = "std"
     players = [s() for s in axl.strategies]
-    main(players)
+    main(players=players, tournament_type=tournament_type)
