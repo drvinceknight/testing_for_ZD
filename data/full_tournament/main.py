@@ -55,5 +55,5 @@ if __name__ == "__main__":
         tournament_type = sys.argv[1]
     else:
         tournament_type = "std"
-    players = [s() for s in axl.strategies]
+    players = [s() for s in axl.strategies if not s.classifier["long_run_time"]]
     main(players=players, tournament_type=tournament_type)
