@@ -7,6 +7,7 @@ import sys
 
 import dask as da
 import dask.dataframe as dd
+import tqdm
 
 import testzd as zd
 
@@ -58,6 +59,7 @@ def main(player_group="full",
     out_path = path / f"./{player_group}/{tournament_type}/per_opponent"
     out_path.mkdir(exist_ok=True, parents=True)
     columns = ["Player index", "Opponent index", "complete", "Score"]
+    print("Computing deltas")
     write_probabilities_and_deltas_to_file(df,
                                            filename=str(out_path / "main.csv"),
                                            columns=columns)
@@ -85,7 +87,8 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
         df[column] = df[f"{state} to C count"] / (df[f"{state} to C count"] + df[f"{state} to D count"])
 
     deltas = []
-    for index, row in df.iterrows():
+    number_of_rows = df.shape[0]
+    for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):
         delta = zd.find_lowest_delta(row[probabilities].values.astype('float64'))
         deltas.append(delta)
     df["delta"] = deltas
