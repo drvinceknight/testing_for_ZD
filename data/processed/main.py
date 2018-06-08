@@ -87,6 +87,12 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
         columns.append(column)
         df[column] = df[f"{state} to C count"] / (df[f"{state} to C count"] + df[f"{state} to D count"])
 
+    total_states = (df["CC count"] + df["CD count"] + df["DC count"] + df["CC count"])
+    for state in ("CC", "CD", "DC", "DD"):
+        column = f"P({state})"
+        columns.append(column)
+        df[f"P({state})"] = df[f"{state} count"] / total_states
+
     deltas = []
     number_of_rows = df.shape[0]
     for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):

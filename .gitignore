@@ -8,3 +8,15 @@ data/raw/full/probend/main.csv
 data/raw/stewart_plotkin/noisy/main.csv
 data/raw/stewart_plotkin/std/main.csv
 data/raw/stewart_plotkin/probend/main.csv
+data/processed/full/noisy/overall/main.csv
+data/processed/full/std/overall/main.csv
+data/processed/full/probend/overall/main.csv
+data/processed/stewart_plotkin/noisy/overall/main.csv
+data/processed/stewart_plotkin/std/overall/main.csv
+data/processed/stewart_plotkin/probend/overall/main.csv
+data/processed/full/noisy/per_opponent/main.csv
+data/processed/full/std/per_opponent/main.csv
+data/processed/full/probend/per_opponent/main.csv
+data/processed/stewart_plotkin/noisy/per_opponent/main.csv
+data/processed/stewart_plotkin/std/per_opponent/main.csv
+data/processed/stewart_plotkin/probend/per_opponent/main.csv
