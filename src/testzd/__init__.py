@@ -1,1 +1,1 @@
-from .main import is_epsilon_ZD, find_lowest_epsilon
+from .main import is_delta_ZD, find_lowest_delta
