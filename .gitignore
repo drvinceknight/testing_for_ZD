@@ -2,5 +2,9 @@
 *__pycache__*
 *.mypy_cache*
 *ipynb_checkpoints*
-data/stewart_plotkin_tournament/interactions/*
-data/full_tournament/interactions/*
+data/raw/full/noisy/main.csv
+data/raw/full/std/main.csv
+data/raw/full/probend/main.csv
+data/raw/stewart_plotkin/noisy/main.csv
+data/raw/stewart_plotkin/std/main.csv
+data/raw/stewart_plotkin/probend/main.csv
