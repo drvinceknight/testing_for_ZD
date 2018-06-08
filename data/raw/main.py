@@ -1,12 +1,5 @@
 """
 Script to run tournament over full set of strategies in the Axelrod tournament.
-
-Outputs two data sets:
-
-    - ./pairwise_epsilon/<type>/main.csv: a matrix showing the value of epsilon that
-      ensures each player plays as an epsilon-ZD strategy
-    - ./behaviour/<type>/main.csv: a data frame describing a number of statistics for
-      a range of values of epsilon.
 """
 import pathlib
 import imp
