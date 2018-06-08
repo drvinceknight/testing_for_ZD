@@ -78,7 +78,8 @@ def main(player_group="full",
 
 
 def write_probabilities_and_deltas_to_file(df, filename, columns):
-    df["complete"] = df["CC count"] * df["CD count"] * df["DC count"] *  df["DD count"] > 0
+    state_counts = ["CC count", "CD count", "DC count", "DD count"]
+    df["complete"] = df[state_counts].min(axis=1) > 0
     probabilities = []
     for state in ("CC", "CD", "DC", "DD"):
         column = f"P(C|{state})"
