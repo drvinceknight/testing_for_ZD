@@ -3,9 +3,12 @@ Script to take raw interaction data and write data files that contain the
 probabilities and delta values.
 """
 import pathlib
+import sys
 
 import dask as da
 import dask.dataframe as dd
+
+import testzd as zd
 
 default_raw_data_path = pathlib.Path("../raw/")
 
@@ -13,7 +16,7 @@ def main(player_group="full",
          tournament_type="std",
          raw_data_path=default_raw_data_path):
 
-    data_path = raw_data_path / player_group / tournament_type / "main.py"
+    data_path = raw_data_path / player_group / tournament_type / "main.csv"
 
     columns = ["Player index",
                "Opponent index",
@@ -80,8 +83,15 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
         probabilities.append(column)
         columns.append(column)
         df[column] = df[f"{state} to C count"] / (df[f"{state} to C count"] + df[f"{state} to D count"])
-    df = df[columns]
-    df.to_csv(filename)
+
+    deltas = []
+    for index, row in df.iterrows():
+        delta = zd.find_lowest_delta(row[probabilities].values.astype('float64'))
+        deltas.append(delta)
+    df["delta"] = deltas
+    columns.append("delta")
+
+    df[columns].to_csv(filename, index=False)
 
 if __name__ == "__main__":
 
