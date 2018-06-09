@@ -8,6 +8,7 @@ import sys
 import dask as da
 import dask.dataframe as dd
 import tqdm
+import numpy as np
 
 import testzd as zd
 
@@ -22,6 +23,7 @@ def main(player_group="full",
     columns = ["Player index",
                "Opponent index",
                "Score",
+               "Win",
                "CC count",
                "CD count",
                "DC count",
@@ -38,6 +40,7 @@ def main(player_group="full",
 
     groups = ["Player index", "Opponent index"]
     counts = ["Score",
+              "Win",
               "CC count",
               "CD count",
               "DC count",
@@ -70,7 +73,7 @@ def main(player_group="full",
     path = pathlib.Path("./")
     out_path = path / f"./{player_group}/{tournament_type}/overall"
     out_path.mkdir(exist_ok=True, parents=True)
-    columns = ["Player index", "complete", "Score"]
+    columns = ["Player index", "complete", "Score", "Win"]
     write_probabilities_and_deltas_to_file(df,
                                            filename=str(out_path / "main.csv"),
                                            columns=columns)
@@ -93,13 +96,15 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
         columns.append(column)
         df[f"P({state})"] = df[f"{state} count"] / total_states
 
-    deltas = []
+    residuals = []
     number_of_rows = df.shape[0]
     for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):
-        delta = zd.find_lowest_delta(row[probabilities].values.astype('float64'))
-        deltas.append(delta)
-    df["delta"] = deltas
-    columns.append("delta")
+        p = row[probabilities].values.astype('float64')
+        xbar, residual = zd.compute_least_squares(p)
+
+        residuals.append(residual)
+    df["residual"] = np.array(residuals)
+    columns.append("residual")
 
     df[columns].to_csv(filename, index=False)
 
@@ -107,4 +112,5 @@ if __name__ == "__main__":
 
     tournament_type = sys.argv[1]
     player_group = sys.argv[2]
-    main(player_group=player_group, tournament_type=tournament_type)
+    main(player_group=player_group,
+         tournament_type=tournament_type)
