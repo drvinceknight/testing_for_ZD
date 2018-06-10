@@ -34,6 +34,17 @@ def assets(c):
     tex(c)
 
 @task
+def process(c):
+    """
+    Process all raw data
+    """
+    for tournament_type in ("std", "noisy", "probend"):
+        for player_group in ("full", "stewart_plotkin"):
+            directory = "./data/processed/"
+            print(tournament_type, player_group)
+            c.run(f"cd {directory}; python main.py {tournament_type} {player_group}")
+
+@task
 def pdf(c, clean=False):
     """
     Compile the pdf
@@ -44,8 +55,6 @@ def pdf(c, clean=False):
 
 @task
 def build(c):
+    process(c)
     assets(c)
     pdf(c)
-
-
-# TODO Add task for processing data

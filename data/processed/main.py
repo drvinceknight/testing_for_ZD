@@ -123,6 +123,9 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
     df["gamma"] = gammas
     columns.append("gamma")
 
+    df["chi"] = -df["beta"] / df["alpha"]
+    columns.append("chi")
+
     df[columns].to_csv(filename, index=False)
 
 if __name__ == "__main__":
