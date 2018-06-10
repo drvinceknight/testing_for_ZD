@@ -1,10 +1,15 @@
 \documentclass[a4paper]{article}
 
 \usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[margin=1.5cm,
             includefoot,
             footskip=30pt]{geometry}
 \usepackage{layout}
+\usepackage{graphicx}
+
+\usepackage{biblatex}
+\bibliography{main.bib}
 
 \title{Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
@@ -31,7 +36,7 @@
 
     In this work, an approach to identify if observed strategies are playing in
     a Zero Determinant way is described. Furthermore, experimental analysis of
-    a large tournament with 204 % TODO (Read in number of strategies)
+    a large tournament with \input{assets/tex/number_of_strategies/main.tex}
     strategies is considered. In this setting
     the most highly performing strategies do not play in a Zero Determinant way.
     This suggests that whilst the theory of Zero Determinant strategies
@@ -42,29 +47,158 @@
 \section{Introduction}\label{sec:introduction}
 
 % TODO Write short introduction and literature review.
-% - Describe P&D, 
-% - Describe SP, 
+% - Describe P&D,
+% - Describe SP,
 % - Describe Hilbe 2013 (evolution of extortion)
 % - Describe Knight et al
 % - statement about reproducibility of work
 
-\section{Identifying Extortion}\label{sec:delta-zd-strategies}
+\section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-% TODO Describe ZD
 
-% TODO Describe example of finding alpha, gamma and beta: put this in terms of
-% rank etc... (and the Rouché–Capelli theorem)
+In~\cite{Press2012}, given a match between 2 memory-one strategies, the
+concept of Zeto-Determinant (ZD) strategies is introduced. The main result of
+that paper showed that given two players \(p, q\in\mathbb{R}^2\) a linear
+relationship between the players scores could be forced.
 
-% TODO Add description of how this implies that the family of ZD strategies is
-% in fact uniquely defined by 3 probabilities.
+Assuming the utilities for player \(p\) are given by \(S_x=(R, S, T, P)\) and
+for player \(q\) by \(S_y=(R, T, S, P)\) and that the stationary scores of each
+player is given by \(S_X\) and \(S_Y\) respectively. The main result
+of~\cite{Press2012} is that if
 
-% TODO Discuss missing states
+\begin{equation}\label{eqn:linear_relationship_for_p}
+    \tilde p=\alpha S_x + \beta S_y + \gamma
+\end{equation}
 
-% TODO Discuss adding in constraint for extortion:
-% $$-P\alpha-P\beta-\omega=0$$ which implies this is only possible when $p_4=0$
-% This is "easy" as it means we can simply measure this from the data.
-% Thus to identify if extortion: check $p_cc = 0$, $-\beta/\alpha>1$ and that
-% $R^2 < $ some threshold.
+or
+
+\begin{equation}\label{eqn:linear_relationship_for_q}
+    \tilde q=\alpha S_x + \beta S_y + \gamma
+\end{equation}
+
+where \(\tilde p = (1 - p_1, 1 - p_2, p_3, p_4)\) and
+\(\tilde q = (1 - q_1, 1 - q_2, q_3, q_4)\) then:
+
+\begin{equation}
+    \alpha S_X + \beta S_Y + \gamma = 0
+\end{equation}
+
+This work is interested with identifying a test for the reverse problem: given a
+\(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta, \gamma\) if they
+exist.
+
+Note that equation~\ref{eqn:linear_relationship_for_p} can be expressed linear
+algebraically as:
+
+\begin{equation}\label{eqn:linear_algebraic_equation_for_p}
+    Mx=\tilde p  \qquad x=(\alpha, \beta, \gamma)
+\end{equation}
+
+with \(M\in\mathbb{R}^{4\times 3}\) given by:
+
+\begin{equation}\label{eqn:definition_of_M}
+    M =
+    \begin{bmatrix}
+        R & R & 1\\
+        S & T & 1\\
+        T & S & 1\\
+        P & P & 1
+    \end{bmatrix}
+\end{equation}
+
+% TODO What is the rank of M? Can we prove something about it?
+
+Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
+not necessarily have a solution. From the Rouché-Capelli theorem~\cite{}% TODO
+if there is a solution it is unique as \(\text{rank}(M)=3\) which the dimension of
+the variable \(x\)). Furthermore, removing a single row of \(M\) would
+ensure that the corresponding matrix is invertible. This corresponds to the fact
+that a ZD strategy is defined by only 3 of its values.
+
+As an example, consider the known ZD strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\)
+from~\cite{Stewart2012} which is referred to as \texttt{Extort-2}. In the
+standard case of \((R, S, T, P)=(3, 0, 5, 1)\) the inverse
+of \(M_{(4)}\) (removing the last row of \(M\)) is given by:
+
+\begin{equation}\label{eqn:inverse_of_M4}
+    M_{(4)}^{-1} =
+    \input{./assets/tex/inverse_of_M4/main.tex}
+\end{equation}
+
+This allows us to find the \(x=(\alpha, \beta, \gamma)\) corresponding to
+\(\tilde p\):
+
+\begin{equation}\label{eqn:alpha_beta_gamma_for_extort_2}
+    x = M_{(4)}^{-1}\tilde p_{(4)} =
+    \input{./assets/tex/alpha_beta_gamma_for_extort_2/main.tex}
+\end{equation}
+
+Using (\ref{eqn:linear_algebraic_equation_for_p}) gives that these values lead
+to the correct value for \(p_4=0\) confirm that \(p_4\) is a ZD strategy.
+
+This approach could in fact be used to confirm that a given strategy \(p\)
+represents is ZD. However, in practice, if a closed form for \(p\) is not
+known, then due to measurement and/or numerical error this would not work.
+
+Thus, an approach based on least squares~\cite{Golub2013} is proposed. This
+approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
+\bar\gamma)\) which minimises:
+
+\begin{equation}\label{eqn:r_squared}
+R^2 = \|M x-\tilde p\|_2 = \sum_{i=1}^{4}\left((M\bar x)_i-\tilde p_i\right)^2
+\end{equation}
+
+Note that \(R^2\) which is the square of the Frobenius norm~\cite{Golub2013}
+becomes a measure of how close \(p\) is to being a ZD strategy.
+
+As an example, Figure~\ref{fig:R_squared_for_varying_p2_for_extort2} shows
+\(R^2\) for the vector \(p=(8/9, p_2, 1/3, 0)\) for varying value of \(p_2\). As
+expected, the lowest value is obtained for \(p_2=1/2\).
+
+\begin{figure}[!htbp]
+    \begin{center}
+    \includegraphics[width=.6\textwidth]{assets/img/R_squared_for_varying_p2_for_extort2/main.pdf}
+    \caption{\(R^2\) as defined in (\ref{eqn:r_squared}) for \(p=(8/9, p_2, 1/3,
+    0)\).}
+    \label{fig:R_squared_for_varying_p2_for_extort2}
+    \end{center}
+\end{figure}
+
+In~\cite{Press2012} a particular type of ZD is defined, if:
+
+\begin{equation}\label{eqn:constraint_for_extortion}
+    P(\alpha + \beta)+\gamma=0
+\end{equation}
+
+then the player can ensure they get a score at \(\chi\) times
+better than the opponent with. This extortion coefficient is given by:
+
+\begin{equation}\label{eqn:definition_of_chi}
+    \chi=\frac{-\beta}{\alpha} 
+\end{equation}
+
+Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
+said to extort their opponent. Recalling (\ref{eqn:definition_of_M}), equation
+(\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(M\), thus
+a player \(p\) extorts their opponent if and only if it is ZD and \(\chi > 1\).
+Using the method of least squares, the strategy \(p\) is ZD for a given
+threshold of \(R^2\) and \(\chi\) can be approximated.
+Figure~\ref{fig:examples_of_extortion} illustrates this for four potential
+strategies: for all of these we see that for the strategy to be extortionate: as
+\(p_2\) increases \(p_3\) also increases (seemingly linearly).
+
+\begin{figure}[!htbp]
+    \begin{center}
+    \includegraphics[width=.6\textwidth]{assets/img/examples_of_extortion/main.pdf}
+    \caption{\(R^2\) as a function of \(p_2, p_3\) for strategies of the form:
+    \(p=(p_1, p_2, p_3, p_4)\). The solid line shows the values for which \(R^2
+    < 10 ^ {-6}\). Only values for which \(\chi > 1\) are displayed, strategies
+    outside of that region cannot be extortionate.}
+    \label{fig:examples_of_extortion}
+    \end{center}
+\end{figure}
+% TODO Make this a subfigure with the other R^2 plot.
+
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
@@ -80,5 +214,7 @@
 % TODO In a large tournament, despite there being memory 1 strategies trained to
 % perform well [] they do not play ZD.
 % Potentially fallacy about the stability of playing short memory strategies.
+
+\printbibliography
 
 \end{document}
