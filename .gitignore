@@ -20,3 +20,14 @@ data/processed/full/probend/per_opponent/main.csv
 data/processed/stewart_plotkin/noisy/per_opponent/main.csv
 data/processed/stewart_plotkin/std/per_opponent/main.csv
 data/processed/stewart_plotkin/probend/per_opponent/main.csv
+main.aux
+main.bbl
+main.bcf
+main.bib
+main.bib.bak
+main.bib.sav
+main.blg
+main.fdb_latexmk
+main.fls
+main.log
+main.run.xml
