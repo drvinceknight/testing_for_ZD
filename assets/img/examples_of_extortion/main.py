@@ -8,9 +8,9 @@ import numpy as np
 import testzd as zd
 
 def main(N=500, max_r_squared = 10 ** -6):
-    fig, axarr = plt.subplots(2, 2)
+    fig, axarr = plt.subplots(2, 3)
     data = []
-    xs = (5 / 9, 6 / 9, 7 / 9, 8 / 9)
+    xs = ("4/9", "5/9", "6/9", "7/9", "8/9", "1")
     for x in xs:
         ps = np.linspace(0, 1, N)
         valid_x = []
@@ -20,7 +20,7 @@ def main(N=500, max_r_squared = 10 ** -6):
         array.fill(np.nan)
         for i, p2 in enumerate(ps):
             for j, p3 in enumerate(ps):
-                p = np.array([x, p2, p3, 0])
+                p = np.array([eval(x), p2, p3, 0])
                 x_bar, r_squared = zd.compute_least_squares(p)
                 alpha, beta, gamma = x_bar
                 if -beta / alpha > 1:
@@ -34,10 +34,9 @@ def main(N=500, max_r_squared = 10 ** -6):
                               for value in array[np.isfinite(array)]]
     max_value_of_R_squared = np.max(R_squared_values)
     min_value_of_R_squared = np.min(R_squared_values)
-    xs = ("5/9", "6/9", "7/9", "8/9")
 
     for i, (array, valid_x, valid_y) in enumerate(data):
-        ax = axarr[int(i / 2), i % 2]
+        ax = axarr[int(i / 3), i % 3]
         im = ax.imshow(array,
                        vmin=min_value_of_R_squared,
                        vmax=max_value_of_R_squared)

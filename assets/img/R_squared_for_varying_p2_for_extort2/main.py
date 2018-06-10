@@ -14,7 +14,7 @@ def main():
     r_squared = func(p2s)
     plt.figure()
     plt.plot(p2s, r_squared)
-    plt.axvline(1/2, color="red", linestyle="dashed", label="$p_2=1/2$")
+    plt.axvline(1/2, color="black", linestyle="dashed", label="$p_2=1/2$")
     plt.xlabel("$p_2$")
     plt.ylabel("$R^2$")
     plt.legend()

@@ -7,6 +7,7 @@
             footskip=30pt]{geometry}
 \usepackage{layout}
 \usepackage{graphicx}
+\usepackage{subcaption}
 
 \usepackage{biblatex}
 \bibliography{main.bib}
@@ -36,7 +37,7 @@
 
     In this work, an approach to identify if observed strategies are playing in
     a Zero Determinant way is described. Furthermore, experimental analysis of
-    a large tournament with \input{assets/tex/number_of_strategies/main.tex}
+    a large tournament with \input{assets/tex/number_of_full_strategies/main.tex}
     strategies is considered. In this setting
     the most highly performing strategies do not play in a Zero Determinant way.
     This suggests that whilst the theory of Zero Determinant strategies
@@ -155,15 +156,6 @@ As an example, Figure~\ref{fig:R_squared_for_varying_p2_for_extort2} shows
 \(R^2\) for the vector \(p=(8/9, p_2, 1/3, 0)\) for varying value of \(p_2\). As
 expected, the lowest value is obtained for \(p_2=1/2\).
 
-\begin{figure}[!htbp]
-    \begin{center}
-    \includegraphics[width=.6\textwidth]{assets/img/R_squared_for_varying_p2_for_extort2/main.pdf}
-    \caption{\(R^2\) as defined in (\ref{eqn:r_squared}) for \(p=(8/9, p_2, 1/3,
-    0)\).}
-    \label{fig:R_squared_for_varying_p2_for_extort2}
-    \end{center}
-\end{figure}
-
 In~\cite{Press2012} a particular type of ZD is defined, if:
 
 \begin{equation}\label{eqn:constraint_for_extortion}
@@ -174,40 +166,93 @@ then the player can ensure they get a score at \(\chi\) times
 better than the opponent with. This extortion coefficient is given by:
 
 \begin{equation}\label{eqn:definition_of_chi}
-    \chi=\frac{-\beta}{\alpha} 
+    \chi=\frac{-\beta}{\alpha}
 \end{equation}
 
 Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
 said to extort their opponent. Recalling (\ref{eqn:definition_of_M}), equation
 (\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(M\), thus
 a player \(p\) extorts their opponent if and only if it is ZD and \(\chi > 1\).
-Using the method of least squares, the strategy \(p\) is ZD for a given
-threshold of \(R^2\) and \(\chi\) can be approximated.
-Figure~\ref{fig:examples_of_extortion} illustrates this for four potential
-strategies: for all of these we see that for the strategy to be extortionate: as
-\(p_2\) increases \(p_3\) also increases (seemingly linearly).
+Using the method of least squares, the strategy \(p\) can be considered ZD for
+a given threshold of \(R^2\) and \(\chi\) can be approximated.
+Figure~\ref{fig:examples_of_extortion} illustrates this for potential
+strategies: for all of these we see that for the strategy to be extortionate
+\(p_2\) and \(p_3\) seem to have a linear relationship.
 
 \begin{figure}[!htbp]
-    \begin{center}
-    \includegraphics[width=.6\textwidth]{assets/img/examples_of_extortion/main.pdf}
-    \caption{\(R^2\) as a function of \(p_2, p_3\) for strategies of the form:
-    \(p=(p_1, p_2, p_3, p_4)\). The solid line shows the values for which \(R^2
-    < 10 ^ {-6}\). Only values for which \(\chi > 1\) are displayed, strategies
-    outside of that region cannot be extortionate.}
-    \label{fig:examples_of_extortion}
-    \end{center}
+    \centering
+    \begin{subfigure}[t]{.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/img/R_squared_for_varying_p2_for_extort2/main.pdf}
+        \caption{Strategies of the form \(p=(8/9, p_2, 1/3, 0)\).}
+        \label{fig:R_squared_for_varying_p2_for_extort2}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}[t]{.6\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{assets/img/examples_of_extortion/main.pdf}
+        \caption{Strategies of the form:
+                 \(p=(p_1, p_2, p_3, 0)\). The solid line shows the values for
+                 which \(R^2 < 10 ^ {-6}\). Only values for which \(\chi > 1\) are
+                 displayed, strategies outside of this region can never be
+                 extortionate.}
+        \label{fig:examples_of_extortion}
+    \end{subfigure}
+    \caption{\(R^2\) as defined in (\ref{eqn:r_squared})}
 \end{figure}
-% TODO Make this a subfigure with the other R^2 plot.
 
+By observing interactions (human or otherwise), the transition rates of given
+individuals can be approximated and this approach can be used to recognise
+extortionate behaviour. Note that if the environment is noisy then no strategy
+can be considered to be extortionate. % TODO Add reference and possibly move
+% this I. The reason for it, is that we cannot have $P(C|CC)=0$ in a noisy
+% environment.
+
+% TODO Add discussion about missing observations.
+% Technically if a strategy has missing observations then it is definitely ZD.
+
+In the next section, this idea will be illustrated by observing the interactions
+that take place in a computer based tournament of the IPD\@.
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
-% TODO Identify zero determinant, plot $R^2$ with the conditions as a
-% marker/color
-% TODO Show S&P as proof of concept: Show results scores/wins/ranks
-% TODO Show full tournament: Show results scores/wins/ranks
+In~\cite{Stewart2012} a tournament with
+\input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex}
+strategies, was run with specific consideration given to ZD strategies. This
+tournament is reproduced here using the Axelrod-Python project. To obtain a good
+measure of the corresponding transition rates for each strategy all matches have
+been run for \input{assets/tex/number_of_turns/main.tex}
+turns and every match has been
+repeated \input{assets/tex/number_of_repetitions/main.tex}
+times.
+% TODO Archive data.
 
-% TODO Discuss pair wise and compare to CC probability
+Figure~\ref{fig:R_squared_in_stewart_plotkin} shows the \(R^2\) values for all
+the strategies in the tournament.
+% TODO Discuss: whilst sp paper aimed to say how the strategy did, this approach
+% allows us to see how ZD strategies do even when they are not specifically
+% being played.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/R_squared_in_stewart_plotkin/main.pdf}
+    \caption{\(R^2\) for the strategies of~\cite{Stewart2012}, ordered both by
+    number of wins and overall score. Cooperator and Defector are omitted as
+    they do not visit all the states.}
+    \label{fig:R_squared_in_stewart_plotkin}
+\end{figure}
+
+% TODO Describe tournament.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/R_squared_in_full/main.pdf}
+    \caption{\(R^2\) for the strategies for } % TODO Fix this
+    \label{fig:R_squared_in_full}
+    % TODO Fix this
+\end{figure}
+
+% TODO Add pairwise interactions and include CC probability.
 
 \section{Conclusion}\label{sec:conclusion}
 
