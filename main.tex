@@ -1,0 +1,84 @@
+\documentclass[a4paper]{article}
+
+\usepackage{amsmath}
+\usepackage[margin=1.5cm,
+            includefoot,
+            footskip=30pt]{geometry}
+\usepackage{layout}
+
+\title{Recognising and evaluating the effectiveness
+       of extortion in the Iterated Prisoner's Dilemma}
+\author{Vincent A. Knight \and Nikoleta E. Glynatsi}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+    The Iterated Prisoner's Dilemma is a model for rational and evolutionary
+    interactive behaviour. It has applications both in the study of human social
+    behaviour as well as in biology.
+
+    This game is used to understand when and how a rational individual might
+    accept an immediate cost to their own utility for the direct benefit of
+    another.
+
+    Much attention has been given to a class of strategies for this game, called
+    Zero Determinant strategies. It has been theoretically shown that these
+    strategies can ``extort'' any player.
+
+    In this work, an approach to identify if observed strategies are playing in
+    a Zero Determinant way is described. Furthermore, experimental analysis of
+    a large tournament with 204 % TODO (Read in number of strategies)
+    strategies is considered. In this setting
+    the most highly performing strategies do not play in a Zero Determinant way.
+    This suggests that whilst the theory of Zero Determinant strategies
+    indicates that memory is not of fundamental importance to the evolution of
+    cooperative behaviour, this is incomplete.
+\end{abstract}
+
+\section{Introduction}\label{sec:introduction}
+
+% TODO Write short introduction and literature review.
+% - Describe P&D, 
+% - Describe SP, 
+% - Describe Hilbe 2013 (evolution of extortion)
+% - Describe Knight et al
+% - statement about reproducibility of work
+
+\section{Identifying Extortion}\label{sec:delta-zd-strategies}
+
+% TODO Describe ZD
+
+% TODO Describe example of finding alpha, gamma and beta: put this in terms of
+% rank etc... (and the Rouché–Capelli theorem)
+
+% TODO Add description of how this implies that the family of ZD strategies is
+% in fact uniquely defined by 3 probabilities.
+
+% TODO Discuss missing states
+
+% TODO Discuss adding in constraint for extortion:
+% $$-P\alpha-P\beta-\omega=0$$ which implies this is only possible when $p_4=0$
+% This is "easy" as it means we can simply measure this from the data.
+% Thus to identify if extortion: check $p_cc = 0$, $-\beta/\alpha>1$ and that
+% $R^2 < $ some threshold.
+
+\section{Numerical experiments}\label{sec:numerical-experiments}
+
+% TODO Identify zero determinant, plot $R^2$ with the conditions as a
+% marker/color
+% TODO Show S&P as proof of concept: Show results scores/wins/ranks
+% TODO Show full tournament: Show results scores/wins/ranks
+
+% TODO Discuss pair wise and compare to CC probability
+
+\section{Conclusion}\label{sec:conclusion}
+
+% TODO In a large tournament, despite there being memory 1 strategies trained to
+% perform well [] they do not play ZD.
+% Potentially fallacy about the stability of playing short memory strategies.
+
+\end{document}

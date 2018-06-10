@@ -1,57 +1,29 @@
 import numpy as np
 
+def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
+    """
+    Compute the solution via a least squares minimisation problem.
 
-def create_Mbar_i(M, i=3):
-    """
-    Create the matrix $\bar M^{(i)}$ which is the matrix $M$ with the $i$th row
-    removed.
-    """
-    return np.delete(M, i, axis=0)
+    Returns:
 
-def create_pbar_i(p, i=3):
-    """
-    Create the vector $\bar p^{(i)}$ which is the vector $p$ with the $i$th
-    element removed.
-    """
-    return np.delete(p, i, axis=0)
-
-def find_xbar_i(M, p, i=3):
-    """
-    Obtain $\bar x ^ {(i)}$: the solution to the equation:
-
-    $\bar M ^{(i)} x^{(i)} = \bar p^{(i)}$
-    """
-    Mbar_i = create_Mbar_i(M, i=i)
-    pbar_i = create_pbar_i(p, i=i)
-    return np.linalg.solve(Mbar_i, pbar_i)
-
-def is_epsilon_ZD(p, rstp=np.array([3, 0, 5, 1]), epsilon=10 ** (-7)):
-    """
-    Check is a strategy p is epsilon-ZD for a given value of epsilon
+    - xbar
+    - residual
     """
     R, S, T, P = rstp
     M = np.array([[R, R, 1],
                   [S, T, 1],
                   [T, S, 1],
                   [P, P, 1]])
-    p_tilde = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
+    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
+    xbar, residuals = np.linalg.lstsq(M, tilde_p, rcond=None)[:2]
 
-    xbars = (find_xbar_i(M, p_tilde, i) for i in range(4))
+    return xbar, residuals[0]
 
-    return np.min([np.abs(np.dot(M[i], x) - p_tilde[i])
-                   for i, x in enumerate(xbars)]) <= epsilon
-
-
-def find_lowest_epsilon(p, step= 10 ** -4):
+def is_delta_ZD(p, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     """
-    Find the lowest value of $\epsilon$
-    for which p is $\epsilon$-ZD.
+    Check is a strategy p is $\delta$-ZD for a given value of delta
     """
-    epsilon = 0
-
-    while not is_epsilon_ZD(p, epsilon=epsilon):
-        epsilon += step
-
-    assert is_epsilon_ZD(p, epsilon=epsilon)
-
-    return epsilon
+    if np.all(np.isfinite(p)):
+        xbar, residual = compute_least_squares(p=p, rstp=rstp)
+        return residual <= delta
+    return True
