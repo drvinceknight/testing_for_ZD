@@ -6,7 +6,7 @@ parameters = imp.load_source('parameters',
 
 def main():
     with open("main.tex", "w") as f:
-        f.write(parameters.TURNS)
+        f.write(str(parameters.TURNS))
 
 if __name__ == "__main__":
     main()

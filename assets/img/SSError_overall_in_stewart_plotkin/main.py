@@ -27,7 +27,7 @@ def main():
         x_tick_locations = range(1, len(players) + 1)
 
         for index, label, marker in zip([~df["Extort"], df["Extort"]],
-                                        ["Not Extortionate", "Extortionate"],
+                                        [r"$p_4 \ne 0$", "$p_4 = 0$"],
                                         ("o", "+")):
             ranks = df[column].rank(ascending=False, method="first")[df["complete"] & index]
             ax.scatter(ranks, df[df["complete"] & index]["residual"],
@@ -37,7 +37,7 @@ def main():
                                 key=lambda index: -df[column].iloc[index])
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_xlabel("Strategies")
-        ax.set_ylabel(r"$R^2$")
+        ax.set_ylabel(r"SSError")
         ax.legend()
         ax.set_xticks(range(1, len(sorted_players) + 1))
         ax.set_xticklabels(sorted_players, rotation='vertical')
