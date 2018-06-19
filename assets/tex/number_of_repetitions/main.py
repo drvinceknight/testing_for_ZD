@@ -6,7 +6,7 @@ parameters = imp.load_source('parameters',
 
 def main():
     with open("main.tex", "w") as f:
-        f.write(parameters.REPETITIONS)
+        f.write(str(parameters.REPETITIONS))
 
 if __name__ == "__main__":
     main()
