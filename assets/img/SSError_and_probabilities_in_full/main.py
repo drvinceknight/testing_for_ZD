@@ -1,4 +1,5 @@
 import sys
+import pathlib
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -36,6 +37,7 @@ def main(process_data=False):
                 array[row["Player index"], row["Opponent index"]] = row[state]
 
         for column in ["Win", "Score"]:
+
             sorted_indices = get_sorted_incdices(overall_df, column)
             sorted_arrays = {}
             for key, array in probability_arrays.items():
@@ -46,19 +48,19 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(CC)"])
 
-            path = pathlib.Path(f"./data/p_cd_by_{column}/")
+            path = pathlib.Path(f"./data/p_cd_by_{column}/main.csv")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(CD)"])
 
-            path = pathlib.Path(f"./data/p_dc_by_{column}/")
+            path = pathlib.Path(f"./data/p_dc_by_{column}/main.csv")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(DC)"])
 
-            path = pathlib.Path(f"./data/p_dd_by_{column}/")
+            path = pathlib.Path(f"./data/p_dd_by_{column}/main.csv")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(DD)"])
 
-            path = pathlib.Path(f"./data/sse_error_by_{column}/")
+            path = pathlib.Path(f"./data/sse_error_by_{column}/main.csv")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_sse_error_array)
 
@@ -97,7 +99,7 @@ def main(process_data=False):
     fig.subplots_adjust(right=0.8)
     cbar_ax = fig.add_axes([0.85, 0.25, 0.05, 0.5])
     fig.colorbar(im, cax=cbar_ax)
-    fig.savefig("main.pdf")
+    fig.savefig("main.pdf", bbox_inches='tight')
 
 if __name__ == "__main__":
     process_data = "process_data" in sys.argv
