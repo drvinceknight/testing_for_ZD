@@ -42,18 +42,28 @@ def main(process_data=False):
                 sorted_arrays[key] = array[sorted_indices][:,sorted_indices]
             sorted_sse_error_array = sse_error_array[sorted_indices][:,sorted_indices]
 
-            np.savetxt(f"./data/p_cc_by_{column}/main.csv",
-                       sorted_arrays["P(CC)"])
-            np.savetxt(f"./data/p_cd_by_{column}/main.csv",
-                       sorted_arrays["P(CD)"])
-            np.savetxt(f"./data/p_dc_by_{column}/main.csv",
-                       sorted_arrays["P(DC)"])
-            np.savetxt(f"./data/p_dd_by_{column}/main.csv",
-                       sorted_arrays["P(DD)"])
-            np.savetxt(f"./data/sse_error_by_{column}/main.csv",
-                       sorted_sse_error_array)
+            path = pathlib.Path(f"./data/p_cc_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_arrays["P(CC)"])
 
-    fig, axarr = plt.subplots(2, 4, figsize=(15, 15))
+            path = pathlib.Path(f"./data/p_cd_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_arrays["P(CD)"])
+
+            path = pathlib.Path(f"./data/p_dc_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_arrays["P(DC)"])
+
+            path = pathlib.Path(f"./data/p_dd_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_arrays["P(DD)"])
+
+            path = pathlib.Path(f"./data/sse_error_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_sse_error_array)
+
+    fig, axarr = plt.subplots(nrows=2, ncols=4, figsize=(15, 15),
+                              sharex='col', sharey='row')
     for i, column in enumerate(["Win", "Score"]):
         probability_arrays = {}
         probability_arrays["P(CC)"] = np.loadtxt(f"./data/p_cc_by_{column}/main.csv")

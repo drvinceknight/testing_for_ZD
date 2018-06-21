@@ -1,3 +1,5 @@
+import sys
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -8,15 +10,19 @@ parameters = imp.load_source('parameters',
                              '../../../data/raw/parameters.py')
 
 
-def main():
+def main(process_data=False):
     players = parameters.PLAYER_GROUPS["stewart_plotkin"]
 
     player_names = [s.name for s in players]
 
-    df = pd.read_csv("../../../data/processed/stewart_plotkin/std/overall/main.csv")
-    df["Player name"] = df.apply(lambda row: player_names[row["Player index"]], axis=1)
-    df["Extort"] = (df["complete"]) & (df["P(C|DD)"] == 0) & (df["chi"] > 1)
-    df.sort_values("Win", ascending=False)
+    if process_data:
+        df = pd.read_csv("../../../data/processed/stewart_plotkin/std/overall/main.csv")
+        df["Player name"] = df.apply(lambda row: player_names[row["Player index"]], axis=1)
+        df["Extort"] = (df["complete"]) & (df["P(C|DD)"] == 0) & (df["chi"] > 1)
+        df.sort_values("Win", ascending=False)
+        df.to_csv("main.csv", index=False)
+    else:
+        df = pd.read_csv("main.csv")
 
 
     fig, axarr = plt.subplots(1, 2, figsize=(10, 5))
@@ -51,4 +57,5 @@ def main():
     fig.savefig("main.pdf")
 
 if __name__ == "__main__":
-    main()
+    process_data = "process_data" in sys.argv
+    main(process_data=process_data)
