@@ -220,19 +220,19 @@ the corresponding steady state model for the measured matrix: \(A\)
 \cite{Stewart2009}. Using the pair wise interactions the transition rates \(p,
 q\) can be measured and the steady state probabilities inferred and compared to
 the actual probabilities of each state.
-Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities_in_stewart_plotkin}
+Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities}
 shows a regression line fitted to these with a reported \(R^2\) value. This
 serves to validate the approach: a part from some edge cases the relationship is
 consistent.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities_in_stewart_plotkin/main.pdf}
-    \caption{Stewart and Plotkin's tournament~\cite{Stewart2012}: The
+    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities/main.pdf}
+    \caption{The
         relationship between the steady state probabilities inferred from the
         measured transitions and the actual steady state probabilities. A linear
         regression line is included validating the approach.}
-    \label{fig:computed_probabilities_vs_theoretic_probabilities_in_stewart_plotkin}
+    \label{fig:computed_probabilities_vs_theoretic_probabilities}
 \end{figure}
 
 Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SSError}\)
@@ -255,18 +255,6 @@ memory one strategy: so it will not create a Markov chain.
 Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
 with \input{assets/tex/number_of_full_strategies/main.tex}
 strategies.
-Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities_in_full} again
-shows the expected linear relationship between the steady state probabilities.
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities_in_full/main.pdf}
-    \caption{Full tournament: The
-        relationship between the steady state probabilities inferred from the
-        measured transitions and the actual steady state probabilities. A linear
-        regression line is included validating the approach.}
-    \label{fig:computed_probabilities_vs_theoretic_probabilities_in_full}
-\end{figure}
 
 The results of this analysis are shown in
 Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies

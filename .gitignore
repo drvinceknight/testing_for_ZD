@@ -31,5 +31,4 @@ main.fdb_latexmk
 main.fls
 main.log
 main.run.xml
-assets/img/SSError_and_probabilities_in_full/data/
-assets/img/examples_of_extortion/data/
+*main.csv
