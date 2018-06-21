@@ -204,24 +204,35 @@ that take place in a computer based tournament of the IPD\@.
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
-In~\cite{Stewart2012} a tournament with
+In~\cite{Stewart2012} results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex} strategies,
-was run with specific consideration given to ZD strategies. This tournament is
-reproduced here using the Axelrod-Python project~\cite{Knight2016}. To obtain a
-good measure of the corresponding transition rates for each strategy all matches
-have been run for \input{assets/tex/number_of_turns/main.tex}
-turns and every
-match has been repeated \input{assets/tex/number_of_repetitions/main.tex}
-times.
+was presented with specific consideration given to ZD strategies. This
+tournament is reproduced here using the Axelrod-Python
+project~\cite{Knight2016}. To obtain a good measure of the corresponding
+transition rates for each strategy all matches have been run for
+\input{assets/tex/number_of_turns/main.tex} turns and every match has been
+repeated \input{assets/tex/number_of_repetitions/main.tex} times.
 % TODO Archive data.
 
-The transition rate model of the observed strategies can be be computed using
-the corresponding steady state model for the measured matrix: \(A\)
-\cite{Stewart2009}. Using the pair wise interactions the transition rates \(p,
+Using the pair wise interactions the transition rates \(p,
 q\) can be measured and the steady state probabilities inferred and compared to
 the actual probabilities of each state.
+This is done numerically by computing the singular eigenvector of the
+matrix: \(A\) \cite{Stewart2009}:
+
+\[
+    A =
+    \begin{bmatrix}
+        p_1 q_1 & p_1 (1 - q_1) & (1 - p_1) q_1 & (1 -p_1) (1 - q_1) \\
+        p_2 q_2 & p_2 (1 - q_2) & (1 - p_2) q_2 & (1 -p_2) (1 - q_2) \\
+        p_3 q_3 & p_3 (1 - q_3) & (1 - p_3) q_3 & (1 -p_3) (1 - q_3) \\
+        p_4 q_4 & p_4 (1 - q_4) & (1 - p_4) q_4 & (1 -p_4) (1 - q_4) \\
+    \end{bmatrix}
+\]
+
 Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities}
-shows a regression line fitted to these with a reported \(R^2\) value. This
+shows a regression line fitted to every pairwise interaction with a reported
+\(R^2\) value (pairwise interactions with missing states were omitted). This
 serves to validate the approach: a part from some edge cases the relationship is
 consistent.
 
@@ -239,9 +250,9 @@ Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SSError}\)
 values for all the strategies in the tournament, as reported
 in~\cite{Stewart2012} the extortionate strategy (which has an expected
 \(\text{SSError}\) approximately 0) gains a large number of wins.
-Whilst~\cite{Stewart2012} described the performance of each strategies, this
+Whilst~\cite{Stewart2012} described the performance of each strategy, this
 approach also informs the behaviour of a strategy when their opponent is not a
-memory one strategy: so it will not create a Markov chain.
+memory one strategy thus not creating a Markov chain.
 
 \begin{figure}[!htbp]
     \centering
@@ -258,12 +269,11 @@ strategies.
 
 The results of this analysis are shown in
 Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
-all achieve mutual cooperation and do not extort each other, however they
+by number of wins seem to be extortionate (but not against all strategies) and
+it can be seen that a small sub group of strategies achieve mutual defection.
+The top ranking strategies according to score all achieve mutual cooperation and
+do not extort each other, however they
 \textbf{do} extort a number of the lower ranking strategies.
-It is also clear that apart from the low ranking strategies no single
-strategy is able to extort the higher ranking ones: this is due to the fact that
-they are not playing a memory one strategy, thus not creating a Markov chain.
-This is a simple technique to avoid being extorted.
 
 \begin{figure}[!htbp]
     \centering
@@ -278,20 +288,28 @@ This is a simple technique to avoid being extorted.
 
 This work defines an approach to measure whether or not a player is playing a
 strategy that corresponds to an extortionate strategy as defined
-in~\cite{Press2012}. This is done through a classic linear algebraic approach
-for reverting the underlying system of linear equations. Using this, a very
-large number of pair wise interactions is simulated and in fact very few
-strategies are found to act extortionately.
+in~\cite{Press2012}. Indeed Figure~\ref{fig:examples_of_extortion} classifies
+all extortionate strategies. This is done through a linear algebraic approach
+for approximating the solution of a linear system. Using this, a very large
+number of pairwise interactions is simulated and in fact very few strategies are
+found to act extortionately.
 
-The work of~\cite{Press2012}, whilst showing a clever approach to taking
+The work of~\cite{Press2012}, whilst showing that a clever approach to taking
 advantage of another memory one strategy exists: this is incomplete. Whilst the
 elegance of this result is very attractive, just as the simplicity of the
-victory of Tit For Tat was, it is incomplete. Extortionate strategies are easily
-beaten in complex environments. This confirms the findings of~\cite{Moran1707}
-in which sophisticated strategies resist evolutionary invasion of shorter memory
-strategies.
+victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
+Whilst extortionate strategies achieve a high number of wins they do not
+achieve a high score which corresponds to the fitness landscape in an
+evolutionary sense. This confirms
+the findings of~\cite{Moran1707} in which sophisticated strategies resist
+evolutionary invasion of shorter memory strategies.
 
-% TODO General conclusion
+This work can be used to classify plays of the IPD\@: data can be collected from
+actual interactions (in lab or in the field). Furthermore, this allows for a
+classification method similar to the notion of fingerprinting presented
+in~\cite{Ashlock2008}. Trained strategies can potentially be classified as
+extortionate or not or it could be possible to even constraint the reinforcement
+learning approaches that are becoming prevalent in the literature.
 
 \printbibliography
 
