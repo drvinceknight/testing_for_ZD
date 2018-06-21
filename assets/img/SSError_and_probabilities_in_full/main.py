@@ -48,19 +48,19 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(CC)"])
 
-            path = pathlib.Path(f"./data/p_cd_by_{column}/main.csv")
+            path = pathlib.Path(f"./data/p_cd_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(CD)"])
 
-            path = pathlib.Path(f"./data/p_dc_by_{column}/main.csv")
+            path = pathlib.Path(f"./data/p_dc_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(DC)"])
 
-            path = pathlib.Path(f"./data/p_dd_by_{column}/main.csv")
+            path = pathlib.Path(f"./data/p_dd_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(DD)"])
 
-            path = pathlib.Path(f"./data/sse_error_by_{column}/main.csv")
+            path = pathlib.Path(f"./data/sse_error_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_sse_error_array)
 
