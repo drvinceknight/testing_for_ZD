@@ -9,15 +9,17 @@ def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
     - xbar
     - residual
     """
-    R, S, T, P = rstp
-    M = np.array([[R, R, 1],
-                  [S, T, 1],
-                  [T, S, 1],
-                  [P, P, 1]])
-    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
-    xbar, residuals = np.linalg.lstsq(M, tilde_p, rcond=None)[:2]
+    if np.all(np.isfinite(p)):
+        R, S, T, P = rstp
+        M = np.array([[R, R, 1],
+                      [S, T, 1],
+                      [T, S, 1],
+                      [P, P, 1]])
+        tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
+        xbar, residuals = np.linalg.lstsq(M, tilde_p, rcond=None)[:2]
 
-    return xbar, residuals[0]
+        return xbar, residuals[0]
+    return (np.nan, np.nan, np.nan), np.nan
 
 def is_delta_ZD(p, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     """

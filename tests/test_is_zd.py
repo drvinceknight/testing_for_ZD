@@ -12,6 +12,14 @@ def test_compute_least_squares_with_high_residual():
     _, residual = zd.compute_least_squares(p)
     assert np.isclose(residual, 5 / 90)
 
+def test_compute_least_squares_with_missing_values():
+    p = np.array([8 / 9, 1, 1 / 3, np.nan])
+    xbar, residual = zd.compute_least_squares(p)
+    assert np.isnan(residual)
+    assert np.isnan(xbar[0])
+    assert np.isnan(xbar[1])
+    assert np.isnan(xbar[2])
+
 def test_is_delta_ZD_for_valid_ZD_strategy():
     p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
     assert zd.is_delta_ZD(p) == True
