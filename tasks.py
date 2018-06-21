@@ -1,21 +1,24 @@
 from invoke import task
 import pathlib
 
-def run_main(c, dir_path):
+def run_main(c, dir_path, processdata=False):
     """
     Run `python main.py` in all sub dirs of `dir_path`.
     """
     for directory in dir_path.glob("*"):
         print(directory)
-        c.run(f"cd {directory}; python main.py")
+        command = f"cd {directory}; python main.py"
+        if processdata:
+            command += " process_data"
+        c.run(command)
 
 @task
-def img(c):
+def img(c, processdata=False):
     """
     Create all image assets
     """
     img_path = pathlib.Path("./assets/img")
-    run_main(c, img_path)
+    run_main(c, img_path, processdata=processdata)
 
 @task
 def tex(c):
@@ -26,11 +29,11 @@ def tex(c):
     run_main(c, tex_path)
 
 @task
-def assets(c):
+def assets(c, processdata=False):
     """
     Create all assets
     """
-    img(c)
+    img(c, process_data=process_data)
     tex(c)
 
 @task
@@ -55,6 +58,9 @@ def pdf(c, clean=False):
 
 @task
 def build(c):
+    """
+    Process all data and compile the pdf
+    """
     process(c)
-    assets(c)
+    assets(c, processdata=True)
     pdf(c)

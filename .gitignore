@@ -31,3 +31,4 @@ main.fdb_latexmk
 main.fls
 main.log
 main.run.xml
+*main.csv

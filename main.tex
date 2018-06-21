@@ -204,20 +204,55 @@ that take place in a computer based tournament of the IPD\@.
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
-In~\cite{Stewart2012} a tournament with
+In~\cite{Stewart2012} results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex} strategies,
-was run with specific consideration given to ZD strategies. This tournament is
-reproduced here using the Axelrod-Python project~\cite{}. To obtain a good
-measure of the corresponding transition rates for each strategy all matches have
-been run for \input{assets/tex/number_of_turns/main.tex} turns and every match
-has been repeated \input{assets/tex/number_of_repetitions/main.tex} times.
+was presented with specific consideration given to ZD strategies. This
+tournament is reproduced here using the Axelrod-Python
+project~\cite{Knight2016}. To obtain a good measure of the corresponding
+transition rates for each strategy all matches have been run for
+\input{assets/tex/number_of_turns/main.tex} turns and every match has been
+repeated \input{assets/tex/number_of_repetitions/main.tex} times.
 % TODO Archive data.
 
+Using the pair wise interactions the transition rates \(p,
+q\) can be measured and the steady state probabilities inferred and compared to
+the actual probabilities of each state.
+This is done numerically by computing the singular eigenvector of the
+matrix: \(A\) \cite{Stewart2009}:
+
+\[
+    A =
+    \begin{bmatrix}
+        p_1 q_1 & p_1 (1 - q_1) & (1 - p_1) q_1 & (1 -p_1) (1 - q_1) \\
+        p_2 q_2 & p_2 (1 - q_2) & (1 - p_2) q_2 & (1 -p_2) (1 - q_2) \\
+        p_3 q_3 & p_3 (1 - q_3) & (1 - p_3) q_3 & (1 -p_3) (1 - q_3) \\
+        p_4 q_4 & p_4 (1 - q_4) & (1 - p_4) q_4 & (1 -p_4) (1 - q_4) \\
+    \end{bmatrix}
+\]
+
+Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities}
+shows a regression line fitted to every pairwise interaction with a reported
+\(R^2\) value (pairwise interactions with missing states were omitted). This
+serves to validate the approach: a part from some edge cases the relationship is
+consistent.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities/main.pdf}
+    \caption{The
+        relationship between the steady state probabilities inferred from the
+        measured transitions and the actual steady state probabilities. A linear
+        regression line is included validating the approach.}
+    \label{fig:computed_probabilities_vs_theoretic_probabilities}
+\end{figure}
+
 Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SSError}\)
-values for all the strategies in the tournament.
-% TODO Discuss: whilst sp paper aimed to say how the strategy did, this approach
-% allows us to see how ZD strategies do even when their specific opponent does
-% not lead a Markov chain.
+values for all the strategies in the tournament, as reported
+in~\cite{Stewart2012} the extortionate strategy (which has an expected
+\(\text{SSError}\) approximately 0) gains a large number of wins.
+Whilst~\cite{Stewart2012} described the performance of each strategy, this
+approach also informs the behaviour of a strategy when their opponent is not a
+memory one strategy thus not creating a Markov chain.
 
 \begin{figure}[!htbp]
     \centering
@@ -228,42 +263,53 @@ values for all the strategies in the tournament.
     \label{fig:SSError_overall_in_stewart_plotkin}
 \end{figure}
 
-We can verify the transition rate model by computing the corresponding steady
-state model for the measured matrix: \(A\). 
-% TODO Add text book reference here
-Using the pair wise interactions we plot the various probabilities: one measured
-and the other by using the measured transition rates and computing the singular
-eigenvalue.
-Figure~\cite{computed_probabilities_vs_theoretic_probabilities_in_stewart_plotkin} shows a
-regression line fitted to these.
+Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
+with \input{assets/tex/number_of_full_strategies/main.tex}
+strategies.
 
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities_in_stewart_plotkin/main.pdf}
-\end{figure}
-
-% TODO Describe tournament.
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities_in_full/main.pdf}
-\end{figure}
-
+The results of this analysis are shown in
+Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
+by number of wins seem to be extortionate (but not against all strategies) and
+it can be seen that a small sub group of strategies achieve mutual defection.
+The top ranking strategies according to score all achieve mutual cooperation and
+do not extort each other, however they
+\textbf{do} extort a number of the lower ranking strategies.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
-    \caption{\(\text{SSError}\) for the strategies for } % TODO Fix this
+    \caption{\(\text{SSError}\) for the strategies for the full tournament. Only
+    strategy interactions for which \(p_4=0\) and \(\chi>1\) are displayed.}
     \label{fig:SSError_and_probabilities_in_full}
-    % TODO Fix this
 \end{figure}
 
 
 \section{Conclusion}\label{sec:conclusion}
 
-% TODO In a large tournament, despite there being memory 1 strategies trained to
-% perform well [] they do not play ZD.
-% Potentially fallacy about the stability of playing short memory strategies.
+This work defines an approach to measure whether or not a player is playing a
+strategy that corresponds to an extortionate strategy as defined
+in~\cite{Press2012}. Indeed Figure~\ref{fig:examples_of_extortion} classifies
+all extortionate strategies. This is done through a linear algebraic approach
+for approximating the solution of a linear system. Using this, a very large
+number of pairwise interactions is simulated and in fact very few strategies are
+found to act extortionately.
+
+The work of~\cite{Press2012}, whilst showing that a clever approach to taking
+advantage of another memory one strategy exists: this is incomplete. Whilst the
+elegance of this result is very attractive, just as the simplicity of the
+victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
+Whilst extortionate strategies achieve a high number of wins they do not
+achieve a high score which corresponds to the fitness landscape in an
+evolutionary sense. This confirms
+the findings of~\cite{Moran1707} in which sophisticated strategies resist
+evolutionary invasion of shorter memory strategies.
+
+This work can be used to classify plays of the IPD\@: data can be collected from
+actual interactions (in lab or in the field). Furthermore, this allows for a
+classification method similar to the notion of fingerprinting presented
+in~\cite{Ashlock2008}. Trained strategies can potentially be classified as
+extortionate or not or it could be possible to even constraint the reinforcement
+learning approaches that are becoming prevalent in the literature.
 
 \printbibliography
 
