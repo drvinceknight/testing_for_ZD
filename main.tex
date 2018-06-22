@@ -289,7 +289,8 @@ by number of wins seem to be extortionate (but not against all strategies) and
 it can be seen that a small sub group of strategies achieve mutual defection.
 The top ranking strategies according to score all achieve mutual cooperation and
 do not extort each other, however they
-\textbf{do} extort a number of the lower ranking strategies.
+\textbf{do} exhibit extortionate behaviour towards a number of the lower ranking
+strategies.
 
 \begin{figure}[!htbp]
     \centering
@@ -316,11 +317,40 @@ elegance of this result is very attractive, just as the simplicity of the
 victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
 Whilst extortionate strategies achieve a high number of wins they do not
 achieve a high score which corresponds to the fitness landscape in an
-evolutionary sense.
-% TODO Show plot of output of replicator dynamics
-This confirms
-the findings of~\cite{Moran1707} in which sophisticated strategies resist
-evolutionary invasion of shorter memory strategies.
+evolutionary sense. From the large number of interactions a payoff matrix \(P\)
+can be measured where \(P_{ij}\) denotes the score of the \(i\)th strategy
+against the \(j\)th strategy. Using this, the replicator equation
+describes the evolution of the system based on a population density fitness
+function:
+
+\begin{equation}\label{eqn:replicator_dynamics}
+    \frac{dx}{dt} = x(P-x^TP x)
+\end{equation}
+
+Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
+integration technique described in~\cite{Petzold1983} and
+Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
+the system: the various strategies are ranked by scores. It is clear to see that
+only the high ranking strategies survive the evolutionary process (in fact,
+only \input{./assets/img/replicator_dynamics/main.tex}
+have a finally distribution greater than \(10 ^ {-2}\)). This confirms the
+findings of~\cite{Moran1707} in which sophisticated strategies resist
+evolutionary invasion of shorter memory strategies. Recalling
+Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
+
+\begin{itemize}
+    \item Cooperation emerges through the evolutionary process: the high scoring
+        strategies do not exhibit extortionate behaviour towards each other.
+    \item Extortionate strategies do not survive the evolutionary process.
+\end{itemize}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
+    \caption{Numerical simulation of the replicator equation
+    (\ref{eqn:replicator_dynamics}): strategies are ordered by score, only the strategies with a high score survive the evolutionary process}
+    \label{fig:replicator_dynamics}
+\end{figure}
 
 This work can be used to classify plays of the IPD\@: data can be collected from
 actual interactions (in lab or in the field). Furthermore, this allows for a

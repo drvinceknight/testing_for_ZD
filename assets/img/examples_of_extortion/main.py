@@ -43,7 +43,7 @@ def main(N=750, max_r_squared = 10 ** -6, process_data=False):
     max_value_of_R_squared = np.max(R_squared_values)
     min_value_of_R_squared = np.min(R_squared_values)
 
-    fig, axarr = plt.subplots(nrows=2, ncols=5, figsize=(15, 15), 
+    fig, axarr = plt.subplots(nrows=2, ncols=5, figsize=(15, 15),
                               sharex='col', sharey='row')
     for i, array in enumerate(data):
         ax = axarr[int(i / 5), i % 5]
@@ -52,7 +52,7 @@ def main(N=750, max_r_squared = 10 ** -6, process_data=False):
                        vmax=max_value_of_R_squared)
         valid_y, valid_x = np.where(array <= max_r_squared)
         ax.plot(valid_x, valid_y, color="black")
-        ax.set_title(f"$p_1={i + 1}/10$")
+        ax.set_title(f"$p_1={round((i + 1)/10, 1)}$")
         fig.tight_layout()
 
         if i > 5:

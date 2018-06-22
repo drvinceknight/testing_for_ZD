@@ -33,7 +33,7 @@ def assets(c, processdata=False):
     """
     Create all assets
     """
-    img(c, process_data=process_data)
+    img(c, processdata=processdata)
     tex(c)
 
 @task
