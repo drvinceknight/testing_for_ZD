@@ -6,7 +6,7 @@ import pandas as pd
 import numpy as np
 import tqdm
 
-def get_sorted_incdices(df, column):
+def get_sorted_indices(df, column):
     ranked_indices = list(map(int, (df[column].rank(method="first", ascending=False) - 1)))
     return sorted(range(len(ranked_indices)), key=lambda x:ranked_indices[x])
 
@@ -38,7 +38,7 @@ def main(process_data=False):
 
         for column in ["Win", "Score"]:
 
-            sorted_indices = get_sorted_incdices(overall_df, column)
+            sorted_indices = get_sorted_indices(overall_df, column)
             sorted_arrays = {}
             for key, array in probability_arrays.items():
                 sorted_arrays[key] = array[sorted_indices][:,sorted_indices]
