@@ -56,11 +56,10 @@
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-
 In~\cite{Press2012}, given a match between 2 memory-one strategies, the
 concept of Zeto-Determinant (ZD) strategies is introduced. The main result of
 that paper showed that given two players \(p, q\in\mathbb{R}^2\) a linear
-relationship between the players scores could be forced.
+relationship between the players' scores could be forced by one of the players.
 
 Assuming the utilities for player \(p\) are given by \(S_x=(R, S, T, P)\) and
 for player \(q\) by \(S_y=(R, T, S, P)\) and that the stationary scores of each
@@ -84,11 +83,11 @@ where \(\tilde p = (1 - p_1, 1 - p_2, p_3, p_4)\) and
     \alpha S_X + \beta S_Y + \gamma = 0
 \end{equation}
 
-This work is interested with identifying a test for the reverse problem: given a
+Here, the reverse problem is considered: given a
 \(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta, \gamma\) if they
 exist.
 
-Note that equation~\ref{eqn:linear_relationship_for_p} can be expressed linear
+To do this, equation~\ref{eqn:linear_relationship_for_p} is expressed linear
 algebraically as:
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
@@ -107,14 +106,12 @@ with \(M\in\mathbb{R}^{4\times 3}\) given by:
     \end{bmatrix}
 \end{equation}
 
-% TODO What is the rank of M? Can we prove something about it?
-
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
-not necessarily have a solution. From the Rouché-Capelli theorem~\cite{}% TODO
-if there is a solution it is unique as \(\text{rank}(M)=3\) which the dimension of
-the variable \(x\)). Furthermore, removing a single row of \(M\) would
-ensure that the corresponding matrix is invertible. This corresponds to the fact
-that a ZD strategy is defined by only 3 of its values.
+not necessarily have a solution. From the Rouché-Capelli theorem if there is a
+solution it is unique as \(\text{rank}(M)=3\) which is the dimension of the
+variable \(x\)). Furthermore, removing a single row of \(M\) would ensure that
+the corresponding matrix is invertible. This corresponds to the fact that a ZD
+strategy is defined by only 3 of its values.
 
 As an example, consider the known ZD strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\)
 from~\cite{Stewart2012} which is referred to as \texttt{Extort-2}. In the
@@ -126,8 +123,8 @@ of \(M_{(4)}\) (removing the last row of \(M\)) is given by:
     \input{./assets/tex/inverse_of_M4/main.tex}
 \end{equation}
 
-This allows us to find the \(x=(\alpha, \beta, \gamma)\) corresponding to
-\(\tilde p\):
+The \(x=(\alpha, \beta, \gamma)\) that corresponds to
+\(\tilde p\) is given by:
 
 \begin{equation}\label{eqn:alpha_beta_gamma_for_extort_2}
     x = M_{(4)}^{-1}\tilde p_{(4)} =
@@ -135,11 +132,12 @@ This allows us to find the \(x=(\alpha, \beta, \gamma)\) corresponding to
 \end{equation}
 
 Using (\ref{eqn:linear_algebraic_equation_for_p}) gives that these values lead
-to the correct value for \(p_4=0\) confirm that \(p_4\) is a ZD strategy.
+to the correct value for \(p_4=0\) which confirms that \(p_4\) is a ZD strategy.
 
-This approach could in fact be used to confirm that a given strategy \(p\)
-represents is ZD. However, in practice, if a closed form for \(p\) is not
-known, then due to measurement and/or numerical error this would not work.
+This approach could in fact be used to confirm that a given strategy is acting
+in a ZD manner even if it is not a memory one strategy. However, in practice, if
+a closed form for \(p\) is not known, then due to measurement and/or numerical
+error this would not work.
 
 Thus, an approach based on least squares~\cite{Golub2013} is proposed. This
 approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
@@ -149,8 +147,8 @@ approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
     \text{SSError} = \|M x-\tilde p\|_2^2 = \sum_{i=1}^{4}\left((M\bar x)_i-\tilde p_i\right)^2
 \end{equation}
 
-Note that \(\text{SSError}\) which is the square of the Frobenius
-norm~\cite{Golub2013} becomes a measure of how close \(p\) is to being a ZD
+Note that \(\text{SSError}\), which is the square of the Frobenius
+norm~\cite{Golub2013}, becomes a measure of how close a strategy is to being a ZD
 strategy.
 
 In~\cite{Press2012} a particular type of ZD is defined, if:
@@ -159,8 +157,8 @@ In~\cite{Press2012} a particular type of ZD is defined, if:
     P(\alpha + \beta)+\gamma=0
 \end{equation}
 
-then the player can ensure they get a score at \(\chi\) times
-better than the opponent with. This extortion coefficient is given by:
+then the player can ensure they get a score \(\chi\) times
+larger than the opponent. This extortion coefficient is given by:
 
 \begin{equation}\label{eqn:definition_of_chi}
     \chi=\frac{-\beta}{\alpha}
@@ -170,11 +168,13 @@ Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
 said to extort their opponent. Recalling (\ref{eqn:definition_of_M}), equation
 (\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(M\), thus
 a player \(p\) extorts their opponent if and only if \(p_4=0\) and the estimated
-\(\chi > 1\). Using the method of least squares, the strategy \(p\) can be
+\(\chi > 1\). Using the method of least squares, the strategy can be
 considered ZD for a given threshold of \(\text{SSError}\) and \(\chi\) can be
-approximated.  Figure~\ref{fig:examples_of_extortion} illustrates this for
+approximated. Figure~\ref{fig:examples_of_extortion} illustrates this for
 potential strategies: for all of these we see that for the strategy to be
-extortionate \(p_2\) and \(p_3\) seem to have a linear relationship.
+extortionate \(p_2\) and \(p_3\) seem to have a linear relationship: for example
+if \(p_1=1\) and \(p_4=0\) then all strategies where \(p_2=p_3\) are
+extortionate.
 
 \begin{figure}[!htbp]
     \begin{center}
@@ -189,15 +189,10 @@ extortionate \(p_2\) and \(p_3\) seem to have a linear relationship.
 \end{figure}
 
 By observing interactions (human or otherwise), the transition rates of given
-individuals can be approximated and this approach can be used to recognise
-extortionate behaviour. Note that if the environment is noisy then no strategy
-can be considered to be extortionate.
-% TODO Add reference and possibly move
-% this I. The reason for it, is that we cannot have $P(C|CC)=0$ in a noisy
-% environment.
-
-% TODO Add discussion about missing observations.
-% Technically if a strategy has missing observations then it is definitely ZD.
+players, their memory one representation can be approximated and this approach
+can be used to recognise extortionate behaviour. Immediately it is noted that if
+the environment is noisy~\cite{Wu1995} then no strategy can be considered to be
+extortionate as \(p_4>0\).
 
 In the next section, this idea will be illustrated by observing the interactions
 that take place in a computer based tournament of the IPD\@.
