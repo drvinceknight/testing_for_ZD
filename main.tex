@@ -47,12 +47,33 @@
 
 \section{Introduction}\label{sec:introduction}
 
-% TODO Write short introduction and literature review.
-% - Describe P&D,
-% - Describe SP,
-% - Describe Hilbe 2013 (evolution of extortion)
-% - Describe Knight et al
-% - statement about reproducibility of work
+Agent based game theoretic models have become a stalwart of the underpinning
+mathematics of interactive behaviours. Arguably, one of the major pieces of work
+in this area is the pair of original computer tournaments run by Robert
+Axelrod~\cite{Axelrod1980, Axelrod1980a}. This tournaments pitted submitted
+computer strategies against each other in plays of the Iterated Prisoner's
+Dilemma. A common game where agents can choose to pay a slight cost to their
+immediate utility in the hope of building a reputation. This has been used in
+economic and evolutionary game theory to understand the evolution of cooperative
+behaviour.
+
+Recently, a class of strategies was described in~\cite{Press2012} that can
+provably extort any given opponent. In~\cite{Hilbe2013, Moran1707} some
+questions have already been asked about the true effectiveness of these
+strategies in an evolutionary setting. Here another question is asked: is it
+possible to recognise this extortionate behaviour? A mathematical procedure for
+suspicion is presented: in the same way that the continued actions of an
+extortionate individual might raise suspicion.
+
+This work makes use of the Axelrod Python library~\cite{Knight2018, Knight2016}
+with a large number of Prisoner Dilemma strategies available to give an
+extensive numerical example of the ideas presented.
+
+The approach is presented in Section~\ref{sec:delta-zd-strategies}.
+All of the code and data discussed in Section~\ref{sec:numerical-experiments} is
+open sourced, archived and written according to best scientific
+principles~\cite{Wilson2014}.
+% TODO Archive data
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
@@ -295,7 +316,9 @@ elegance of this result is very attractive, just as the simplicity of the
 victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
 Whilst extortionate strategies achieve a high number of wins they do not
 achieve a high score which corresponds to the fitness landscape in an
-evolutionary sense. This confirms
+evolutionary sense.
+% TODO Show plot of output of replicator dynamics
+This confirms
 the findings of~\cite{Moran1707} in which sophisticated strategies resist
 evolutionary invasion of shorter memory strategies.
 
@@ -305,6 +328,10 @@ classification method similar to the notion of fingerprinting presented
 in~\cite{Ashlock2008}. Trained strategies can potentially be classified as
 extortionate or not or it could be possible to even constraint the reinforcement
 learning approaches that are becoming prevalent in the literature.
+
+This work gives a mathematical process that could be akin to behaviours of
+suspicion of extortion. Behaviours that react to a sentiment of being extorted
+can be emulated by using the approach outlined here.
 
 \printbibliography
 
