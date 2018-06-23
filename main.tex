@@ -12,7 +12,7 @@
 \usepackage{biblatex}
 \bibliography{main.bib}
 
-\title{Recognising and evaluating the effectiveness
+\title{Suspicion: Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
 \author{Vincent A. Knight \and Nikoleta E. Glynatsi}
 \date{\today}
@@ -26,20 +26,20 @@
     The Iterated Prisoner's Dilemma is a model for rational and evolutionary
     interactive behaviour. It has applications both in the study of human social
     behaviour as well as in biology.
-
-    This game is used to understand when and how a rational individual might
+    It is used to understand when and how a rational individual might
     accept an immediate cost to their own utility for the direct benefit of
     another.
 
-    Much attention has been given to a class of strategies for this game, called
+    Much attention has been given to a class of strategies called
     Zero Determinant strategies. It has been theoretically shown that these
     strategies can ``extort'' any player.
 
     In this work, an approach to identify if observed strategies are playing in
-    a Zero Determinant way is described. Furthermore, experimental analysis of
+    an extortionate way is described. Furthermore, experimental analysis of
     a large tournament with \input{assets/tex/number_of_full_strategies/main.tex}
     strategies is considered. In this setting
-    the most highly performing strategies do not play in a Zero Determinant way.
+    the most highly performing strategies do not play in an extortionate way
+    against each other but do against lower performing strategies.
     This suggests that whilst the theory of Zero Determinant strategies
     indicates that memory is not of fundamental importance to the evolution of
     cooperative behaviour, this is incomplete.
@@ -48,7 +48,7 @@
 \section{Introduction}\label{sec:introduction}
 
 Agent based game theoretic models have become a stalwart of the underpinning
-mathematics of interactive behaviours. Arguably, one of the major pieces of work
+mathematics of interactive behaviours. One of the major pieces of work
 in this area is the pair of original computer tournaments run by Robert
 Axelrod~\cite{Axelrod1980, Axelrod1980a}. This tournaments pitted submitted
 computer strategies against each other in plays of the Iterated Prisoner's
@@ -68,7 +68,6 @@ extortionate individual might raise suspicion.
 This work makes use of the Axelrod Python library~\cite{Knight2018, Knight2016}
 with a large number of Prisoner Dilemma strategies available to give an
 extensive numerical example of the ideas presented.
-
 The approach is presented in Section~\ref{sec:delta-zd-strategies}.
 All of the code and data discussed in Section~\ref{sec:numerical-experiments} is
 open sourced, archived and written according to best scientific
@@ -77,15 +76,15 @@ principles~\cite{Wilson2014}.
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-In~\cite{Press2012}, given a match between 2 memory-one strategies, the
-concept of Zeto-Determinant (ZD) strategies is introduced. The main result of
-that paper showed that given two players \(p, q\in\mathbb{R}^2\) a linear
+In~\cite{Press2012}, given a match between 2 memory-one strategies, the concept
+of Zeto-Determinant (ZD) strategies is introduced. The main result of that paper
+shows that given two memory one players \(p, q\in\mathbb{R}^2\) a linear
 relationship between the players' scores could be forced by one of the players.
 
-Assuming the utilities for player \(p\) are given by \(S_x=(R, S, T, P)\) and
-for player \(q\) by \(S_y=(R, T, S, P)\) and that the stationary scores of each
-player is given by \(S_X\) and \(S_Y\) respectively. The main result
-of~\cite{Press2012} is that if
+Using the notation of~\cite{Press2012}, assuming the utilities for player \(p\)
+are given by \(S_x=(R, S, T, P)\) and for player \(q\) by \(S_y=(R, T, S, P)\)
+and that the stationary scores of each player is given by \(S_X\) and \(S_Y\)
+respectively. The main result of~\cite{Press2012} is that if
 
 \begin{equation}\label{eqn:linear_relationship_for_p}
     \tilde p=\alpha S_x + \beta S_y + \gamma
@@ -128,8 +127,8 @@ with \(M\in\mathbb{R}^{4\times 3}\) given by:
 \end{equation}
 
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
-not necessarily have a solution. From the Rouché-Capelli theorem if there is a
-solution it is unique as \(\text{rank}(M)=3\) which is the dimension of the
+not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
+a solution it is unique as \(\text{rank}(M)=3\) which is the dimension of the
 variable \(x\)). Furthermore, removing a single row of \(M\) would ensure that
 the corresponding matrix is invertible. This corresponds to the fact that a ZD
 strategy is defined by only 3 of its values.
@@ -171,7 +170,6 @@ approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
 Note that \(\text{SSError}\), which is the square of the Frobenius
 norm~\cite{Golub2013}, becomes a measure of how close a strategy is to being a ZD
 strategy.
-
 In~\cite{Press2012} a particular type of ZD is defined, if:
 
 \begin{equation}\label{eqn:constraint_for_extortion}
@@ -188,14 +186,15 @@ larger than the opponent. This extortion coefficient is given by:
 Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
 said to extort their opponent. Recalling (\ref{eqn:definition_of_M}), equation
 (\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(M\), thus
-a player \(p\) extorts their opponent if and only if \(p_4=0\) and the estimated
-\(\chi > 1\). Using the method of least squares, the strategy can be
-considered ZD for a given threshold of \(\text{SSError}\) and \(\chi\) can be
-approximated. Figure~\ref{fig:examples_of_extortion} illustrates this for
-potential strategies: for all of these we see that for the strategy to be
-extortionate \(p_2\) and \(p_3\) seem to have a linear relationship: for example
-if \(p_1=1\) and \(p_4=0\) then all strategies where \(p_2=p_3\) are
-extortionate.
+a ZD player \(p\) with low enough \(\text{SSError}\) extorts their opponent if
+and only if \(p_4=0\) and the estimated \(\chi > 1\). Using the method of least
+squares, the strategy can be considered ZD for a given threshold of
+\(\text{SSError}\) and \(\chi\) can be approximated.
+Figure~\ref{fig:examples_of_extortion} illustrates this for potential
+strategies: for all of these we see that for the strategy to be extortionate
+\(p_2\) and \(p_3\) seem to have a linear relationship: for example if \(p_1=1\)
+and \(p_4=0\) then all strategies where \(p_2=p_3\) are extortionate. Suspicion
+of extortion then corresponds to a threshold on \(\text{SSError}\).
 
 \begin{figure}[!htbp]
     \begin{center}
@@ -211,10 +210,11 @@ extortionate.
 
 By observing interactions (human or otherwise), the transition rates of given
 players, their memory one representation can be approximated and this approach
-can be used to recognise extortionate behaviour. Immediately it is noted that if
-the environment is noisy~\cite{Wu1995} then no strategy can be considered to be
-extortionate as \(p_4>0\). The notion of comparing theoretic and actual plays of
-the IPD is not novel, see for example~\cite{Rand2013}.
+can be used to recognise extortionate behaviour. The notion of comparing
+theoretic and actual plays of the IPD is not novel, see for
+example~\cite{Rand2013}.  Immediately it is noted that if the environment is
+noisy~\cite{Wu1995} then no strategy can be considered to be extortionate as
+\(p_4>0\).
 
 In the next section, this idea will be illustrated by observing the interactions
 that take place in a computer based tournament of the IPD\@.
@@ -247,11 +247,11 @@ matrix: \(A\) \cite{Stewart2009}:
     \end{bmatrix}
 \]
 
-Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities}
-shows a regression line fitted to every pairwise interaction with a reported
-\(R^2\) value (pairwise interactions with missing states were omitted). This
-serves to validate the approach: a part from some edge cases the relationship is
-consistent.
+Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities} shows a
+regression line fitted to every pairwise interaction with a reported
+\(\text{SSError}\) value (pairwise interactions with missing states were
+omitted). This serves to validate the approach: a part from some edge cases the
+relationship is consistent.
 
 \begin{figure}[!htbp]
     \centering
@@ -267,16 +267,13 @@ Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SSError}\)
 values for all the strategies in the tournament, as reported
 in~\cite{Stewart2012} the extortionate strategy (which has an expected
 \(\text{SSError}\) approximately 0) gains a large number of wins.
-Whilst~\cite{Stewart2012} described the performance of each strategy, this
-approach also informs the behaviour of a strategy when their opponent is not a
-memory one strategy thus not creating a Markov chain.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_overall_in_stewart_plotkin/main.pdf}
-    \caption{\(\text{SSError}\) for the strategies of~\cite{Stewart2012}, ordered both by
-    number of wins and overall score. Cooperator and Defector are omitted as
-    they do not visit all the states.}
+    \caption{\(\text{SSError}\) for the strategies of~\cite{Stewart2012},
+    ordered both by number of wins and overall score. Cooperator and Defector
+    are omitted as they do not visit all the states.}
     \label{fig:SSError_overall_in_stewart_plotkin}
 \end{figure}
 
@@ -301,25 +298,25 @@ strategies.
     \label{fig:SSError_and_probabilities_in_full}
 \end{figure}
 
-
 \section{Conclusion}\label{sec:conclusion}
 
 This work defines an approach to measure whether or not a player is playing a
 strategy that corresponds to an extortionate strategy as defined
-in~\cite{Press2012}. Indeed Figure~\ref{fig:examples_of_extortion} classifies
-all extortionate strategies. This is done through a linear algebraic approach
-for approximating the solution of a linear system. Using this, a very large
-number of pairwise interactions is simulated and in fact very few strategies are
-found to act extortionately.
+in~\cite{Press2012}: a mathematical model for suspicion. Indeed
+Figure~\ref{fig:examples_of_extortion} classifies all extortionate strategies.
+This is done through a linear algebraic approach for approximating the solution
+of a linear system. Using this, a large number of pairwise interactions is
+simulated and in fact very few strategies are found to act extortionately.
 
 The work of~\cite{Press2012}, whilst showing that a clever approach to taking
 advantage of another memory one strategy exists: this is incomplete. Whilst the
 elegance of this result is very attractive, just as the simplicity of the
 victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
-Whilst extortionate strategies achieve a high number of wins they do not
+Extortionate strategies achieve a high number of wins but they do not
 achieve a high score which corresponds to the fitness landscape in an
 evolutionary sense. From the large number of interactions a payoff matrix \(P\)
-can be measured where \(P_{ij}\) denotes the score of the \(i\)th strategy
+can be measured where \(P_{ij}\) denotes the score (using standard values of
+\((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy
 against the \(j\)th strategy. Using this, the replicator equation
 describes the evolution of the system based on a population density fitness
 function:
@@ -334,7 +331,7 @@ Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
 the system: the various strategies are ranked by scores. It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
 only \input{./assets/img/replicator_dynamics/main.tex}
-have a finally distribution greater than \(10 ^ {-2}\)). This confirms the
+have a final distribution greater than \(10 ^ {-2}\)). This confirms the
 findings of~\cite{Moran1707} in which sophisticated strategies resist
 evolutionary invasion of shorter memory strategies. Recalling
 Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
@@ -358,11 +355,10 @@ actual interactions (in lab or in the field). Furthermore, this allows for a
 classification method similar to the notion of fingerprinting presented
 in~\cite{Ashlock2008}. Trained strategies can potentially be classified as
 extortionate or not or it could be possible to even constraint the reinforcement
-learning approaches that are becoming prevalent in the literature.
-
-This work gives a mathematical process that could be akin to behaviours of
-suspicion of extortion. Behaviours that react to a sentiment of being extorted
-can be emulated by using the approach outlined here.
+learning approaches that are becoming prevalent in the literature. It is worth
+noting that, as described in~\cite{Harper2017}, the top ranking strategies in
+the full tournament are obtained using reinforcement learning techniques, thus
+suspicion of extortionate behaviour could in fact be an evolutionary trait.
 
 \section*{Acknowledgements}
 
