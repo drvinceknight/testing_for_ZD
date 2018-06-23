@@ -213,7 +213,8 @@ By observing interactions (human or otherwise), the transition rates of given
 players, their memory one representation can be approximated and this approach
 can be used to recognise extortionate behaviour. Immediately it is noted that if
 the environment is noisy~\cite{Wu1995} then no strategy can be considered to be
-extortionate as \(p_4>0\).
+extortionate as \(p_4>0\). The notion of comparing theoretic and actual plays of
+the IPD is not novel, see for example~\cite{Rand2013}.
 
 In the next section, this idea will be illustrated by observing the interactions
 that take place in a computer based tournament of the IPD\@.
@@ -362,6 +363,20 @@ learning approaches that are becoming prevalent in the literature.
 This work gives a mathematical process that could be akin to behaviours of
 suspicion of extortion. Behaviours that react to a sentiment of being extorted
 can be emulated by using the approach outlined here.
+
+\section*{Acknowledgements}
+
+The following open source software libraries were used in this research:
+
+\begin{itemize}
+    \item The Axelrod library (IPD strategies and
+        Tournaments)~\cite{Knight2016, Knight2018}.
+    \item The matplotlib library (visualisation)~\cite{Droettboom2018}.
+    \item The pandas, dask and numpy libraries (data
+        manipulation)~\cite{Structures2010, Dask2016, Oliphant2015}.
+    \item The scipy library (numerical integration of replicator
+        equation)~\cite{Jones2001}.
+\end{itemize}
 
 \printbibliography
 
