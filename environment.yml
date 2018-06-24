@@ -22,6 +22,7 @@ dependencies:
   - gstreamer=1.14.0
   - html5lib=1.0.1
   - icu=58.2
+  - intel-openmp=2018.0.3
   - ipykernel=4.8.2
   - ipython=6.4.0
   - ipython_genutils=0.2.0
@@ -48,6 +49,7 @@ dependencies:
   - markupsafe=1.0
   - matplotlib=2.2.2
   - mistune=0.8.3
+  - mkl=2018.0.3
   - mpc=1.0.3
   - mpfr=3.1.5
   - mpmath=1.0.0
@@ -105,11 +107,13 @@ dependencies:
     - dask==0.17.5
     - invoke==1.0.0
     - more-itertools==4.2.0
+    - patsy==0.5.0
     - pluggy==0.6.0
     - py==1.5.3
     - pytest==3.6.0
     - scipy==1.1.0
+    - statsmodels==0.9.0
     - toolz==0.9.0
     - tqdm==4.23.4
-prefix: /home/vince/anaconda3/envs/testing-zd
+prefix: /home/nightwing/anaconda3/envs/testing-zd
 
