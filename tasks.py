@@ -64,3 +64,27 @@ def build(c):
     process(c)
     assets(c, processdata=True)
     pdf(c)
+
+@task
+def unpack(c):
+    """
+    Unpack downloaded `raw.tar.gz` file
+    """
+    c.run("tar -xzf raw.tar.gz --directory data")
+
+@task
+def get(c):
+    """
+    Download the data from the online archive
+    """
+    c.run("wget https://zenodo.org/record/1297075/files/raw.tar.gz?download=1 -O raw.tar.gz")
+
+@task
+def data(c):
+    """
+    Download and unpack data from online archive
+    """
+    print("Downloading data")
+    get(c)
+    print("Unpacking data")
+    unpack(c)
