@@ -24,20 +24,16 @@ $ pytest
 
 ## Reproducing the results
 
-The raw data containing the specific interactions of all player interactions can
-be found here `TODO: Archive data`. Place the un archived `data` in the root
-directory of this repository.
+The raw data containing the specific interactions of all player interactions is
+achieved at https://doi.org/10.5281/zenodo.1297075
+
+**Having created and activated the conda environment**
+
+### Download and unpack the data
 
 ```
-|--- assets
-|--- src
-|--- tests
-|--- data
+$ invoke data
 ```
-
-TODO Add a `wget` and `tar` command to `tasks.py` file
-
-Having created and activated the conda environment
 
 ### Pre process the raw data
 
@@ -62,7 +58,7 @@ $ invoke pdf
 Note that you can simply run:
 
 ```
-$ invoke build processdata
+$ invoke build
 ```
 
 For more information about what you can do:
