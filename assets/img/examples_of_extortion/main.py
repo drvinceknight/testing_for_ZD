@@ -55,7 +55,7 @@ def main(N=750, max_r_squared = 10 ** -6, process_data=False):
         ax.set_title(f"$p_1={round((i + 1)/10, 1)}$")
         fig.tight_layout()
 
-        if i > 5:
+        if i > 4:
             ax.set_xticks([0, N / 2, N])
             ax.set_xticklabels((0, 1/2, 1))
             ax.set_xlabel("$p_2$")
