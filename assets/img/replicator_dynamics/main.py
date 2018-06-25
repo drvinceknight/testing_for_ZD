@@ -9,11 +9,11 @@ from scipy.integrate import odeint
 parameters = imp.load_source('parameters',
                              '../../../data/raw/parameters.py')
 
-def dx(x, t, A):
+def dx(x, t, S):
     """
     Define the derivative of x.
     """
-    f = np.dot(A, x)
+    f = np.dot(S, x)
     phi = np.dot(f, x)
     return x * (f - phi)
 
@@ -40,7 +40,7 @@ def main(process_data=False):
     plt.figure(figsize=(15, 8))
     plt.stackplot(ts, xs.transpose());
     plt.ylabel("Population distribution")
-    plt.xlabel("Time steps")
+    plt.xlabel("Time units")
     plt.savefig("main.pdf")
 
     with open("main.tex", "w") as f:
