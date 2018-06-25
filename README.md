@@ -44,7 +44,7 @@ $ invoke process
 ### Create all assets
 
 ```
-$ invoke assets processdata
+$ invoke assets --processdata
 ```
 
 ### Build the pdf
