@@ -50,7 +50,7 @@
 Agent based game theoretic models have become a stalwart of the underpinning
 mathematics of interactive behaviours. One of the major pieces of work
 in this area is the pair of original computer tournaments run by Robert
-Axelrod~\cite{Axelrod1980, Axelrod1980a}. This tournaments pitted submitted
+Axelrod~\cite{Axelrod1980, Axelrod1980a}. These tournaments pitted submitted
 computer strategies against each other in plays of the Iterated Prisoner's
 Dilemma. A common game where agents can choose to pay a slight cost to their
 immediate utility in the hope of building a reputation. This has been used in
@@ -76,8 +76,8 @@ archive can be found at~\cite{vincent_knight_2018_1297075}.
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
 In~\cite{Press2012}, given a match between 2 memory-one strategies, the concept
-of Zeto-Determinant (ZD) strategies is introduced. The main result of that paper
-shows that given two memory one players \(p, q\in\mathbb{R}^2\) a linear
+of Zero Determinant (ZD) strategies is introduced. The main result of that paper
+shows that given two memory one players \(p, q\in\mathbb{R}^4\) a linear
 relationship between the players' scores could be forced by one of the players.
 
 Using the notation of~\cite{Press2012}, assuming the utilities for player \(p\)
@@ -106,7 +106,7 @@ Here, the reverse problem is considered: given a
 \(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta, \gamma\) if they
 exist.
 
-To do this, equation~\ref{eqn:linear_relationship_for_p} is expressed linear
+To do this, equation~(\ref{eqn:linear_relationship_for_p}) is expressed linear
 algebraically as:
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
@@ -128,7 +128,7 @@ with \(M\in\mathbb{R}^{4\times 3}\) given by:
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
 a solution it is unique as \(\text{rank}(M)=3\) which is the dimension of the
-variable \(x\)). Furthermore, removing a single row of \(M\) would ensure that
+variable \(x\). Furthermore, removing a single row of \(M\) would ensure that
 the corresponding matrix is invertible. This corresponds to the fact that a ZD
 strategy is defined by only 3 of its values.
 
@@ -151,7 +151,7 @@ The \(x=(\alpha, \beta, \gamma)\) that corresponds to
 \end{equation}
 
 Using (\ref{eqn:linear_algebraic_equation_for_p}) gives that these values lead
-to the correct value for \(p_4=0\) which confirms that \(p_4\) is a ZD strategy.
+to the correct value for \(p_4=0\) which confirms that \(p\) is a ZD strategy.
 
 This approach could in fact be used to confirm that a given strategy is acting
 in a ZD manner even if it is not a memory one strategy. However, in practice, if
@@ -234,7 +234,7 @@ Using the pair wise interactions the transition rates \(p,
 q\) can be measured and the steady state probabilities inferred and compared to
 the actual probabilities of each state.
 This is done numerically by computing the singular eigenvector of the
-matrix: \(A\) \cite{Stewart2009}:
+matrix \(A\) \cite{Stewart2009}:
 
 \[
     A =
@@ -284,7 +284,7 @@ The results of this analysis are shown in
 Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
 by number of wins seem to be extortionate (but not against all strategies) and
 it can be seen that a small sub group of strategies achieve mutual defection.
-The top ranking strategies according to score all achieve mutual cooperation and
+All the top ranking strategies according to score achieve mutual cooperation and
 do not extort each other, however they
 \textbf{do} exhibit extortionate behaviour towards a number of the lower ranking
 strategies.
@@ -345,7 +345,7 @@ Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
     \caption{Numerical simulation of the replicator equation
-    (\ref{eqn:replicator_dynamics}): strategies are ordered by score, only the strategies with a high score survive the evolutionary process}
+    (\ref{eqn:replicator_dynamics}): strategies are ordered by score, only the strategies with a high score survive the evolutionary process.}
     \label{fig:replicator_dynamics}
 \end{figure}
 
@@ -365,11 +365,11 @@ The following open source software libraries were used in this research:
 
 \begin{itemize}
     \item The Axelrod library (IPD strategies and
-        Tournaments)~\cite{Knight2016, Knight2018}.
+        tournaments)~\cite{Knight2016, Knight2018}.
     \item The matplotlib library (visualisation)~\cite{Droettboom2018}.
-    \item The pandas, dask and numpy libraries (data
+    \item The pandas, dask and NumPy libraries (data
         manipulation)~\cite{Structures2010, Dask2016, Oliphant2015}.
-    \item The scipy library (numerical integration of replicator
+    \item The SciPy library (numerical integration of replicator
         equation)~\cite{Jones2001}.
 \end{itemize}
 
