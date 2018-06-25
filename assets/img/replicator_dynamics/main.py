@@ -37,7 +37,7 @@ def main(process_data=False):
     x0 = np.array([1 / N for _ in range(N)])
     xs = odeint(func=dx, y0=x0, t=ts, args=(sorted_array,))
 
-    plt.figure(figsize=(15, 8))
+    plt.figure(figsize=(8, 4))
     plt.stackplot(ts, xs.transpose());
     plt.ylabel("Population distribution")
     plt.xlabel("Time steps")
