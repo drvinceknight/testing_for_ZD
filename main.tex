@@ -110,13 +110,13 @@ To do this, equation~(\ref{eqn:linear_relationship_for_p}) is expressed linear
 algebraically as:
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
-    Mx=\tilde p  \qquad x=(\alpha, \beta, \gamma)
+    Cx=\tilde p  \qquad x=(\alpha, \beta, \gamma)
 \end{equation}
 
-with \(M\in\mathbb{R}^{4\times 3}\) given by:
+with \(C\in\mathbb{R}^{4\times 3}\) given by:
 
-\begin{equation}\label{eqn:definition_of_M}
-    M =
+\begin{equation}\label{eqn:definition_of_C}
+    C =
     \begin{bmatrix}
         R & R & 1\\
         S & T & 1\\
@@ -127,26 +127,26 @@ with \(M\in\mathbb{R}^{4\times 3}\) given by:
 
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
-a solution it is unique as \(\text{rank}(M)=3\) which is the dimension of the
-variable \(x\). Furthermore, removing a single row of \(M\) would ensure that
+a solution it is unique as \(\text{rank}(C)=3\) which is the dimension of the
+variable \(x\). Furthermore, removing a single row of \(C\) would ensure that
 the corresponding matrix is invertible. This corresponds to the fact that a ZD
 strategy is defined by only 3 of its values.
 
 As an example, consider the known ZD strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\)
 from~\cite{Stewart2012} which is referred to as \texttt{Extort-2}. In the
 standard case of \((R, S, T, P)=(3, 0, 5, 1)\) the inverse
-of \(M_{(4)}\) (removing the last row of \(M\)) is given by:
+of \(C_{(4)}\) (removing the last row of \(C\)) is given by:
 
-\begin{equation}\label{eqn:inverse_of_M4}
-    M_{(4)}^{-1} =
-    \input{./assets/tex/inverse_of_M4/main.tex}
+\begin{equation}\label{eqn:inverse_of_C4}
+    C_{(4)}^{-1} =
+    \input{./assets/tex/inverse_of_C4/main.tex}
 \end{equation}
 
 The \(x=(\alpha, \beta, \gamma)\) that corresponds to
 \(\tilde p\) is given by:
 
 \begin{equation}\label{eqn:alpha_beta_gamma_for_extort_2}
-    x = M_{(4)}^{-1}\tilde p_{(4)} =
+    x = C_{(4)}^{-1}\tilde p_{(4)} =
     \input{./assets/tex/alpha_beta_gamma_for_extort_2/main.tex}
 \end{equation}
 
@@ -163,7 +163,7 @@ approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
 \bar\gamma)\) which minimises:
 
 \begin{equation}\label{eqn:r_squared}
-    \text{SSError} = \|M x-\tilde p\|_2^2 = \sum_{i=1}^{4}\left((M\bar x)_i-\tilde p_i\right)^2
+    \text{SSError} = \|C x-\tilde p\|_2^2 = \sum_{i=1}^{4}\left((C\bar x)_i-\tilde p_i\right)^2
 \end{equation}
 
 Note that \(\text{SSError}\), which is the square of the Frobenius
@@ -183,8 +183,8 @@ larger than the opponent. This extortion coefficient is given by:
 \end{equation}
 
 Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
-said to extort their opponent. Recalling (\ref{eqn:definition_of_M}), equation
-(\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(M\), thus
+said to extort their opponent. Recalling (\ref{eqn:definition_of_C}), equation
+(\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(C\), thus
 a ZD player \(p\) with low enough \(\text{SSError}\) extorts their opponent if
 and only if \(p_4=0\) and the estimated \(\chi > 1\). Using the method of least
 squares, the strategy can be considered ZD for a given threshold of
@@ -315,15 +315,15 @@ elegance of this result is very attractive, just as the simplicity of the
 victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
 Extortionate strategies achieve a high number of wins but they do not
 achieve a high score which corresponds to the fitness landscape in an
-evolutionary sense. From the large number of interactions a payoff matrix \(P\)
-can be measured where \(P_{ij}\) denotes the score (using standard values of
+evolutionary sense. From the large number of interactions a payoff matrix \(S\)
+can be measured where \(S_{ij}\) denotes the score (using standard values of
 \((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy
 against the \(j\)th strategy. Using this, the replicator equation
 describes the evolution of the system based on a population density fitness
 function:
 
 \begin{equation}\label{eqn:replicator_dynamics}
-    \frac{dx}{dt} = x(P-x^TP x)
+    \frac{dx}{dt} = x(S-x^TS x)
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
