@@ -102,94 +102,11 @@ where \(\tilde p = (1 - p_1, 1 - p_2, p_3, p_4)\) and
     \alpha S_X + \beta S_Y + \gamma = 0
 \end{equation}
 
-Here, the reverse problem is considered: given a
-\(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta, \gamma\) if they
-exist.
-
-% TODO Replace this discussion with the algebraic result for the planar
-% relationship for $p_1=k_1 + k_2p_2 + k_3p_2$
-To do this, equation~(\ref{eqn:linear_relationship_for_p}) is expressed linear
-algebraically as:
-
-\begin{equation}\label{eqn:linear_algebraic_equation_for_p}
-    Cx=\tilde p  \qquad x=(\alpha, \beta, \gamma)
-\end{equation}
-
-with \(C\in\mathbb{R}^{4\times 3}\) given by:
-
-\begin{equation}\label{eqn:definition_of_C}
-    C =
-    \begin{bmatrix}
-        R & R & 1\\
-        S & T & 1\\
-        T & S & 1\\
-        P & P & 1
-    \end{bmatrix}
-\end{equation}
-
-Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
-not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
-a solution it is unique as \(\text{rank}(C)=3\) which is the dimension of the
-variable \(x\). Furthermore, removing a single row of \(C\) would ensure that
-the corresponding matrix is invertible. This corresponds to the fact that a ZD
-strategy is defined by only 3 of its values.
-
-As an example, consider the known ZD strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\)
-from~\cite{Stewart2012} which is referred to as \texttt{Extort-2}. In the
-standard case of \((R, S, T, P)=(3, 0, 5, 1)\) the inverse
-of \(C_{(4)}\) (removing the last row of \(C\)) is given by:
-
-\begin{equation}\label{eqn:inverse_of_C4}
-    C_{(4)}^{-1} =
-    \input{./assets/tex/inverse_of_C4/main.tex}
-\end{equation}
-
-The \(x=(\alpha, \beta, \gamma)\) that corresponds to
-\(\tilde p\) is given by:
-
-\begin{equation}\label{eqn:alpha_beta_gamma_for_extort_2}
-    x = C_{(4)}^{-1}\tilde p_{(4)} =
-    \input{./assets/tex/alpha_beta_gamma_for_extort_2/main.tex}
-\end{equation}
-
-Using (\ref{eqn:linear_algebraic_equation_for_p}) gives that these values lead
-to the correct value for \(p_4=0\) which confirms that \(p\) is a ZD strategy.
-
-This approach could in fact be used to confirm that a given strategy is acting
-in a ZD manner even if it is not a memory one strategy. However, in practice, if
-a closed form for \(p\) is not known, then due to measurement and/or numerical
-error this would not work.
-
-Thus, an approach based on least squares~\cite{Golub2013} is proposed. This
-approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
-\bar\gamma)\) which minimises:
-
-
-% TODO Change this discussion to deal with the correct C matrix for computing
-% extortionate strategies
-% The matrix below will correspond to the equations we write down above in
-% explanation about planar work
-%\begin{equation}\label{eqn:definition_of_C}
-    %C =
-    %\begin{bmatrix}
-        %R - P & R- P \\
-        %S - P & T- P \\
-        %T - P & S- P \\
-    %\end{bmatrix}
-%\end{equation}
-
-
-\begin{equation}\label{eqn:r_squared}
-    \text{SSError} = \|C x-\tilde p\|_2^2 = \sum_{i=1}^{4}\left((C\bar x)_i-\tilde p_i\right)^2
-\end{equation}
-
-Note that \(\text{SSError}\), which is the square of the Frobenius
-norm~\cite{Golub2013}, becomes a measure of how close a strategy is to being a ZD
-strategy.
-In~\cite{Press2012} a particular type of ZD is defined, if:
+In~\cite{Press2012} a particular type of ZD strategy is defined: extortionate
+strategies. If:
 
 \begin{equation}\label{eqn:constraint_for_extortion}
-    P(\alpha + \beta)+\gamma=0
+    \gamma = - P(\alpha + \beta)
 \end{equation}
 
 then the player can ensure they get a score \(\chi\) times
@@ -200,37 +117,97 @@ larger than the opponent. This extortion coefficient is given by:
 \end{equation}
 
 Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
-said to extort their opponent. Recalling (\ref{eqn:definition_of_C}), equation
-(\ref{eqn:constraint_for_extortion}) corresponds to the last row of \(C\), thus
-a ZD player \(p\) with low enough \(\text{SSError}\) extorts their opponent if
-and only if \(p_4=0\) and the estimated \(\chi > 1\). Using the method of least
-squares, the strategy can be considered ZD for a given threshold of
-\(\text{SSError}\) and \(\chi\) can be approximated.
-Figure~\ref{fig:examples_of_extortion} illustrates this for potential
-strategies: for all of these we see that for the strategy to be extortionate
-\(p_2\) and \(p_3\) seem to have a linear relationship: for example if \(p_1=1\)
-and \(p_4=0\) then all strategies where \(p_2=p_3\) are extortionate. Suspicion
+said to extort their opponent.
+Here, the reverse problem is considered: given a
+\(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta\) if they
+exist and is the strategy in fact acting in an extortionate way?
+
+These conditions correspond to:
+
+\begin{align}
+    \tilde p_1 & = \alpha R + \beta R - P (\alpha + \beta)
+            \label{eqn:condition_for_p1}\\
+    \tilde p_2 & = \alpha S + \beta T - P (\alpha + \beta)
+            \label{eqn:condition_for_p2}\\
+           p_3 & = \alpha T + \beta S - P (\alpha + \beta)
+            \label{eqn:condition_for_p3}\\
+           p_4 & = \alpha P + \beta P - P (\alpha + \beta)
+            \label{eqn:condition_for_p4}
+\end{align}
+
+Equation (\ref{eqn:condition_for_p4}) ensures that \(p_4=0\).
+Equations (\ref{eqn:condition_for_p1}-\ref{eqn:condition_for_p3}) can be used to
+eliminate \(\alpha, \beta\), giving:
+
+% TODO Actually do this
+\begin{equation}\label{eqn:planar_definition_of_extortion}
+    p_1 = k_1 + k_2 p_2 + k_3 p_3
+\end{equation}
+
+with:
+
+\begin{equation}\label{eqn:definition_of_chi}
+    \chi = ...
+\end{equation}
+
+% TODO Possibly plot:
+% 1. The plane (a 3D plot) (p1=f(p2, p3))
+% 2. Chi as a function of p2 and p3: which identifies the "best" extortionate
+% strategy (heatmap).
+
+Given a strategy \(p\in\mathbb{R}^{4\times 1}\) equations
+(\ref{eqn:condition_for_p4}-\ref{eqn:definition_of_chi}) can be used to check if
+a strategy is extortionate.
+
+As an example, consider the known extortionate strategy
+\(p=(8 / 9, 1 / 2, 1 / 3, 0)\) from~\cite{Stewart2012} which is referred to as
+\texttt{Extort-2}. In this case all the constraints hold and \(\chi=...>1\).
+
+This approach could in fact be used to confirm that a given strategy is acting
+in an extortionate manner even if it is not a memory one strategy. However, in
+practice, if a closed form for \(p\) is not known, then due to measurement
+and/or numerical error this would not work.
+
+This problem can be written in the following linear algebraic form where
+\(x=(\alpha, \beta)\)
+and \(p^*=(\tilde p_1 - 1, tilde_2 - 1, p_3)\):
+
+\begin{equation}\label{eqn:linear_algebraic_equation_for_p}
+    Cx= p^*
+\end{equation}
+
+\(C\) corresponds to equations
+(\ref{eqn:condition_for_p1}-\ref{eqn:condition_for_p3}) and is given by:
+
+\begin{equation}\label{eqn:definition_of_C}
+    C =
+    \begin{bmatrix}
+        R - P & R- P \\
+        S - P & T- P \\
+        T - P & S- P \\
+    \end{bmatrix}
+\end{equation}
+
+Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
+not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
+a solution it is unique as \(\text{rank}(C)=2\) which is the dimension of the
+variable \(x\). The best fitting \(x\) is found by minimizing:
+
+\begin{equation}\label{eqn:r_squared}
+    \text{SSError} = \|C x- p^*\|_2^2 = \sum_{i=1}^{3}\left((C\bar x)_i-p_i^*\right)^2
+\end{equation}
+
+Note that \(\text{SSError}\), which is the square of the Frobenius
+norm~\cite{Golub2013}, becomes a measure of how close a strategy is to being an
+extortionate strategy. Suspicion
 of extortion then corresponds to a threshold on \(\text{SSError}\).
 
-\begin{figure}[!htbp]
-    \begin{center}
-        \includegraphics[width=\textwidth]{assets/img/examples_of_extortion/main.pdf}
-        \caption{Strategies of the form:
-                 \(p=(p_1, p_2, p_3, 0)\). The solid line shows the values for
-                 which \(\text{SSError} < 10 ^ {-6}\). Only values for which \(\chi > 1\) are
-                 displayed, strategies outside of this region can never be
-                 extortionate.}
-        \label{fig:examples_of_extortion}
-    \end{center}
-\end{figure}
-
-By observing interactions (human or otherwise), the transition rates of given
-players, their memory one representation can be approximated and this approach
-can be used to recognise extortionate behaviour. The notion of comparing
-theoretic and actual plays of the IPD is not novel, see for
-example~\cite{Rand2013}.  Immediately it is noted that if the environment is
-noisy~\cite{Wu1995} then no strategy can be considered to be extortionate as
-\(p_4>0\).
+By observing interactions (human or otherwise), their memory one representation
+can be inferred and this approach can be used to recognise extortionate
+behaviour. The notion of comparing theoretic and actual plays of the IPD is not
+novel, see for example~\cite{Rand2013}. Immediately it is noted that if the
+environment is noisy~\cite{Wu1995} then no strategy can be considered to be
+extortionate as \(p_4>0\).
 
 In the next section, this idea will be illustrated by observing the interactions
 that take place in a computer based tournament of the IPD\@.
