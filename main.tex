@@ -106,6 +106,8 @@ Here, the reverse problem is considered: given a
 \(p\in\mathbb{R}^4\) how does one identify \(\alpha, \beta, \gamma\) if they
 exist.
 
+% TODO Replace this discussion with the algebraic result for the planar
+% relationship for $p_1=k_1 + k_2p_2 + k_3p_2$
 To do this, equation~(\ref{eqn:linear_relationship_for_p}) is expressed linear
 algebraically as:
 
@@ -161,6 +163,21 @@ error this would not work.
 Thus, an approach based on least squares~\cite{Golub2013} is proposed. This
 approach finds the best fitting \(\bar x=(\bar\alpha, \bar\beta,
 \bar\gamma)\) which minimises:
+
+
+% TODO Change this discussion to deal with the correct C matrix for computing
+% extortionate strategies
+% The matrix below will correspond to the equations we write down above in
+% explanation about planar work
+%\begin{equation}\label{eqn:definition_of_C}
+    %C =
+    %\begin{bmatrix}
+        %R - P & R- P \\
+        %S - P & T- P \\
+        %T - P & S- P \\
+    %\end{bmatrix}
+%\end{equation}
+
 
 \begin{equation}\label{eqn:r_squared}
     \text{SSError} = \|C x-\tilde p\|_2^2 = \sum_{i=1}^{4}\left((C\bar x)_i-\tilde p_i\right)^2
