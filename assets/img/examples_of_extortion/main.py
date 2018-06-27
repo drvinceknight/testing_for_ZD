@@ -26,7 +26,7 @@ def main(N=750, max_r_squared = 10 ** -6, process_data=False):
                 for j, p3 in enumerate(ps):
                     p = np.array([(k + 1) / 10, p2, p3, 0])
                     x_bar, r_squared = zd.compute_least_squares(p)
-                    alpha, beta, gamma = x_bar
+                    alpha, beta = x_bar
                     if -beta / alpha > 1:
                         array[i, j] = r_squared
 
