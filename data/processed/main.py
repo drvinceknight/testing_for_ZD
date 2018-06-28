@@ -99,17 +99,15 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
     residuals = []
     alphas = []
     betas = []
-    gammas = []
     number_of_rows = df.shape[0]
     for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):
         p = row[probabilities].values.astype('float64')
         xbar, residual = zd.compute_least_squares(p)
-        alpha, beta, gamma = xbar
+        alpha, beta = xbar
 
         residuals.append(residual)
         alphas.append(alpha)
         betas.append(beta)
-        gammas.append(gamma)
 
     df["residual"] = residuals
     columns.append("residual")
@@ -119,9 +117,6 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
 
     df["beta"] = betas
     columns.append("beta")
-
-    df["gamma"] = gammas
-    columns.append("gamma")
 
     df["chi"] = -df["beta"] / df["alpha"]
     columns.append("chi")
