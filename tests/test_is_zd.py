@@ -25,26 +25,22 @@ def test_compute_least_squares_with_missing_values():
     assert np.isnan(xbar[0])
     assert np.isnan(xbar[1])
 
-def test_is_delta_ZD_for_valid_ZD_strategy():
+def test_is_ZD_for_valid_ZD_strategy():
     p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
-    assert zd.is_delta_ZD(p) == True
+    assert zd.is_ZD(p) == True
 
-def test_is_delta_ZD_for_valid_ZD_strategy_with_missing_states():
+def test_is_ZD_for_valid_ZD_strategy_with_missing_states():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
-    assert zd.is_delta_ZD(p) == True
+    assert zd.is_ZD(p) == True
 
-def test_is_delta_ZD_for_valid_ZD_strategy_with_different_rstp():
+def test_is_ZD_for_valid_ZD_strategy_with_different_rstp():
     p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
     rstp = np.array([3, 1, 6, 1])
-    assert zd.is_delta_ZD(p, rstp=rstp) == False
+    assert zd.is_ZD(p, rstp=rstp) == False
 
-def test_is_delta_ZD_for_not_valid_ZD_strategy():
+def test_is_ZD_for_not_valid_ZD_strategy():
     p = np.array([8 / 9, 1, 1 / 3, 0])
-    assert zd.is_delta_ZD(p) == False
-
-def test_is_delta_ZD_for_not_valid_ZD_strategy_with_high_delta():
-    p = np.array([8 / 9, 1, 1 / 3, 0])
-    assert zd.is_delta_ZD(p, delta=10) == True
+    assert zd.is_ZD(p) == False
 
 def test_steady_state_distribution_with_specific_players():
     p = np.array([1 / 2, 1 / 3, 7 / 8, 1 / 3])

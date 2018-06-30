@@ -1,5 +1,20 @@
 import numpy as np
 
+def is_ZD(p, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
+    """
+    Check is a strategy p is ZD.
+    """
+    if np.all(np.isfinite(p)):
+        R, S, T, P = rstp
+        tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
+        expected_tilde_p1 = (P * tilde_p[1] + P * tilde_p[2] - R * tilde_p[1] - R * tilde_p[2]) / (2 * P - S - T)
+        chi = (P * tilde_p[1] - P * tilde_p[2] + S * tilde_p[2] - T *
+                tilde_p[1]) / (P * tilde_p[1] - P * tilde_p[2] - S * tilde_p[1] +
+                        T * tilde_p[2])
+        return np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
+    return True
+
+
 def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
     """
     Compute the solution via a least squares minimisation problem.
@@ -20,15 +35,6 @@ def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
 
         return xbar, SSError
     return (np.nan, np.nan), np.nan
-
-def is_delta_ZD(p, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
-    """
-    Check is a strategy p is $\delta$-ZD for a given value of delta
-    """
-    if np.all(np.isfinite(p)):
-        xbar, residual = compute_least_squares(p=p, rstp=rstp)
-        return residual <= delta
-    return True
 
 def compute_pi(p, q):
     """
