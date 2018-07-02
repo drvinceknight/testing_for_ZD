@@ -244,39 +244,10 @@ project~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
 \input{assets/tex/number_of_turns/main.tex} turns and every match has been
 repeated \input{assets/tex/number_of_repetitions/main.tex} times. All of this
-interaction data is available at~\cite{vincent_knight_2018_1297075}.
-
-Using the pair wise interactions the transition rates \(p,
-q\) can be measured and the steady state probabilities inferred and compared to
-the actual probabilities of each state.
-This is done numerically by computing the singular eigenvector of the
-matrix \(A\) \cite{Stewart2009}:
-
-\[
-    A =
-    \begin{bmatrix}
-        p_1 q_1 & p_1 (1 - q_1) & (1 - p_1) q_1 & (1 -p_1) (1 - q_1) \\
-        p_2 q_2 & p_2 (1 - q_2) & (1 - p_2) q_2 & (1 -p_2) (1 - q_2) \\
-        p_3 q_3 & p_3 (1 - q_3) & (1 - p_3) q_3 & (1 -p_3) (1 - q_3) \\
-        p_4 q_4 & p_4 (1 - q_4) & (1 - p_4) q_4 & (1 -p_4) (1 - q_4) \\
-    \end{bmatrix}
-\]
-
-Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities} shows a
-regression line fitted to every pairwise interaction with a reported
-\(\text{SSError}\) value (pairwise interactions with missing states were
-omitted). This serves to validate the approach: a part from some edge cases the
-relationship is consistent.
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities/main.pdf}
-    \caption{The
-        relationship between the steady state probabilities inferred from the
-        measured transitions and the actual steady state probabilities. A linear
-        regression line is included validating the approach.}
-    \label{fig:computed_probabilities_vs_theoretic_probabilities}
-\end{figure}
+interaction data is available at~\cite{vincent_knight_2018_1297075}. A good
+match between the inferred Markov chain and the state distribution of the actual
+interactions has been verified. Data for this is presented in the supplementary
+materials.
 
 Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SSError}\)
 values for all the strategies in the tournament, as reported
@@ -404,6 +375,44 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 
 \printbibliography
 
+\newpage
+\section*{Supplementary materials}
+
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
+
+\newpage
+
+Using the pair wise interactions the transition rates \(p,
+q\) can be measured and the steady state probabilities inferred and compared to
+the actual probabilities of each state.
+This is done numerically by computing the singular eigenvector of the
+matrix \(A\) \cite{Stewart2009}:
+
+\[
+    A =
+    \begin{bmatrix}
+        p_1 q_1 & p_1 (1 - q_1) & (1 - p_1) q_1 & (1 -p_1) (1 - q_1) \\
+        p_2 q_2 & p_2 (1 - q_2) & (1 - p_2) q_2 & (1 -p_2) (1 - q_2) \\
+        p_3 q_3 & p_3 (1 - q_3) & (1 - p_3) q_3 & (1 -p_3) (1 - q_3) \\
+        p_4 q_4 & p_4 (1 - q_4) & (1 - p_4) q_4 & (1 -p_4) (1 - q_4) \\
+    \end{bmatrix}
+\]
+
+Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities} shows a
+regression line fitted to every pairwise interaction with a reported
+\(\text{SSError}\) value (pairwise interactions with missing states were
+omitted). This serves to validate the approach: a part from some edge cases the
+relationship is consistent.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities/main.pdf}
+    \caption{The
+        relationship between the steady state probabilities inferred from the
+        measured transitions and the actual steady state probabilities. A linear
+        regression line is included validating the approach.}
+    \label{fig:computed_probabilities_vs_theoretic_probabilities}
+\end{figure}
+
 
 \end{document}
