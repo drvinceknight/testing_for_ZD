@@ -1,0 +1,75 @@
+\documentclass[a4]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=1.5cm,
+            includefoot,
+            footskip=30pt]{geometry}
+
+\title{Proof of algebraic condition for extortionate strategies}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+The defining equations for an extortionate strategy are:
+
+
+\begin{align}
+    \tilde p_1 & = \alpha (R - P) + \beta (R - P)\label{eqn:definition_for_p_1}\\
+    \tilde p_2 & = \alpha (S - P) + \beta (T - P)\label{eqn:definition_for_p_2}\\
+    \tilde p_3 & = \alpha (T - P) + \beta (S - P)\label{eqn:definition_for_p_3}\\
+    \tilde p_4 & = 0
+\end{align}
+
+Using equation (\ref{eqn:definition_for_p_2}, \(\alpha\) is isolated
+
+\begin{equation}\label{eqn:initial_expression_for_alpha}
+    \alpha = \frac{-\beta (P - T) - \tilde p_2}
+                  {P - S}
+\end{equation}
+
+Substituting this value in to equation (\ref{eqn:definition_for_p_3}), \(\beta\)
+is isolated:
+
+\begin{equation}\label{eqn:expression_for_beta}
+    \beta = -\frac{P\tilde p_1 - P \tilde p_2 + S \tilde p_2 - T \tilde p_1}
+                  {(S - T)(2 P - S - T)}
+\end{equation}
+
+Substituting this back in to (\ref{eqn:initial_expression_for_alpha}) gives:
+
+\begin{equation}\label{eqn:expression_for_alpha}
+    \alpha = \frac{-\tilde p_2 + (P - T)(P \tilde p_1 - P\tilde p_2 + S\tilde p_2 - T\tilde p_1)}
+                  {(S - T)(2P - S - T)(P - S)}
+\end{equation}
+
+Substituting equations
+(\ref{eqn:expression_for_beta}-\ref{eqn:expression_for_alpha}) in to
+equation (\ref{eqn:definition_for_p_1}) gives the required expression for
+\(p_1\).
+
+Taking the ratio of equations
+(\ref{eqn:expression_for_beta}-\ref{eqn:expression_for_alpha}) gives the
+required expression for \(\chi\).
+
+Finally, the condition \(\chi > 1\) corresponds to:
+
+
+\begin{equation}
+\tilde p_2 (P - T) + \tilde p_3 (S - P) >
+                                      \tilde p_2 (P - S) + \tilde p_3 (T - P)
+\end{equation}
+
+which can be simplified to:
+
+\begin{equation}
+    \tilde p_2 < - \tilde p_3
+\end{equation}
+
+recalling that \(\tilde p_2 = p_2 - 1\) and \(\tilde p_3 = p_3\) gives the
+required result.
+
+\end{document}
