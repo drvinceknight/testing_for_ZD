@@ -7,7 +7,10 @@ def run_main(c, dir_path, processdata=False):
     """
     for directory in dir_path.glob("*"):
         print(directory)
-        command = f"cd {directory}; python main.py"
+        if (directory / "main.py").is_file():
+            command = f"cd {directory}; python main.py"
+        else:
+            command =  f"cd {directory}; latexmk --xelatex main.tex"
         if processdata:
             command += " process_data"
         c.run(command)
@@ -29,12 +32,21 @@ def tex(c):
     run_main(c, tex_path)
 
 @task
+def pdf(c):
+    """
+    Create all pdf assets
+    """
+    tex_path = pathlib.Path("./assets/pdf")
+    run_main(c, tex_path)
+
+@task
 def assets(c, processdata=False):
     """
     Create all assets
     """
     img(c, processdata=processdata)
     tex(c)
+    pdf(c)
 
 @task
 def process(c):
@@ -48,9 +60,9 @@ def process(c):
             c.run(f"cd {directory}; python main.py {tournament_type} {player_group}")
 
 @task
-def pdf(c, clean=False):
+def main(c, clean=False):
     """
-    Compile the pdf
+    Compile the main pdf
     """
     if clean:
         c.run("latexmk -c")
@@ -63,7 +75,7 @@ def build(c):
     """
     process(c)
     assets(c, processdata=True)
-    pdf(c)
+    main(c)
 
 @task
 def unpack(c):

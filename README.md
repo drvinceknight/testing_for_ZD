@@ -47,10 +47,10 @@ $ invoke process
 $ invoke assets --processdata
 ```
 
-### Build the pdf
+### Build the main pdf
 
 ```
-$ invoke pdf
+$ invoke main
 ```
 
 ### Do all of the above
