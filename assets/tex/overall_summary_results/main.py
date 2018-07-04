@@ -18,22 +18,23 @@ def main(process_data=False):
                                   "Tit For Tat",
                                   "Win-Stay Lose-Shift"]
         df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
-        df["Mean score per turn"] = df["Score"] / (parameters.TURNS *
+        df["Score per turn"] = df["Score"] / (parameters.TURNS *
                                                    parameters.REPETITIONS *
                                                    (len(player_names)))
         df["Name"] = player_names
         df["P(Win)"] = df["Win"] / (len(player_names) * parameters.REPETITIONS)
         df["Rank"] = df["Score"].rank(ascending=False).astype(int)
-        sserror = df["residual"].round(5)
-        df.sort_values("Mean score per turn", ascending=False, inplace=True)
-        df = df.round(2)
+        sserror = df["residual"].round(4)
+        df.sort_values("Score per turn", ascending=False, inplace=True)
+        df = df.round(3)
 
 
         df["SSError"] = sserror
         columns = ['Rank',
                    'Name',
-                   'Mean score per turn',
+                   'Score per turn',
                    'P(Win)',
+                   'P(CC)',
                    'P(C|CC)',
                    'P(C|CD)',
                    'P(C|DC)',
@@ -45,6 +46,7 @@ def main(process_data=False):
 
         df = df[df["Name"].isin(strategies_of_interest)][columns]
         df.rename(columns={"P(Win)": "$P($Win$)$",
+                           "P(CC)": "$P(CC)$",
                            "P(C|CC)": "$P(C|CC)$",
                            "P(C|CD)": "$P(C|CD)$",
                            "P(C|DC)": "$P(C|DC)$",
