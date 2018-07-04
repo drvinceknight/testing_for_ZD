@@ -11,6 +11,7 @@
 
 \usepackage{biblatex}
 \usepackage{pdfpages}
+\usepackage{booktabs}
 
 \bibliography{main.bib}
 
@@ -285,6 +286,21 @@ strategies.
     strategy interactions for which \(p_4=0\) and \(\chi>1\) are displayed.}
     \label{fig:SSError_and_probabilities_in_full}
 \end{figure}
+
+A detailed look at selected strategies is given in
+Table~\ref{tbl:overall_summary_results}. It can be seen that \texttt{Extort-2}
+wins many matches but does not achieve a high mean score or a high mutual
+cooperation rate (\(P(CC)\)) but it does win most of its matches.
+
+\begin{table}[!hbtp]
+    \begin{center}
+    \tiny
+    \input{./assets/tex/overall_summary_results/main.tex}
+    \end{center}
+    \caption{Summary of overall results for a selected list of strategies. The
+    transition rates are computed as an average over all matches.}
+    \label{tbl:overall_summary_results}
+\end{table}
 
 \section{Conclusion}\label{sec:conclusion}
 
