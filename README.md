@@ -7,7 +7,7 @@ All code for this work is in Python with all versions specified in
 
 ```
 $ conda env create -f environment.yml
-$ conda activate testing-zd
+$ source activate testing-zd
 ```
 
 To install specific software for this work:
