@@ -24,12 +24,12 @@ def img(c, processdata=False):
     run_main(c, img_path, processdata=processdata)
 
 @task
-def tex(c):
+def tex(c, processdata=False):
     """
     Create all tex assets
     """
     tex_path = pathlib.Path("./assets/tex")
-    run_main(c, tex_path)
+    run_main(c, tex_path, processdata=processdata)
 
 @task
 def pdf(c):
@@ -45,7 +45,7 @@ def assets(c, processdata=False):
     Create all assets
     """
     img(c, processdata=processdata)
-    tex(c)
+    tex(c, processdata=processdata)
     pdf(c)
 
 @task
