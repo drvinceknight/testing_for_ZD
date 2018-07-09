@@ -69,7 +69,7 @@ possible to recognise this extortionate behaviour? A mathematical procedure for
 suspicion is presented: in the same way that the continued actions of an
 extortionate individual might raise suspicion.
 
-This work makes use of the Axelrod Python library~\cite{Knight2018, Knight2016}
+This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 with a large number of Prisoner Dilemma strategies available to give an
 extensive numerical example of the ideas presented.  The approach is presented
 in Section~\ref{sec:delta-zd-strategies}.  All of the code and data discussed
@@ -79,7 +79,7 @@ archive can be found at~\cite{vincent_knight_2018_1297075}.
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-In~\cite{Press2012}, given a match between 2 memory-one strategies, the concept
+In~\cite{Press2012}, given a match between 2 memory one strategies, the concept
 of Zero Determinant (ZD) strategies is introduced. The main result of that paper
 shows that given two memory one players \(p, q\in\mathbb{R}^4\) a linear
 relationship between the players' scores could be forced by one of the players.
@@ -154,7 +154,7 @@ with:
                 {\tilde p_2 (P - S) + \tilde p_3 (T - P)}
 \end{equation}
 
-Given a strategy \(p\in\mathbb{R}^{4\times 1}\) equations
+Given a strategy \(p\in\mathbb{R}^{4}\) equations
 (\ref{eqn:condition_for_tilde_p4}), (\ref{eqn:planar_definition_of_extortion}-\ref{eqn:definition_of_chi}) can be used to check if
 a strategy is extortionate. The conditions correspond to:
 
@@ -192,7 +192,7 @@ and/or numerical error this would not work.
 
 This problem can be written in the following linear algebraic form where
 \(x=(\alpha, \beta)\)
-and \(p^*=(\tilde p_1 - 1, tilde_2 - 1, p_3)\):
+and \(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3)\):
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
     Cx= p^*
@@ -248,7 +248,7 @@ In~\cite{Stewart2012} results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex} strategies,
 was presented with specific consideration given to ZD strategies. This
 tournament is reproduced here using the Axelrod-Python
-project~\cite{Knight2016}. To obtain a good measure of the corresponding
+library~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
 \input{assets/tex/number_of_turns/main.tex} turns and every match has been
 repeated \input{assets/tex/number_of_repetitions/main.tex} times. All of this
@@ -314,8 +314,7 @@ cooperation rate (\(P(CC)\)) but it does win most of its matches.
 This work defines an approach to measure whether or not a player is playing a
 strategy that corresponds to an extortionate strategy as defined
 in~\cite{Press2012}: a mathematical model for suspicion. Indeed, all
-extortionate strategies have been
- classified as lying on a triangular plane.
+extortionate strategies have been classified as lying on a triangular plane.
 This rigorous classification fails to be robust to small measurement error, thus
 a statistical approach is proposed.
 This is done through a linear algebraic approach for approximating the solution
