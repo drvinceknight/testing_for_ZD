@@ -14,6 +14,8 @@ import testzd as zd
 
 default_raw_data_path = pathlib.Path("../raw/")
 
+# TODO Use computed and exact values (put both in processed data file)
+
 def main(player_group="full",
          tournament_type="std",
          raw_data_path=default_raw_data_path):

@@ -36,6 +36,9 @@ def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
         return xbar, SSError
     return (np.nan, np.nan), np.nan
 
+# TODO Write a get_least_squares which uses the exact formulation of the least
+# squares. Improve documentation for `compute_least_squares` function which will
+
 def compute_pi(p, q):
     """
     Obtain the steady state distribution for the Markov chain created by two
