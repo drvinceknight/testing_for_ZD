@@ -1,6 +1,6 @@
 """
 Script to take raw interaction data and write data files that contain the
-probabilities and delta values.
+probabilities and measures.
 """
 import pathlib
 import sys
@@ -14,7 +14,6 @@ import testzd as zd
 
 default_raw_data_path = pathlib.Path("../raw/")
 
-# TODO Use computed and exact values (put both in processed data file)
 
 def main(player_group="full",
          tournament_type="std",
@@ -64,8 +63,8 @@ def main(player_group="full",
     out_path = path / f"./{player_group}/{tournament_type}/per_opponent"
     out_path.mkdir(exist_ok=True, parents=True)
     columns = ["Player index", "Opponent index", "complete", "Score"]
-    print("Computing deltas")
-    write_probabilities_and_deltas_to_file(df,
+    print("Computing measures")
+    write_probabilities_and_measures_to_file(df,
                                            filename=str(out_path / "main.csv"),
                                            columns=columns)
 
@@ -76,13 +75,13 @@ def main(player_group="full",
     out_path = path / f"./{player_group}/{tournament_type}/overall"
     out_path.mkdir(exist_ok=True, parents=True)
     columns = ["Player index", "complete", "Score", "Win"]
-    write_probabilities_and_deltas_to_file(df,
+    write_probabilities_and_measures_to_file(df,
                                            filename=str(out_path / "main.csv"),
                                            columns=columns)
 
 
 
-def write_probabilities_and_deltas_to_file(df, filename, columns):
+def write_probabilities_and_measures_to_file(df, filename, columns):
     state_counts = ["CC count", "CD count", "DC count", "DD count"]
     df["complete"] = df[state_counts].min(axis=1) > 0
     probabilities = []
@@ -101,15 +100,26 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
     residuals = []
     alphas = []
     betas = []
+    computed_residuals = []
+    computed_alphas = []
+    computed_betas = []
     number_of_rows = df.shape[0]
     for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):
         p = row[probabilities].values.astype('float64')
-        xbar, residual = zd.compute_least_squares(p)
+
+        xbar, residual = zd.get_least_squares(p)
+        computed_xbar, computed_residual = zd.get_least_squares(p)
+
         alpha, beta = xbar
+        computed_alpha, computed_beta = xbar
 
         residuals.append(residual)
         alphas.append(alpha)
         betas.append(beta)
+
+        computed_residuals.append(computed_residual)
+        computed_alphas.append(computed_alpha)
+        computed_betas.append(computed_beta)
 
     df["residual"] = residuals
     columns.append("residual")
@@ -122,6 +132,18 @@ def write_probabilities_and_deltas_to_file(df, filename, columns):
 
     df["chi"] = -df["beta"] / df["alpha"]
     columns.append("chi")
+
+    df["computed_residual"] = computed_residuals
+    columns.append("computed_residual")
+
+    df["computed_alpha"] = computed_alphas
+    columns.append("computed_alpha")
+
+    df["computed_beta"] = computed_betas
+    columns.append("computed_beta")
+
+    df["computed_chi"] = -df["computed_beta"] / df["computed_alpha"]
+    columns.append("computed_chi")
 
     df[columns].to_csv(filename, index=False)
 
