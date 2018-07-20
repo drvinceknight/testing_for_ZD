@@ -230,6 +230,22 @@ as \(\text{SSError}\):
     \text{SSError} = \|C x^*- p^*\|_2^2
 \end{equation}
 
+Using equation (\ref{eqn:definition_of_C}) an expression for  \(\text{SSError}\)
+and the corresponding \(\alpha, \beta\) can be obtained, the algebraic steps
+necessary are available in the supporting materials. Using this, for a given
+measured set of values \(p^*\), equations
+(\ref{eqn:condition_for_p1})-(\ref{eqn:condition_for_chi}) correspond to:
+
+\begin{align}
+    \text{SSError}   & =
+        \frac{\left(p_1^* (2P-S-T) + (R-P)(p_2^* + p_3^*)\right) ^ 2}
+             {6P^2 - 4PR -4PS -4PT + 2R^2 + (S + T) ^2}
+             \label{eqn:measured_SSError}\\
+    p_4^*            & = 0 \label{eqn:measured_condition_for_p4}\\
+    p_1^*            & < -\frac{(p^*_2 + p^*_3)(2P - S - T)}{2(P - R)}
+             \label{eqn:measured_condition_for_chi}
+\end{align}
+
 Note that \(\text{SSError}\), which is the square of the Frobenius
 norm~\cite{Golub2013}, can be considered as measure of how close a strategy is
 to being an extortionate strategy. Suspicion of extortion then corresponds to a
@@ -406,6 +422,7 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 \section*{Supplementary materials}
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
+\includepdf{assets/pdf/proof_of_optimal_values_of_SS_alpha_and_beta/main.pdf}
 
 \newpage
 

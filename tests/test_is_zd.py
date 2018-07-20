@@ -2,6 +2,27 @@ import numpy as np
 
 import testzd as zd
 
+def test_get_least_squares():
+    p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
+    xbar, residual = zd.get_least_squares(p)
+    assert np.isclose(residual, 0)
+    assert np.isclose(xbar[0], 0.055555555555555525)
+    assert np.isclose(xbar[1], -0.11111111111111113)
+
+def test_get_least_squares_with_high_residual():
+    p = np.array([0, 1 / 2, 1 / 3, 0])
+    xbar, residual = zd.get_least_squares(p)
+    assert np.isclose(residual, 0.41830065359477125)
+    assert np.isclose(xbar[0], -0.04901960784313727)
+    assert np.isclose(xbar[1], -0.2156862745098039)
+
+def test_get_least_squares_with_missing_values():
+    p = np.array([8 / 9, 1, 1 / 3, np.nan])
+    xbar, residual = zd.get_least_squares(p)
+    assert np.isnan(residual)
+    assert np.isnan(xbar[0])
+    assert np.isnan(xbar[1])
+
 def test_compute_least_squares():
     p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
     xbar, residual = zd.compute_least_squares(p)

@@ -1,0 +1,95 @@
+\documentclass[a4]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[margin=1.5cm,
+            includefoot,
+            footskip=30pt]{geometry}
+
+\title{Proof of optimal values of \(\text{SSError}\)}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+We start by obtaining an expression for \(\text{SSError}\) in terms of \(\alpha,
+\beta\) and a measured \(\|C x- p^*\|_2^2\) where \(x=(\alpha, \beta)\):
+
+\begin{equation}
+ \|C x- p^*\|_2^2 = (-P(\alpha + \beta) + R\alpha + R\beta - p^*_1)^2 +
+ (-P(\alpha + \beta) + S\alpha + T\beta - p^*_2)^2 + (-P(\alpha + \beta) +
+ S\beta + T\alpha - p^*_3) ^ 2
+ \label{eqn:error}
+\end{equation}
+
+In order to find \(\text{SSError}\) we need to optimise the above in terms of
+\(\alpha, \beta\).
+
+Differentiating (\ref{eqn:error}), with respect to \(\alpha\) and equating to 0
+we obtain following value for \(\alpha\):
+
+\begin{equation}
+    \alpha = \frac{-3P^2\beta + 2PR\beta + 2PS\beta + 2PT\beta - Pp^*_1 - Pp^*_2
+    - Pp^*_3 - R^2\beta + Rp^*_1 - 2ST\beta + Sp^*_2 +
+Tp^*_3}{3P^2 - 2PR - 2PS - 2PT + R^2 + S^2 + T^2}
+    \label{eqn:alpha}
+\end{equation}
+
+Differentiating (\ref{eqn:error}), with respect to \(\beta\) and equating to 0,
+and substituting (\ref{eqn:alpha}) we obtain the following value for \(\beta\):
+
+\begin{equation}
+    \tiny{
+    \beta = \frac{-3P^2p^*_2 + 3P^2p^*_3 + 2PRp^*_2 - 2PRp^*_3 - PSp^*_1 + PSp^*_2
+        - 3PSp^*_3 + PTp^*_1 + 3PTp^*_2 - PTp^*_3 - R^2p^*_2 + R^2p^*_3 + RSp^*_1
+        - RTp^*_1 + S^2p^*_3 - STp^*_2 + STp^*_3 - T^2p^*_2}{(S - T)(6P^2 - 4PR -
+    4PS - 4PT + 2R^2 + S^2 + 2ST + T^2)}
+}
+    \label{eqn:opt_beta}
+\end{equation}
+
+Substituting this back in to (\ref{eqn:alpha}) we obtain:
+
+\begin{equation}
+    \tiny
+    {
+    \alpha = \frac{3P^2p^*_2 - 3P^2p^*_3 - 2PRp^*_2 + 2PRp^*_3 - PSp^*_1 -
+        3PSp^*_2 + PSp^*_3 + PTp^*_1 - PTp^*_2 + 3PTp^*_3 + R^2p^*_2 - R^2p^*_3 +
+        RSp^*_1 - RTp^*_1 + S^2p^*_2 + STp^*_2 - STp^*_3 - T2p^*_3}{6P^2S - 6P^2T -
+    4PRS + 4PRT - 4PS^2 + 4PT^2 + 2R^2S - 2R^2T + S^3 + S^2T - ST^2 - T^3}
+}
+    \label{eqn:opt_alpha}
+\end{equation}
+
+Substituting (\ref{eqn:opt_beta}-\ref{eqn:opt_alpha}) in to (\ref{eqn:error})
+gives the required expression for \(\text{SSError}\).
+
+The condition \(\chi > 1\) corresponds to \(-\beta > \alpha\):
+
+\begin{equation}
+    -\beta - \alpha = \frac{2p^*_1(P - R) + (p^*_2 + p^*_3)(2P - S - T)}{6P^2 -
+    4PR - 4PS - 4PT + 2R^2 + S^2 + 2ST + T^2}
+    \label{eqn:constraint}
+\end{equation}
+
+However, the denominator of (\ref{eqn:constraint}) is positive as:
+
+\begin{align}
+(6P^2 - 4PR - 4PS - 4PT + 2R^2 + S^2 + 2ST + T^2) = 
+        (T -2P - S  - \sqrt{2}i(P - R))(T-2P - S + \sqrt{2}i(P - R))
+\end{align}
+
+so it is a quadratic in \(T\) with no
+real roots and leading coefficient \(1\).
+So \(\chi>1\) corresponds to:
+
+\begin{equation}
+(2p^*_1(P - R) + (p^*_2 + p^*_3)(2P - S - T)) > 0
+\end{equation}
+
+which gives to the required expression because
+\(2(P-R)<0\) by the definition of the Prisoner's Dilemma.
+
+\end{document}

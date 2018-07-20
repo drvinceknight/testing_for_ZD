@@ -89,7 +89,7 @@ def get(c):
     """
     Download the data from the online archive
     """
-    c.run("wget https://zenodo.org/record/1297075/files/raw.tar.gz?download=1 -O raw.tar.gz")
+    c.run("wget https://zenodo.org/record/1317619/files/raw.tar.gz?download=1 -O raw.tar.gz")
 
 @task
 def data(c):
