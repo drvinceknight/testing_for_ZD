@@ -40,7 +40,7 @@ def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
 
 def get_least_squares(p, rstp=np.array([3, 0, 5, 1])):
     """
-    Compute the solution via a least squares minimisation problem.
+    Obtain the least squares directly
 
     Returns:
 
