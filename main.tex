@@ -427,43 +427,7 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
 \includepdf{assets/pdf/proof_of_optimal_values_of_SS_alpha_and_beta/main.pdf}
-
-\newpage
-
-Using the pair wise interactions the transition rates \(p,
-q\) can be measured and the steady state probabilities inferred and compared to
-the actual probabilities of each state.
-This is done numerically by computing the singular eigenvector of the
-matrix \(A\) \cite{Stewart2009}:
-
-\[
-    A =
-    \begin{bmatrix}
-        p_1 q_1 & p_1 (1 - q_1) & (1 - p_1) q_1 & (1 -p_1) (1 - q_1) \\
-        p_2 q_2 & p_2 (1 - q_2) & (1 - p_2) q_2 & (1 -p_2) (1 - q_2) \\
-        p_3 q_3 & p_3 (1 - q_3) & (1 - p_3) q_3 & (1 -p_3) (1 - q_3) \\
-        p_4 q_4 & p_4 (1 - q_4) & (1 - p_4) q_4 & (1 -p_4) (1 - q_4) \\
-    \end{bmatrix}
-\]
-
-Figure~\ref{fig:computed_probabilities_vs_theoretic_probabilities} shows a
-regression line fitted to every pairwise interaction with a reported
-\(\text{SSError}\) value (pairwise interactions with missing states were
-omitted). This serves to validate the approach: a part from some edge cases the
-relationship is consistent.
-
-\begin{figure}[!htbp]
-    \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/computed_probabilities_vs_theoretic_probabilities/main.pdf}
-    \caption{The
-        relationship between the steady state probabilities inferred from the
-        measured transitions and the actual steady state probabilities. A linear
-        regression line is included validating the approach.}
-    \label{fig:computed_probabilities_vs_theoretic_probabilities}
-\end{figure}
-
-\newpage
-
+\includepdf{assets/pdf/comparison_of_state_probabilities/main.pdf}
 \includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
 
 \end{document}
