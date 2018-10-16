@@ -108,7 +108,7 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
         p = row[probabilities].values.astype('float64')
 
         xbar, residual = zd.get_least_squares(p)
-        computed_xbar, computed_residual = zd.get_least_squares(p)
+        computed_xbar, computed_residual = zd.compute_least_squares(p)
 
         alpha, beta = xbar
         computed_alpha, computed_beta = xbar
