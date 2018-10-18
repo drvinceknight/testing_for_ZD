@@ -43,7 +43,7 @@ def main(process_data=False):
                                 key=lambda index: -df[column].iloc[index])
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_xlabel("Strategies")
-        ax.set_ylabel(r"SSError")
+        ax.set_ylabel("SSerror$")
         ax.legend()
         ax.set_xticks(range(1, len(sorted_players) + 1))
         ax.set_xticklabels(sorted_players, rotation='vertical')

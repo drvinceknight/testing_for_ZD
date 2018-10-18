@@ -76,7 +76,7 @@ def main(process_data=False):
 
 
         axarr[i, 0].imshow(sse_error_array)
-        axarr[i, 0].set_title("SSError")
+        axarr[i, 0].set_title("SSerror")
         axarr[i, 0].set_xlabel(f"Ranks by {column}")
         axarr[i, 0].set_ylabel(f"Ranks by {column}")
         fig.tight_layout()
