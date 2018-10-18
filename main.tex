@@ -17,7 +17,7 @@
 
 \title{Suspicion: Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
-\author{Vincent A. Knight \and Nikoleta E. Glynatsi}
+\author{Vincent A. Knight \and Nikoleta E. Glynatsi \and Jonathan Gillard}
 \date{\today}
 
 
@@ -39,7 +39,8 @@
     strategies can ``extort'' any player.
 
     In this work, an approach to identify if observed strategies are playing in
-    an extortionate way is described. Furthermore, experimental analysis of a
+    an extortionate way is described. This corresponds to a mathematical model
+    of suspicion. Furthermore, experimental analysis of a
     large tournament with
     \input{assets/tex/number_of_full_strategies/main.tex}strategies is
     considered. In this setting the most highly performing strategies do not
@@ -160,8 +161,8 @@ with:
 \end{equation}
 
 Given a strategy \(p\in\mathbb{R}^{4}\) equations
-(\ref{eqn:condition_for_tilde_p4}), (\ref{eqn:planar_definition_of_extortion}-\ref{eqn:definition_of_chi}) can be used to check if
-a strategy is extortionate. The conditions correspond to:
+(\ref{eqn:condition_for_tilde_p4}-\ref{eqn:definition_of_chi}) can be used to
+check if a strategy is extortionate. The conditions correspond to:
 
 \begin{align}
     p_1 & = \frac{(R-P)(p_2 + p_3) - R + T + S - P}{S + T - 2P}
@@ -221,20 +222,20 @@ given by:
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
 a solution it is unique as \(\text{rank}(C)=2\) which is the dimension of the
-variable \(x\). Letting \(f(x)=\|C x- p^*\|_2^2\), the best fitting \(x^*\) is
+variable \(x\). The best fitting \(x^*\) is
 defined by:
 
 \begin{equation}\label{eqn:x_star}
-    x^* = \text{argmin}_{x}f(x)
+    x^* = \text{argmin}_{x}\|C x- p^*\|_2^2
 \end{equation}
 
 The remaining error is referred to as \(\text{SS}_{\text{error}}\):
 
 \begin{equation}\label{eqn:r_squared}
-    \text{SS}_{\text{error}} = f(x^*)
-\end{equation}
+    \text{SS}_{\text{error}} = \|C x^*- p^*\|_2^2\end{equation}
 
-Known results~\cite{} can now be applied:  % TODO Include reference text
+Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} can
+now be applied:
 
 \begin{equation}\label{eqn:x_star_formula}
     x^* = \left(C^TC\right)^{-1}C^Tp^*
@@ -249,11 +250,13 @@ become:
     -x^*_2 & < x^*_1 \label{eqn:measured_condition_for_chi}
 \end{align}
 
-A further known result~\cite{} gives an expression for % TODO Include reference text
+A further known result~~\cite{kutner2004applied, rao1973linear,
+wakefield2013bayesian} gives an expression for
 \(\text{SS}_{\text{error}}\):
 
 \begin{equation}\label{eqn:x_SSError_formula}
-    \text{SS}_{\text{error}} = {p ^ *} ^ T p ^ * - p ^ * C \left(C ^ T C \right) C ^ T p ^ *
+    \text{SS}_{\text{error}} = {p ^ *} ^ T p ^ * -
+                               p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
 \end{equation}
 
 Note that \(\text{SS}_{\text{error}}\), which is the square of the Frobenius
@@ -284,14 +287,17 @@ library~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
 \input{assets/tex/number_of_turns/main.tex} turns and every match has been
 repeated \input{assets/tex/number_of_repetitions/main.tex} times. All of this
-interaction data is available at~\cite{vincent_knight_2018_1297075}. A good
+interaction data is available at~\cite{vincent_knight_2018_1297075}. Note that
+in the interest of open scientific practice~\cite{vincent_knight_2018_1297075}
+also contains interaction data for noisy and probabilistic ending interactions
+which are not investigated here. A good
 match between the inferred Markov chain and the state distribution of the actual
 interactions has been verified. Data for this is presented in the supplementary
 materials.
 
-Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the \(\text{SS}_{\text{error}}\)
-values for all the strategies in the tournament, as reported
-in~\cite{Stewart2012} the extortionate strategy (which has an expected
+Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the
+\(\text{SS}_{\text{error}}\) values for all the strategies in the tournament, as
+reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
 \(\text{SS}_{\text{error}}\) approximately 0) gains a large number of wins.
 
 \begin{figure}[!htbp]
@@ -321,8 +327,9 @@ strategies.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
-    \caption{\(\text{SS}_{\text{error}}\) for the strategies for the full tournament. Only
-    strategy interactions for which \(p_4=0\) and \(\chi>1\) are displayed.}
+    \caption{\(\text{SS}_{\text{error}}\) for the strategies for the full
+    tournament. Only strategy interactions for which \(p_4=0\) and \(\chi>1\)
+    are displayed.}
     \label{fig:SSError_and_probabilities_in_full}
 \end{figure}
 
@@ -397,18 +404,19 @@ Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
     \label{fig:replicator_dynamics}
 \end{figure}
 
-This work can be used to classify plays of the IPD\@: data can be collected from
-actual interactions (in lab or in the field). Furthermore, this allows for a
-classification method similar to the notion of fingerprinting presented
-in~\cite{Ashlock2008}. Trained strategies can potentially be classified as
-extortionate or not or it could be possible to even constrain the reinforcement
-learning approaches that are becoming prevalent in the literature.
-Alternatively, this mathematical approach for recognising extortion could be
-used in sophisticated strategies to defend against invasion. Arguably, some of
-the strategies considered here exhibit this behaviour, indeed as described
-in~\cite{Harper2017}, the top ranking strategies in the full tournament are
-obtained using evolutionary reinforcement learning techniques, thus, suspicion
-of extortionate behaviour could in fact be an evolutionary trait.
+As well as demonstrating a theoretic process of suspicion, this work can be used
+to classify plays of the IPD\@: data can be collected from actual interactions
+(in lab or in the field). Furthermore, this allows for a classification method
+similar to the notion of fingerprinting presented in~\cite{Ashlock2008}. Trained
+strategies can be classified as extortionate or not. It could be
+possible to even constrain the reinforcement learning approaches that are
+becoming prevalent in the literature.  Alternatively, this mathematical approach
+for recognising extortion could be used in sophisticated strategies to defend
+against invasion. Arguably, some of the strategies considered here exhibit this
+behaviour, indeed as described in~\cite{Harper2017}, the top ranking strategies
+in the full tournament are obtained using evolutionary reinforcement learning
+techniques, thus, suspicion of extortionate behaviour could in fact be an
+evolutionary trait.
 
 \section*{Acknowledgements}
 
