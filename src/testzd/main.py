@@ -11,10 +11,12 @@ def is_ZD(p, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
         expected_tilde_p1 = (
             P * tilde_p[1] + P * tilde_p[2] - R * tilde_p[1] - R * tilde_p[2]
         ) / (2 * P - S - T)
-        chi = (P * tilde_p[1] - P * tilde_p[2] + S * tilde_p[2] - T * tilde_p[1]) / (
-            P * tilde_p[1] - P * tilde_p[2] - S * tilde_p[1] + T * tilde_p[2]
+        chi = (
+            P * tilde_p[1] - P * tilde_p[2] + S * tilde_p[2] - T * tilde_p[1]
+        ) / (P * tilde_p[1] - P * tilde_p[2] - S * tilde_p[1] + T * tilde_p[2])
+        return (
+            np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
         )
-        return np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
     return True
 
 
@@ -51,89 +53,19 @@ def get_least_squares(p, rstp=np.array([3, 0, 5, 1])):
         R, S, T, P = rstp
         C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
         tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
-        alpha = (
-            3 * P ** 2 * tilde_p[1]
-            - 3 * P ** 2 * tilde_p[2]
-            - 2 * P * R * tilde_p[1]
-            + 2 * P * R * tilde_p[2]
-            - P * S * tilde_p[0]
-            - 3 * P * S * tilde_p[1]
-            + P * S * tilde_p[2]
-            + P * T * tilde_p[0]
-            - P * T * tilde_p[1]
-            + 3 * P * T * tilde_p[2]
-            + R ** 2 * tilde_p[1]
-            - R ** 2 * tilde_p[2]
-            + R * S * tilde_p[0]
-            - R * T * tilde_p[0]
-            + S ** 2 * tilde_p[1]
-            + S * T * tilde_p[1]
-            - S * T * tilde_p[2]
-            - T ** 2 * tilde_p[2]
-        ) / (
-            6 * P ** 2 * S
-            - 6 * P ** 2 * T
-            - 4 * P * R * S
-            + 4 * P * R * T
-            - 4 * P * S ** 2
-            + 4 * P * T ** 2
-            + 2 * R ** 2 * S
-            - 2 * R ** 2 * T
-            + S ** 3
-            + S ** 2 * T
-            - S * T ** 2
-            - T ** 3
+        xbar = np.dot(
+            np.dot(np.linalg.inv(np.dot(C.transpose(), C)), C.transpose()),
+            tilde_p,
         )
-        beta = (
-            -3 * P ** 2 * tilde_p[1]
-            + 3 * P ** 2 * tilde_p[2]
-            + 2 * P * R * tilde_p[1]
-            - 2 * P * R * tilde_p[2]
-            - P * S * tilde_p[0]
-            + P * S * tilde_p[1]
-            - 3 * P * S * tilde_p[2]
-            + P * T * tilde_p[0]
-            + 3 * P * T * tilde_p[1]
-            - P * T * tilde_p[2]
-            - R ** 2 * tilde_p[1]
-            + R ** 2 * tilde_p[2]
-            + R * S * tilde_p[0]
-            - R * T * tilde_p[0]
-            + S ** 2 * tilde_p[2]
-            - S * T * tilde_p[1]
-            + S * T * tilde_p[2]
-            - T ** 2 * tilde_p[1]
-        ) / (
-            (S - T)
-            * (
-                6 * P ** 2
-                - 4 * P * R
-                - 4 * P * S
-                - 4 * P * T
-                + 2 * R ** 2
-                + S ** 2
-                + 2 * S * T
-                + T ** 2
-            )
-        )
-        xbar = np.array([alpha, beta])
-        SSError = (
-            2 * P * tilde_p[0]
-            - P * tilde_p[1]
-            - P * tilde_p[2]
-            + R * tilde_p[1]
-            + R * tilde_p[2]
-            - S * tilde_p[0]
-            - T * tilde_p[0]
-        ) ** 2 / (
-            6 * P ** 2
-            - 4 * P * R
-            - 4 * P * S
-            - 4 * P * T
-            + 2 * R ** 2
-            + S ** 2
-            + 2 * S * T
-            + T ** 2
+        SSError = np.dot(tilde_p.transpose(), tilde_p) - np.dot(
+            np.dot(
+                tilde_p.transpose(),
+                np.dot(
+                    np.dot(C, (np.linalg.inv(np.dot(C.transpose(), C)))),
+                    C.transpose(),
+                ),
+            ),
+            tilde_p,
         )
         return xbar, SSError
     return (np.nan, np.nan), np.nan
@@ -148,7 +80,12 @@ def compute_pi(p, q):
     assert q.shape == (4,)
     A = np.array(
         [
-            [p[i] * q[j], p[i] * (1 - q[j]), (1 - p[i]) * q[j], (1 - p[i]) * (1 - q[j])]
+            [
+                p[i] * q[j],
+                p[i] * (1 - q[j]),
+                (1 - p[i]) * q[j],
+                (1 - p[i]) * (1 - q[j]),
+            ]
             for (i, j) in ((0, 0), (1, 2), (2, 1), (3, 3))
         ]
     )
