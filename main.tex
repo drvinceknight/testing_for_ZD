@@ -62,13 +62,13 @@ immediate utility in the hope of building a reputation. This has been used in
 economic and evolutionary game theory to understand the evolution of cooperative
 behaviour.
 
-Recently, a class of strategies was described in~\cite{Press2012} that can
-provably extort any given opponent. In~\cite{Hilbe2013, Moran1707} some
-questions have already been asked about the true effectiveness of these
-strategies in an evolutionary setting. Here another question is asked: is it
-possible to recognise this extortionate behaviour? A mathematical procedure for
-suspicion is presented: in the same way that the continued actions of an
-extortionate individual might raise suspicion.
+In~\cite{Press2012} a class of strategies that can provably extort any given
+opponent was described. In~\cite{Hilbe2013, Moran1707} some questions have
+already been asked about the true effectiveness of these strategies in an
+evolutionary setting. Here another question is asked: is it possible to
+recognise this extortionate behaviour? A mathematical procedure for suspicion is
+presented: this reflects the way that the continued actions of an extortionate
+individual might raise suspicion.
 
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 with a large number of Prisoner Dilemma strategies available to give an
@@ -89,9 +89,9 @@ of~\cite{Press2012} is that given two memory one players \(p,
 q\in\mathbb{R}^4\), a linear relationship between the players' scores can be
 forced by one of the players.
 
-Using the notation of~\cite{Press2012}, assuming the utilities for player \(p\)
+Using the notation of~\cite{Press2012}, the utilities for player \(p\)
 are given by \(S_x=(R, S, T, P)\) and for player \(q\) by \(S_y=(R, T, S, P)\)
-and that the stationary scores of each player is given by \(S_X\) and \(S_Y\)
+and the stationary scores of each player are given by \(S_X\) and \(S_Y\)
 respectively. The main result of~\cite{Press2012} is that if
 
 \begin{equation}\label{eqn:linear_relationship_for_p}
@@ -222,23 +222,24 @@ given by:
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
 a solution it is unique as \(\text{rank}(C)=2\) which is the dimension of the
-variable \(x\). The best fitting \(x^*\) is
-defined by:
+variable \(x\). The best fitting \(x^*\) is defined by:
 
 \begin{equation}\label{eqn:x_star}
     x^* = \text{argmin}_{x}\|C x- p^*\|_2^2
 \end{equation}
-
-The remaining error is referred to as \(\text{SS}_{\text{error}}\):
-
-\begin{equation}\label{eqn:r_squared}
-    \text{SS}_{\text{error}} = \|C x^*- p^*\|_2^2\end{equation}
 
 Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} can
 now be applied:
 
 \begin{equation}\label{eqn:x_star_formula}
     x^* = \left(C^TC\right)^{-1}C^Tp^*
+\end{equation}
+
+The squared norm of the remaining error is referred to as
+\(\text{SS}_{\text{error}}\):
+
+\begin{equation}\label{eqn:r_squared}
+    \text{SS}_{\text{error}} = \|C x^*- p^*\|_2^2
 \end{equation}
 
 This gives expressions for \(\alpha, \beta\) as \(\alpha=x^*_1\) and
@@ -259,23 +260,17 @@ wakefield2013bayesian} gives an expression for
                                p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
 \end{equation}
 
-Note that \(\text{SS}_{\text{error}}\), which is the square of the Frobenius
-norm~\cite{Golub2013}, can be considered as measure of how close a strategy is
-to being an extortionate strategy. Suspicion of extortion then corresponds to a
-threshold on \(\text{SS}_{\text{error}}\).
 
 By observing interactions (human or otherwise), their memory one representation
 can be inferred and if
 (\ref{eqn:measured_condition_for_p4}-\ref{eqn:measured_condition_for_chi}) hold
 then (\ref{eqn:x_SSError_formula}) can be used to identify if a strategy is
-acting extortionately. The
-notion of comparing theoretic and actual plays of the IPD is not novel, see for
-example~\cite{Rand2013}. It is noted that if the environment is
-noisy~\cite{Wu1995} then no strategy can be considered to be extortionate as
-\(p_4>0\).
+acting extortionately. Suspicion of extortion then corresponds to a threshold
+on \(\text{SS}_{\text{error}}\). Comparing theoretic and actual plays of the
+IPD is not novel, see for example~\cite{Rand2013}.
 
 In the next section, this idea will be illustrated by observing the interactions
-that take place in a computer based tournament of the IPD\@.
+that take place in a large computer based tournament of the IPD\@.
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
@@ -285,10 +280,10 @@ was presented with specific consideration given to ZD strategies. This
 tournament is reproduced here using the Axelrod-Python
 library~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
-\input{assets/tex/number_of_turns/main.tex} turns and every match has been
-repeated \input{assets/tex/number_of_repetitions/main.tex} times. All of this
+\input{assets/tex/number_of_turns/main.tex}turns and every match has been
+repeated \input{assets/tex/number_of_repetitions/main.tex}times. All of this
 interaction data is available at~\cite{vincent_knight_2018_1297075}. Note that
-in the interest of open scientific practice~\cite{vincent_knight_2018_1297075}
+in the interest of open scientific practice, \cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
 which are not investigated here. A good
 match between the inferred Markov chain and the state distribution of the actual
@@ -305,31 +300,26 @@ reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_overall_in_stewart_plotkin/main.pdf}
     \caption{\(\text{SS}_{\text{error}}\) and state probabilities for the strategies
         of~\cite{Stewart2012}, ordered both by number of wins and overall score.
-        Note that \(P(DC)\) is not shown as it corresponds to the transpose of
-        \(P(CD)\). Cooperator and Defector are omitted as they do not visit all
-        the states.}
-    \label{fig:SSError_overall_in_stewart_plotkin}
+        }
 \end{figure}
 
 Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
-with \input{assets/tex/number_of_full_strategies/main.tex}
-strategies.
-
-The results of this analysis are shown in
+with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
+results of this analysis are shown in
 Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
 by number of wins seem to be extortionate (but not against all strategies) and
 it can be seen that a small sub group of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
-do not extort each other, however they
-\textbf{do} exhibit extortionate behaviour towards a number of the lower ranking
-strategies.
+do not extort each other, however they \textbf{do} exhibit extortionate
+behaviour towards a number of the lower ranking strategies.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
     \caption{\(\text{SS}_{\text{error}}\) for the strategies for the full
     tournament. Only strategy interactions for which \(p_4=0\) and \(\chi>1\)
-    are displayed.}
+    are displayed. Note that \(P(DC)\) is not shown as it corresponds to the
+    transpose of \(P(CD)\).}
     \label{fig:SSError_and_probabilities_in_full}
 \end{figure}
 
@@ -352,26 +342,24 @@ cooperation rate (\(P(CC)\)) but it does win most of its matches.
 
 This work defines an approach to measure whether or not a player is playing a
 strategy that corresponds to an extortionate strategy as defined
-in~\cite{Press2012}: a mathematical model for suspicion. Indeed, all
-extortionate strategies have been classified as lying on a triangular plane.
-This rigorous classification fails to be robust to small measurement error, thus
-a statistical approach is proposed.
-This is done through a linear algebraic approach for approximating the solution
-of a linear system. Using this, a large number of pairwise interactions is
-simulated and in fact very few strategies are found to act extortionately.
+in~\cite{Press2012}: a mathematical model for suspicion. All extortionate
+strategies have been classified as lying on a triangular plane.  This rigorous
+classification fails to be robust to small measurement error, thus a statistical
+approach is proposed approximating the solution of a linear system. Using this,
+a large number of pairwise interactions is simulated and in fact very few
+strategies are found to act extortionately.
 
 The work of~\cite{Press2012}, whilst showing that a clever approach to taking
-advantage of another memory one strategy exists: this is incomplete. Whilst the
-elegance of this result is very attractive, just as the simplicity of the
-victory of Tit For Tat in Axelrod's original tournaments was, it is incomplete.
-Extortionate strategies achieve a high number of wins but they do not
-achieve a high score which corresponds to the fitness landscape in an
+advantage of another memory one strategy exists: this is not the full story.
+Whilst the elegance of this result is very attractive, just as the simplicity of
+the victory of Tit For Tat in Axelrod's original tournaments was, it is
+incomplete.  Extortionate strategies achieve a high number of wins but they do
+not achieve a high score which corresponds to the fitness landscape in an
 evolutionary sense. From the large number of interactions a payoff matrix \(S\)
 can be measured where \(S_{ij}\) denotes the score (using standard values of
-\((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy
-against the \(j\)th strategy. Using this, the replicator equation
-describes the evolution of the system based on a population density fitness
-function:
+\((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy against the \(j\)th
+strategy. Using this, the replicator equation describes the evolution of the
+system based on a population density fitness function:
 
 \begin{equation}\label{eqn:replicator_dynamics}
     \frac{dx}{dt} = x(S-x^TS x)
@@ -404,19 +392,16 @@ Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
     \label{fig:replicator_dynamics}
 \end{figure}
 
-As well as demonstrating a theoretic process of suspicion, this work can be used
-to classify plays of the IPD\@: data can be collected from actual interactions
-(in lab or in the field). Furthermore, this allows for a classification method
-similar to the notion of fingerprinting presented in~\cite{Ashlock2008}. Trained
-strategies can be classified as extortionate or not. It could be
-possible to even constrain the reinforcement learning approaches that are
-becoming prevalent in the literature.  Alternatively, this mathematical approach
-for recognising extortion could be used in sophisticated strategies to defend
-against invasion. Arguably, some of the strategies considered here exhibit this
-behaviour, indeed as described in~\cite{Harper2017}, the top ranking strategies
-in the full tournament are obtained using evolutionary reinforcement learning
-techniques, thus, suspicion of extortionate behaviour could in fact be an
-evolutionary trait.
+Following Axelrod's seminal work~\cite{Axelrod1980, Axelrod1980a}, it was
+commonly thought that evolutionary cooperation required strategies that followed
+a simple set of rules. The discover/definition of extortionate
+strategies~\cite{Press2012} seemingly showed that simple strategies could be
+taken advantage of. In this manuscript it has been shown that not only is it
+possible to be suspicious of extortionate strategies but that more complex
+strategies can be evolutionary stable. The complex strategies in question were
+obtained through reinforcement learning approaches~\cite{Harper2017, Moran1707}.
+Thus, this work demonstrates the possibility for the evolution of cooperation
+through suspicion.
 
 \section*{Acknowledgements}
 
