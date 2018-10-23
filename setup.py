@@ -5,10 +5,10 @@ from setuptools import setup, find_packages
 requirements = ["numpy"]
 
 setup(
-    name='testzd',
+    name="testzd",
     version="0.0.1",
     install_requires=requirements,
-    packages=find_packages('src'),
+    packages=find_packages("src"),
     package_dir={"": "src"},
-    description='Code to test if a strategy is Zero determinant',
+    description="Code to test if a strategy is Zero determinant",
 )

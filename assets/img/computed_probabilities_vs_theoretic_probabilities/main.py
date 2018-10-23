@@ -13,8 +13,8 @@ import imp
 
 import testzd as zd
 
-parameters = imp.load_source('parameters',
-                             '../../../data/raw/parameters.py')
+parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
+
 
 def main(process_data):
 
@@ -23,9 +23,15 @@ def main(process_data):
         probabilities = ["P(CC)", "P(CD)", "P(DC)", "P(DD)"]
 
         df = pd.concat(
-            (pd.read_csv("../../../data/processed/full/std/per_opponent/main.csv"),
-             pd.read_csv("../../../data/processed/stewart_plotkin/std/per_opponent/main.csv"))
-                )
+            (
+                pd.read_csv(
+                    "../../../data/processed/full/std/per_opponent/main.csv"
+                ),
+                pd.read_csv(
+                    "../../../data/processed/stewart_plotkin/std/per_opponent/main.csv"
+                ),
+            )
+        )
 
         player_pair_vectors = {}
         player_pair_probabilities = {}
@@ -53,37 +59,42 @@ def main(process_data):
                 pi = [np.nan, np.nan, np.nan, np.nan]
             data.append([i, j, *pi, *player_pair_probabilities[i, j]])
 
-        df = pd.DataFrame(data, columns=["Player index",
-                                         "Opponent index",
-                                         "theoretic P(CC)",
-                                         "theoretic P(CD)",
-                                         "theoretic P(DC)",
-                                         "theoretic P(DD)",
-                                         "P(CC)",
-                                         "P(CD)",
-                                         "P(DC)",
-                                         "P(DD)",
-                                        ])
+        df = pd.DataFrame(
+            data,
+            columns=[
+                "Player index",
+                "Opponent index",
+                "theoretic P(CC)",
+                "theoretic P(CD)",
+                "theoretic P(DC)",
+                "theoretic P(DD)",
+                "P(CC)",
+                "P(CD)",
+                "P(DC)",
+                "P(DD)",
+            ],
+        )
 
         df.dropna(inplace=True)
         df.to_csv("main.csv", index=False)
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(nrows=2, ncols=2,
-                              sharex='col', sharey='row')
-    index = (np.isfinite(df["P(CC)"]) &
-             np.isfinite(df["P(CD)"]) &
-             np.isfinite(df["P(DC)"]) &
-             np.isfinite(df["P(DD)"]) &
-             (df[f"theoretic P(CC)"] >= 0) &
-             (df[f"theoretic P(CC)"] <= 1) &
-             (df[f"theoretic P(CD)"] >= 0) &
-             (df[f"theoretic P(CD)"] <= 1) &
-             (df[f"theoretic P(DC)"] >= 0) &
-             (df[f"theoretic P(DC)"] <= 1) &
-             (df[f"theoretic P(DD)"] >= 0) &
-             (df[f"theoretic P(DD)"] <= 1))
+    fig, axarr = plt.subplots(nrows=2, ncols=2, sharex="col", sharey="row")
+    index = (
+        np.isfinite(df["P(CC)"])
+        & np.isfinite(df["P(CD)"])
+        & np.isfinite(df["P(DC)"])
+        & np.isfinite(df["P(DD)"])
+        & (df[f"theoretic P(CC)"] >= 0)
+        & (df[f"theoretic P(CC)"] <= 1)
+        & (df[f"theoretic P(CD)"] >= 0)
+        & (df[f"theoretic P(CD)"] <= 1)
+        & (df[f"theoretic P(DC)"] >= 0)
+        & (df[f"theoretic P(DC)"] <= 1)
+        & (df[f"theoretic P(DD)"] >= 0)
+        & (df[f"theoretic P(DD)"] <= 1)
+    )
 
     for i, state in enumerate(("CC", "CD", "DC", "DD")):
         ax = axarr[int(i / 2), i % 2]
@@ -102,10 +113,13 @@ def main(process_data):
             ax.set_xlabel("Computed probabilities")
         if i in [0, 2]:
             ax.set_ylabel("Measured probabilities")
-        ax.set_title(f"P({state}) ($N={int(results.nobs)},\;R^2={round(results.rsquared, 3)}$)")
+        ax.set_title(
+            f"P({state}) ($N={int(results.nobs)},\;R^2={round(results.rsquared, 3)}$)"
+        )
 
     fig.tight_layout()
     fig.savefig("main.pdf")
+
 
 if __name__ == "__main__":
     process_data = "process_data" in sys.argv

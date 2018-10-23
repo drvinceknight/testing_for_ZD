@@ -26,17 +26,17 @@ def compute_least_squares(p, rstp=np.array([3, 0, 5, 1])):
 
     Returns:
 
-    - xbar
+    - xstar
     - residual
     """
     if np.all(np.isfinite(p)):
         R, S, T, P = rstp
         C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
         tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
-        xbar, residuals = np.linalg.lstsq(C, tilde_p, rcond=None)[:2]
+        xstar, residuals = np.linalg.lstsq(C, tilde_p, rcond=None)[:2]
         SSError = residuals[0]
 
-        return xbar, SSError
+        return xstar, SSError
     return (np.nan, np.nan), np.nan
 
 
@@ -46,28 +46,21 @@ def get_least_squares(p, rstp=np.array([3, 0, 5, 1])):
 
     Returns:
 
-    - xbar
+    - xstar
     - residual
     """
     if np.all(np.isfinite(p)):
         R, S, T, P = rstp
         C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
         tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
-        xbar = np.dot(
+        xstar = np.dot(
             np.dot(np.linalg.inv(np.dot(C.transpose(), C)), C.transpose()),
             tilde_p,
         )
         SSError = np.dot(tilde_p.transpose(), tilde_p) - np.dot(
-            np.dot(
-                tilde_p.transpose(),
-                np.dot(
-                    np.dot(C, (np.linalg.inv(np.dot(C.transpose(), C)))),
-                    C.transpose(),
-                ),
-            ),
-            tilde_p,
+            tilde_p, np.dot(C, xstar)
         )
-        return xbar, SSError
+        return xstar, SSError
     return (np.nan, np.nan), np.nan
 
 
