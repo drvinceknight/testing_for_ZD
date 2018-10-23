@@ -225,7 +225,7 @@ a solution it is unique as \(\text{rank}(C)=2\) which is the dimension of the
 variable \(x\). The best fitting \(x^*\) is defined by:
 
 \begin{equation}\label{eqn:x_star}
-    x^* = \text{argmin}_{x}\|C x- p^*\|_2^2
+    x^* = \text{argmin}_{x\in\mathbb{R}^2}\|C x- p^*\|_2^2
 \end{equation}
 
 Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} can
@@ -258,6 +258,7 @@ wakefield2013bayesian} gives an expression for
 \begin{equation}\label{eqn:x_SSError_formula}
     \text{SS}_{\text{error}} = {p ^ *} ^ T p ^ * -
                                p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
+                             = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
 \end{equation}
 
 
