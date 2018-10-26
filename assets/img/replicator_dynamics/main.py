@@ -27,8 +27,8 @@ def dx(x, t, S):
     """
     Define the derivative of x.
     """
-    f = np.dot(S, x)
-    phi = np.dot(f, x)
+    f = S @ x
+    phi = f @ x
     return x * (f - phi)
 
 
