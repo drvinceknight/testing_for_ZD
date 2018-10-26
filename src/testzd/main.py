@@ -53,13 +53,8 @@ def get_least_squares(p, rstp=np.array([3, 0, 5, 1])):
         R, S, T, P = rstp
         C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
         tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
-        xstar = np.dot(
-            np.dot(np.linalg.inv(np.dot(C.transpose(), C)), C.transpose()),
-            tilde_p,
-        )
-        SSError = np.dot(tilde_p.transpose(), tilde_p) - np.dot(
-            tilde_p, np.dot(C, xstar)
-        )
+        xstar = np.linalg.inv(C.transpose() @ C) @ C.transpose() @ tilde_p
+        SSError = tilde_p.transpose() @ tilde_p - tilde_p @ C @ xstar
         return xstar, SSError
     return (np.nan, np.nan), np.nan
 
