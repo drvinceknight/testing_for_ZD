@@ -2,6 +2,7 @@ import sys
 import pathlib
 
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 import pandas as pd
 import numpy as np
 import tqdm
@@ -76,9 +77,7 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_sse_error_array)
 
-    fig, axarr = plt.subplots(
-        nrows=2, ncols=4, figsize=(15, 15), sharex="col", sharey="row"
-    )
+    fig, axarr = plt.subplots(nrows=2, ncols=4, figsize=(15, 15))
     for i, column in enumerate(["Win", "Score"]):
         probability_arrays = {}
         probability_arrays["P(CC)"] = np.loadtxt(
@@ -95,10 +94,13 @@ def main(process_data=False):
         )
         sse_error_array = np.loadtxt(f"./data/sse_error_by_{column}/main.csv")
 
-        axarr[i, 0].imshow(sse_error_array)
+        im = axarr[i, 0].imshow(sse_error_array)
         axarr[i, 0].set_title("SSerror")
         axarr[i, 0].set_xlabel(f"Ranks by {column}")
         axarr[i, 0].set_ylabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[i, 0])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
         axarr[i, 1].imshow(probability_arrays["P(CC)"])
@@ -114,11 +116,11 @@ def main(process_data=False):
         im = axarr[i, 3].imshow(probability_arrays["P(DD)"])
         axarr[i, 3].set_title("$P(DD)$")
         axarr[i, 3].set_xlabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[i, 3])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-    fig.subplots_adjust(right=0.8)
-    cbar_ax = fig.add_axes([0.85, 0.25, 0.05, 0.5])
-    fig.colorbar(im, cax=cbar_ax)
     fig.savefig("main.pdf", bbox_inches="tight")
 
 

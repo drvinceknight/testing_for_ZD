@@ -57,7 +57,7 @@ def main(process_data=False):
         for ele in strategies_of_interest_indices
     ]
 
-    ts = np.linspace(0, 5, 10 ** 2)
+    ts = np.linspace(0, 10, 2 * 10 ** 2)
     x0 = np.array([1 / N for _ in range(N)])
     xs = odeint(func=dx, y0=x0, t=ts, args=(sorted_array,))
 
@@ -74,9 +74,9 @@ def main(process_data=False):
         y = np.cumsum(xs[-1])[rank] - xs[-1][rank] / 2
         plt.annotate(
             f"{name}: $x_{{{rank + 1}}}={round(long_run_prob, 3)}$",
-            xy=(4.95, y),
+            xy=(9.95, y),
             xycoords="data",
-            xytext=(5.5, y),
+            xytext=(10.5, y),
             textcoords="data",
             arrowprops=dict(facecolor="black", shrink=0.05),
             horizontalalignment="left",

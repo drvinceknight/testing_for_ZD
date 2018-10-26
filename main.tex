@@ -47,23 +47,24 @@
     play in an extortionate way against each other but do against lower
     performing strategies.  This suggests that whilst the theory of Zero
     Determinant strategies indicates that memory is not of fundamental
-    importance to the evolution of cooperative behaviour, this is incomplete.
+    importance to the evolution of cooperative behaviour, this narrative is
+    incomplete.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
 
 Agent based game theoretic models have become a stalwart of the underpinning
-mathematics of interactive behaviours. One of the major pieces of work
-in this area is the pair of original computer tournaments run by Robert
+mathematics of interactive behaviours. One of the major pieces of work in this
+area is the pair of original computer tournaments run by Robert
 Axelrod~\cite{Axelrod1980, Axelrod1980a}. These tournaments pitted submitted
 computer strategies against each other in plays of the Iterated Prisoner's
-Dilemma. A common game where agents can choose to pay a slight cost to their
-immediate utility in the hope of building a reputation. This has been used in
-economic and evolutionary game theory to understand the evolution of cooperative
-behaviour.
+Dilemma. Which is a common game where agents can choose to pay a slight cost to
+their immediate utility in the hope of building a reputation. This has been used
+in economic and evolutionary game theory to understand the evolution of
+cooperative behaviour.
 
-In~\cite{Press2012} a class of strategies that can provably extort any given
-opponent was described. In~\cite{Hilbe2013, Moran1707} some questions have
+In~\cite{Press2012} a class of strategies that can provably extort given
+opponents was described. In~\cite{Hilbe2013, Moran1707} some questions have
 already been asked about the true effectiveness of these strategies in an
 evolutionary setting. Here another question is asked: is it possible to
 recognise this extortionate behaviour? A mathematical procedure for suspicion is
@@ -80,12 +81,12 @@ archive can be found at~\cite{vincent_knight_2018_1297075}.
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-In~\cite{Press2012}, given a match between 2 memory one strategies, the concept
-of Zero Determinant (ZD) strategies is introduced.  Memory one strategies are
+In~\cite{Press2012}, given a match between 2 memory-one strategies, the concept
+of Zero Determinant (ZD) strategies is introduced.  Memory-one strategies are
 represented as elements of \(\mathbb{R}^4\) mapping a state of \(\{C, D\}^2\) to
 a probability of cooperating.  A match between two such strategies creates a
 Markov chain with transient states \(\{C, D\}^2\).  The main result
-of~\cite{Press2012} is that given two memory one players \(p,
+of~\cite{Press2012} is that given two memory-one players \(p,
 q\in\mathbb{R}^4\), a linear relationship between the players' scores can be
 forced by one of the players.
 
@@ -178,12 +179,13 @@ All extortionate strategies reside on a triangular (\ref{eqn:condition_for_chi})
 plane (\ref{eqn:condition_for_p1}) in 3 dimensions (\ref{eqn:condition_for_p4}).
 Using this formulation it can be seen that a necessary (but not sufficient)
 condition for an extortionate strategy is that it cooperates on average less
-than 50\% of the time when in a state of disagreement with the opponent.
+than 50\% of the time when in a state of disagreement with the opponent
+(\ref{eqn:condition_for_chi}).
 
 As an example, consider the known extortionate strategy \(p=(8 / 9, 1 / 2, 1 /
 3, 0)\) from~\cite{Stewart2012} which is referred to as \texttt{Extort-2}. In
-this case, for the standard values of \((R, T, S, P)\) constraint
-(\ref{eqn:condition_for_p1}) corresponds to:
+this case, for the standard values of \((R, S, T, P) = (3, 0, 5, 1)\)
+constraint (\ref{eqn:condition_for_p1}) corresponds to:
 
 \begin{equation}
     p_1 = \frac{2(p_2 + p_3) + 1}{3}
@@ -191,12 +193,21 @@ this case, for the standard values of \((R, T, S, P)\) constraint
         = \frac{8}{9}
 \end{equation}
 
-It is clear that in this case all constraints hold.
+It is clear that in this case all constraints hold. As a counter example,
+consider the strategy that cooperates 25\% of the time: \(p=(1 /4, 1 / 4, 1 / 4,
+1 / 4)\) obeys~(\ref{eqn:condition_for_chi}) but is not extortionate as:
+
+\begin{equation}
+    p_1 \ne \frac{2(p_2 + p_3) + 1}{3}
+        = \frac{2(1 / 4 + 1 / 4) + 1}{3}
+        = \frac{2}{3}
+\end{equation}
 
 This approach could in fact be used to confirm that a given strategy is acting
-in an extortionate manner even if it is not a memory one strategy. However, in
-practice, if a closed form for \(p\) is not known, then due to measurement
-and/or numerical error this would not work.
+in an extortionate manner even if it is not a memory-one strategy. However, in
+practice, if an exact form for \(p\) is not known but measured from observed
+plays of the game then measurement and/or numerical error this might lead to an
+extortionate strategy not being confirmed as such.
 
 This problem can be written in the following linear algebraic form where
 \(x=(\alpha, \beta)\)
@@ -246,10 +257,9 @@ This gives expressions for \(\alpha, \beta\) as \(\alpha=x^*_1\) and
 \(\beta=x^*_2\) thus the conditions for a strategy to be acting extortionately
 become:
 
-\begin{align}
-    p_4^*  & = 0 \label{eqn:measured_condition_for_p4}\\
-    -x^*_2 & < x^*_1 \label{eqn:measured_condition_for_chi}
-\end{align}
+\begin{equation}
+    -x^*_2 < x^*_1 \label{eqn:measured_condition_for_chi}
+\end{equation}
 
 A further known result~~\cite{kutner2004applied, rao1973linear,
 wakefield2013bayesian} gives an expression for
@@ -262,7 +272,7 @@ wakefield2013bayesian} gives an expression for
 \end{equation}
 
 
-By observing interactions (human or otherwise), their memory one representation
+By observing interactions (human or otherwise), their memory-one representation
 can be inferred and if
 (\ref{eqn:measured_condition_for_p4}-\ref{eqn:measured_condition_for_chi}) hold
 then (\ref{eqn:x_SSError_formula}) can be used to identify if a strategy is
@@ -301,6 +311,8 @@ reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
     \includegraphics[width=.8\textwidth]{./assets/img/SSError_overall_in_stewart_plotkin/main.pdf}
     \caption{\(\text{SS}_{\text{error}}\) and state probabilities for the strategies
         of~\cite{Stewart2012}, ordered both by number of wins and overall score.
+        Note that Cooperator and Defector do not have measures of \(p\) in all
+        states and so no \(\text{SS}_{\text{error}}\) can be computed.
         }
 \end{figure}
 
@@ -316,18 +328,18 @@ behaviour towards a number of the lower ranking strategies.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
+    \includegraphics[width=.95\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
     \caption{\(\text{SS}_{\text{error}}\) for the strategies for the full
-    tournament. Only strategy interactions for which \(p_4=0\) and \(\chi>1\)
-    are displayed. Note that \(P(DC)\) is not shown as it corresponds to the
-    transpose of \(P(CD)\).}
+        tournament. For the \(\text{SS}_{\text{error}}\) plot only strategy
+        interactions for which \(p_4=0\) and \(\chi>1\) are displayed. Note that
+        \(P(DC)\) is not shown as it corresponds to the transpose of \(P(CD)\).}
     \label{fig:SSError_and_probabilities_in_full}
 \end{figure}
 
 A detailed look at selected strategies is given in
 Table~\ref{tbl:overall_summary_results}. It can be seen that \texttt{Extort-2}
 wins many matches but does not achieve a high mean score or a high mutual
-cooperation rate (\(P(CC)\)) but it does win most of its matches.
+cooperation rate (\(P(CC)\)).
 
 \begin{table}[!hbtp]
     \begin{center}
@@ -351,7 +363,7 @@ a large number of pairwise interactions is simulated and in fact very few
 strategies are found to act extortionately.
 
 The work of~\cite{Press2012}, whilst showing that a clever approach to taking
-advantage of another memory one strategy exists: this is not the full story.
+advantage of another memory-one strategy exists: this is not the full story.
 Whilst the elegance of this result is very attractive, just as the simplicity of
 the victory of Tit For Tat in Axelrod's original tournaments was, it is
 incomplete.  Extortionate strategies achieve a high number of wins but they do
@@ -363,7 +375,7 @@ strategy. Using this, the replicator equation describes the evolution of the
 system based on a population density fitness function:
 
 \begin{equation}\label{eqn:replicator_dynamics}
-    \frac{dx}{dt} = x(S-x^TS x)
+    \frac{dx_i}{dt} = x_i(S_i-x^TS x)
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
@@ -398,7 +410,7 @@ commonly thought that evolutionary cooperation required strategies that followed
 a simple set of rules. The discover/definition of extortionate
 strategies~\cite{Press2012} seemingly showed that simple strategies could be
 taken advantage of. In this manuscript it has been shown that not only is it
-possible to be suspicious of extortionate strategies but that more complex
+possible to be detect and prevent extortionate behaviour but that more complex
 strategies can be evolutionary stable. The complex strategies in question were
 obtained through reinforcement learning approaches~\cite{Harper2017, Moran1707}.
 Thus, this work demonstrates the possibility for the evolution of cooperation
