@@ -31,37 +31,37 @@
 
 \begin{abstract}
     The Iterated Prisoner's Dilemma is a model for rational and evolutionary
-    interactive behaviour. It has applications both in the study of human social
-    behaviour as well as in biology.
-    It is used to understand when and how a rational individual might
+    interactive behaviour, having applications in biology, the study of human social
+    behaviour, and many other domains.
+    It is often used to understand when and how a rational individual might
     accept an immediate cost to their own utility for the direct benefit of
     another.
 
     Much attention has been given to a class of strategies called
     Zero Determinant strategies. It has been theoretically shown that these
-    strategies can ``extort'' any player.
+    strategies can ``extort'' large classes of other strategies.
 
-    In this work, an approach to identify if observed strategies are playing in
-    an extortionate way is described. This corresponds to a mathematical model
+    In this work, we describd an approach to identify if observed strategies
+    are playing in an extortionate manner. This corresponds to a mathematical model
     of suspicion. Furthermore, experimental analysis of a
     large tournament with
     \input{assets/tex/number_of_full_strategies/main.tex}strategies is
     considered. In this setting the most highly performing strategies do not
-    play in an extortionate way against each other but do against lower
+    play in an extortionate manner against each other but do against lower
     performing strategies.  This suggests that whilst the theory of Zero
-    Determinant strategies indicates that memory is not of fundamental
+    Determinant strategies suggests that memory is not of fundamental
     importance to the evolution of cooperative behaviour, this narrative is
     incomplete.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
 
-Agent based game theoretic models have become a stalwart of the underpinning
+Agent-based game-theoretic models have become a stalwart of the underpinning
 mathematics of interactive behaviours. One of the major pieces of work in this
-area is the pair of original computer tournaments run by Robert
+area is the pair of computer tournaments run by Robert
 Axelrod~\cite{Axelrod1980, Axelrod1980a}. These tournaments pitted submitted
 computer strategies against each other in plays of the Iterated Prisoner's
-Dilemma. Which is a common game where agents can choose to pay a slight cost to
+Dilemma, which is a common game where agents can choose to pay a slight cost to
 their immediate utility in the hope of building a reputation. This has been used
 in economic and evolutionary game theory to understand the evolution of
 cooperative behaviour.
@@ -71,12 +71,12 @@ opponents was described. In~\cite{Hilbe2013, Moran1707} some questions have
 already been asked about the true effectiveness of these strategies in an
 evolutionary setting. Here another question is asked: is it possible to
 recognise this extortionate behaviour? A mathematical procedure for suspicion is
-presented: this reflects the way that the continued actions of an extortionate
+presented, reflecting the way that the continued actions of an extortionate
 individual might raise suspicion.
 
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
-with a large number of Prisoner Dilemma strategies available to give an
-extensive numerical example of the ideas presented.  The approach is presented
+which contains a large number of Prisoner Dilemma strategies available for
+extensive numerical examples.  The approach is presented
 in Section~\ref{sec:delta-zd-strategies}.  All of the code and data discussed
 in Section~\ref{sec:numerical-experiments} is open sourced, archived and
 written according to best scientific principles~\cite{Wilson2014}. The data
@@ -84,8 +84,8 @@ archive can be found at~\cite{vincent_knight_2018_1297075}.
 
 \section{Recognising Extortion}\label{sec:delta-zd-strategies}
 
-In~\cite{Press2012}, given a match between 2 memory-one strategies, the concept
-of Zero Determinant (ZD) strategies is introduced.  Memory-one strategies are
+Zero Determinant (ZD) strategies are introduced in~\cite{Press2012} in the context
+of matches between two memory-one strategies.  Memory-one strategies are
 represented as elements of \(\mathbb{R}^4\) mapping a state of \(\{C, D\}^2\) to
 a probability of cooperating.  A match between two such strategies creates a
 Markov chain with transient states \(\{C, D\}^2\).  The main result
@@ -196,7 +196,7 @@ constraint (\ref{eqn:condition_for_p1}) corresponds to:
         = \frac{8}{9}
 \end{equation}
 
-It is clear that in this case all constraints hold. As a counter example,
+It is clear that in this case all constraints hold. As a counterexample,
 consider the strategy that cooperates 25\% of the time: \(p=(1 /4, 1 / 4, 1 / 4,
 1 / 4)\) obeys~(\ref{eqn:condition_for_chi}) but is not extortionate as:
 
@@ -324,7 +324,7 @@ with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
 results of this analysis are shown in
 Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
 by number of wins seem to be extortionate (but not against all strategies) and
-it can be seen that a small sub group of strategies achieve mutual defection.
+it can be seen that a small subgroup of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
 do not extort each other, however they \textbf{do} exhibit extortionate
 behaviour towards a number of the lower ranking strategies.
@@ -367,11 +367,11 @@ strategies are found to act extortionately.
 
 The work of~\cite{Press2012}, whilst showing that a clever approach to taking
 advantage of another memory-one strategy exists: this is not the full story.
-Whilst the elegance of this result is very attractive, just as the simplicity of
+Though the elegance of this result is very attractive, just as the simplicity of
 the victory of Tit For Tat in Axelrod's original tournaments was, it is
 incomplete.  Extortionate strategies achieve a high number of wins but they do
-not achieve a high score which corresponds to the fitness landscape in an
-evolutionary sense. From the large number of interactions a payoff matrix \(S\)
+not achieve a high score.
+From the large number of interactions a payoff matrix \(S\)
 can be measured where \(S_{ij}\) denotes the score (using standard values of
 \((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy against the \(j\)th
 strategy. Using this, the replicator equation describes the evolution of the
@@ -395,7 +395,7 @@ Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
 \begin{itemize}
     \item Cooperation emerges through the evolutionary process: the high scoring
         strategies do not exhibit extortionate behaviour towards each other.
-    \item Extortionate strategies do not survive the evolutionary process.
+    \item Purely extortionate strategies do not survive the evolutionary process.
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -410,8 +410,8 @@ Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
 
 Following Axelrod's seminal work~\cite{Axelrod1980, Axelrod1980a}, it was
 commonly thought that evolutionary cooperation required strategies that followed
-a simple set of rules. The discover/definition of extortionate
-strategies~\cite{Press2012} seemingly showed that simple strategies could be
+a simple set of rules. The discovery/definition of extortionate
+strategies~\cite{Press2012} seemingly showed that complex strategies could be
 taken advantage of. In this manuscript it has been shown that not only is it
 possible to be detect and prevent extortionate behaviour but that more complex
 strategies can be evolutionary stable. The complex strategies in question were
