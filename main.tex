@@ -277,10 +277,20 @@ wakefield2013bayesian} gives an expression for
 
 By observing interactions (human or otherwise), their memory-one representation
 can be inferred and if
-(\ref{eqn:measured_condition_for_p4}-\ref{eqn:measured_condition_for_chi}) hold
+(\ref{eqn:measured_condition_for_chi}) hold
 then (\ref{eqn:x_SSError_formula}) can be used to identify if a strategy is
-acting extortionately. Suspicion of extortion then corresponds to a threshold
-on \(\text{SS}_{\text{error}}\). Comparing theoretic and actual plays of the
+acting extortionately.
+
+For a measured \(p\), \(\text{SS}_{\text{error}}\) corresponds to the best
+fitting \(\alpha, \beta\), which omits the value of \(p_4\) which is 0 if the
+strategy is extortionate~(\ref{eqn:eqn:condition_for_p4}). Suspicion of
+extortion then corresponds to a threshold on the following value \(\kappa\):
+
+\begin{equation}\label{eqn:kappa_definition}
+    \kappa = \text{SS}_{\text{error}} + p_4 ^ 2
+\end{equation}
+
+Comparing theoretic and actual plays of the
 IPD is not novel, see for example~\cite{Rand2013}.
 
 In the next section, this idea will be illustrated by observing the interactions
@@ -304,25 +314,26 @@ match between the inferred Markov chain and the state distribution of the actual
 interactions has been verified. Data for this is presented in the supplementary
 materials.
 
-Figure~\ref{fig:SSError_overall_in_stewart_plotkin} shows the
-\(\text{SS}_{\text{error}}\) values for all the strategies in the tournament, as
+Figure~\ref{fig:kappa_overall_in_stewart_plotkin} shows the
+\(\kappa\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
-\(\text{SS}_{\text{error}}\) approximately 0) gains a large number of wins.
+\(\kappa\) approximately 0) gains a large number of wins.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/SSError_overall_in_stewart_plotkin/main.pdf}
-    \caption{\(\text{SS}_{\text{error}}\) and state probabilities for the strategies
+    \includegraphics[width=.8\textwidth]{./assets/img/kappa_overall_in_stewart_plotkin/main.pdf}
+    \caption{\(\kappa\) and state probabilities for the strategies
         of~\cite{Stewart2012}, ordered both by number of wins and overall score.
         Note that Cooperator and Defector do not have measures of \(p\) in all
-        states and so no \(\text{SS}_{\text{error}}\) can be computed.
+        states and so no \(\kappa\) can be computed.
         }
+    \label{fig:kappa_overall_in_stewart_plotkin}
 \end{figure}
 
 Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
 with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
 results of this analysis are shown in
-Figure~\ref{fig:SSError_and_probabilities_in_full}. The top ranking strategies
+Figure~\ref{fig:kappa_and_probabilities_in_full}. The top ranking strategies
 by number of wins seem to be extortionate (but not against all strategies) and
 it can be seen that a small subgroup of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
@@ -331,12 +342,12 @@ behaviour towards a number of the lower ranking strategies.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/SSError_and_probabilities_in_full/main.pdf}
-    \caption{\(\text{SS}_{\text{error}}\) for the strategies for the full
-        tournament. For the \(\text{SS}_{\text{error}}\) plot only strategy
+    \includegraphics[width=.95\textwidth]{./assets/img/kappa_and_probabilities_in_full/main.pdf}
+    \caption{\(\kappa\) for the strategies for the full
+        tournament. For the \(\kappa\) plot only strategy
         interactions for which \(p_4=0\) and \(\chi>1\) are displayed. Note that
         \(P(DC)\) is not shown as it corresponds to the transpose of \(P(CD)\).}
-    \label{fig:SSError_and_probabilities_in_full}
+    \label{fig:kappa_and_probabilities_in_full}
 \end{figure}
 
 A detailed look at selected strategies is given in
@@ -390,7 +401,7 @@ only \input{./assets/img/replicator_dynamics/main.tex}
 have a final distribution value greater than \(10 ^ {-2}\)). This confirms the
 findings of~\cite{Moran1707} in which sophisticated strategies resist
 evolutionary invasion of shorter memory strategies. Recalling
-Figure~\ref{fig:SSError_and_probabilities_in_full} this demonstrates that:
+Figure~\ref{fig:kappa_and_probabilities_in_full} this demonstrates that:
 
 \begin{itemize}
     \item Cooperation emerges through the evolutionary process: the high scoring

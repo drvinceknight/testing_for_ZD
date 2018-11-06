@@ -43,7 +43,7 @@ def main(process_data=False):
             ]
             ax.scatter(
                 ranks,
-                df[df["complete"] & index]["residual"],
+                df[df["complete"] & index]["kappa"],
                 label=label,
                 marker=marker,
             )
@@ -52,7 +52,7 @@ def main(process_data=False):
         )
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_xlabel("Strategies")
-        ax.set_ylabel("SSerror")
+        ax.set_ylabel("$\kappa$")
         ax.legend()
         ax.set_xticks(range(1, len(sorted_players) + 1))
         ax.set_xticklabels(sorted_players, rotation="vertical")
