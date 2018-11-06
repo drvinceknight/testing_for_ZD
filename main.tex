@@ -31,27 +31,24 @@
 
 \begin{abstract}
     The Iterated Prisoner's Dilemma is a model for rational and evolutionary
-    interactive behaviour, having applications in biology, the study of human social
-    behaviour, and many other domains.
-    It is often used to understand when and how a rational individual might
-    accept an immediate cost to their own utility for the direct benefit of
-    another.
+    interactive behaviour, having applications in biology, the study of human
+    social behaviour, and many other domains.  It is often used to understand
+    when and how a rational individual might accept an immediate cost to their
+    own utility for the direct benefit of another.
 
     Much attention has been given to a class of strategies called
     Zero Determinant strategies. It has been theoretically shown that these
     strategies can ``extort'' large classes of other strategies.
 
-    In this work, we describd an approach to identify if observed strategies
-    are playing in an extortionate manner. This corresponds to a mathematical model
-    of suspicion. Furthermore, experimental analysis of a
-    large tournament with
+    In this work, we describe an approach to identify if observed strategies are
+    playing in an extortionate manner. This corresponds to a mathematical model
+    of suspicion. Furthermore, experimental analysis of a large tournament with
     \input{assets/tex/number_of_full_strategies/main.tex}strategies is
     considered. In this setting the most highly performing strategies do not
     play in an extortionate manner against each other but do against lower
     performing strategies.  This suggests that whilst the theory of Zero
-    Determinant strategies suggests that memory is not of fundamental
-    importance to the evolution of cooperative behaviour, this narrative is
-    incomplete.
+    Determinant strategies suggests that memory is not of fundamental importance
+    to the evolution of cooperative behaviour, this narrative is incomplete.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -67,28 +64,50 @@ in economic and evolutionary game theory to understand the evolution of
 cooperative behaviour.
 
 In~\cite{Press2012} a class of strategies that can provably extort given
-opponents was described. In~\cite{Hilbe2013, Moran1707} some questions have
+opponents was described.
+These so called Zero-Determinant (ZD) strategies ...
+% TODO Add quote about how important these are
+In~\cite{Hilbe2013, Moran1707} some questions have
+% TODO Add more references
 already been asked about the true effectiveness of these strategies in an
 evolutionary setting. Here another question is asked: is it possible to
 recognise this extortionate behaviour? A mathematical procedure for suspicion is
 presented, reflecting the way that the continued actions of an extortionate
 individual might raise suspicion.
 
+ZD strategies are defined by a constrained set of transition probabilities
+\(p\in\mathbb{R}^4\) (so called memory-one strategies). In this work, a
+procedure is offered that will quantify if any strategy is acting in an
+extortionate way. A \(p\in\mathbb{R}^4\) can be measured from actual
+interactions, regardless of whether or not the strategy is defined in such a
+way. In Section~\ref{sec:kappa-zd-strategies} a \(\kappa\)-ZD strategy is
+defined as a strategy for which the measured \(p\) is sufficiently close (this
+will be done in a rigorous manner) to a ZD strategy. The value of \(\kappa\) is
+a measure of how close a given strategy is to being ZD. This allows for the
+recognition of extortionate behaviour even in the cases of numeric inexactitude
+that would otherwise imply a strategy was not extortionate. It is also possible
+to recognise sophisticated strategies that act extortionately against some
+opponents but not others. This was a concept suggested in~\cite{}. % TODO Add
+                                                                   % reference
+
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 which contains a large number of Prisoner Dilemma strategies available for
 extensive numerical examples.  The approach is presented
-in Section~\ref{sec:delta-zd-strategies}.  All of the code and data discussed
+in Section~\ref{sec:kappa-zd-strategies}.  All of the code and data discussed
 in Section~\ref{sec:numerical-experiments} is open sourced, archived and
 written according to best scientific principles~\cite{Wilson2014}. The data
 archive can be found at~\cite{vincent_knight_2018_1297075}.
 
-\section{Recognising Extortion}\label{sec:delta-zd-strategies}
+This large tournament is complemented with an evolutionary consideration that
+offers some insight in to the effectiveness of extortionate strategies.
 
-Zero Determinant (ZD) strategies are introduced in~\cite{Press2012} in the context
-of matches between two memory-one strategies.  Memory-one strategies are
-represented as elements of \(\mathbb{R}^4\) mapping a state of \(\{C, D\}^2\) to
-a probability of cooperating.  A match between two such strategies creates a
-Markov chain with transient states \(\{C, D\}^2\).  The main result
+\section{Recognising Extortion}\label{sec:kappa-zd-strategies}
+
+Zero Determinant (ZD) strategies are introduced in~\cite{Press2012} in the
+context of matches between two memory-one strategies.  Memory-one strategies are
+represented as elements of \(\mathbb{R}^4\) mapping a state of \({\{C, D\}}^2\)
+to a probability of cooperating.  A match between two such strategies creates a
+Markov chain with transient states \({\{C, D\}}^2\).  The main result
 of~\cite{Press2012} is that given two memory-one players \(p,
 q\in\mathbb{R}^4\), a linear relationship between the players' scores can be
 forced by one of the players.
@@ -206,15 +225,31 @@ consider the strategy that cooperates 25\% of the time: \(p=(1 /4, 1 / 4, 1 / 4,
         = \frac{2}{3}
 \end{equation}
 
-This approach could in fact be used to confirm that a given strategy is acting
+Not all strategies are memory-one strategies but it is possible to
+measure a given \(p\) from any set of interactions between two strategies.
+This approach can then be used to confirm that a given strategy is acting
 in an extortionate manner even if it is not a memory-one strategy. However, in
 practice, if an exact form for \(p\) is not known but measured from observed
-plays of the game then measurement and/or numerical error this might lead to an
+plays of the game then measurement and/or numerical error might lead to an
 extortionate strategy not being confirmed as such.
 
-This problem can be written in the following linear algebraic form where
-\(x=(\alpha, \beta)\)
-and \(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3)\):
+As an example consider Table~\ref{tab:actual_plays_of_ZDextort-2} which shows
+some actual plays of \(p=(8 / 9, 1 / 2, 1 / 3, 0)\) against an alternating
+strategy (\(p=(0, 0, 1, 1)\)):
+
+\begin{table}[!hbtp]
+    \input{./assets/tex/actual_plays_of_ZDextort2/main.tex}
+    \caption{A seeded play of 20 turns of two strategies.}
+    \label{tab:actual_plays_of_ZDextort-2}
+\end{table}
+
+In this particular instance the measured value of \(p\) for the known
+extortionate strategy would be: \((2/2, 1/5, 3/8, 4/4)\) which is does not fit
+the definition of a ZD strategy.
+
+Identifying if a strategy is ZD strategy can be written in the following linear
+algebraic form where \(x=(\alpha, \beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2
+- 1, \tilde p_3)\):
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
     Cx= p^*
@@ -249,6 +284,10 @@ now be applied:
     x^* = \left(C^TC\right)^{-1}C^Tp^*
 \end{equation}
 
+This \(x^*\) corresponds to the nearest ZD strategy that corresponds to the
+measured \(p\). It is in fact a normal projection of \(p\) on to the plane
+defined by (\ref{eqn:condition_for_p1}).
+
 The squared norm of the remaining error is referred to as
 \(\text{SS}_{\text{error}}\):
 
@@ -258,7 +297,7 @@ The squared norm of the remaining error is referred to as
 
 This gives expressions for \(\alpha, \beta\) as \(\alpha=x^*_1\) and
 \(\beta=x^*_2\) thus the conditions for a strategy to be acting extortionately
-become:
+becomes:
 
 \begin{equation}
     -x^*_2 < x^*_1 \label{eqn:measured_condition_for_chi}
@@ -273,7 +312,6 @@ wakefield2013bayesian} gives an expression for
                                p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
                              = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
 \end{equation}
-
 
 By observing interactions (human or otherwise), their memory-one representation
 can be inferred and if
@@ -307,7 +345,7 @@ transition rates for each strategy all matches have been run for
 \input{assets/tex/number_of_turns/main.tex}turns and every match has been
 repeated \input{assets/tex/number_of_repetitions/main.tex}times. All of this
 interaction data is available at~\cite{vincent_knight_2018_1297075}. Note that
-in the interest of open scientific practice, \cite{vincent_knight_2018_1297075}
+in the interest of open scientific practice,~\cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
 which are not investigated here. A good
 match between the inferred Markov chain and the state distribution of the actual
