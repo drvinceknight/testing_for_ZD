@@ -109,6 +109,7 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
         df[f"P({state})"] = df[f"{state} count"] / total_states
 
     residuals = []
+    kappas = []
     alphas = []
     betas = []
     computed_residuals = []
@@ -125,6 +126,7 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
         computed_alpha, computed_beta = xbar
 
         residuals.append(residual)
+        kappas.append(residual + p[3] ** 2)
         alphas.append(alpha)
         betas.append(beta)
 
@@ -134,6 +136,9 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
 
     df["residual"] = residuals
     columns.append("residual")
+
+    df["kappa"] = kappas
+    columns.append("kappa")
 
     df["alpha"] = alphas
     columns.append("alpha")
