@@ -41,9 +41,9 @@ def main(process_data=False):
 
         for index, row in tqdm.tqdm(df.iterrows(), total=df.shape[0]):
             if row["Extort"]:
-                kappa_array[
-                    row["Player index"], row["Opponent index"]
-                ] = row["kappa"]
+                kappa_array[row["Player index"], row["Opponent index"]] = row[
+                    "kappa"
+                ]
             for state, array in probability_arrays.items():
                 array[row["Player index"], row["Opponent index"]] = row[state]
 
@@ -53,9 +53,7 @@ def main(process_data=False):
             sorted_arrays = {}
             for key, array in probability_arrays.items():
                 sorted_arrays[key] = array[sorted_indices][:, sorted_indices]
-            sorted_kappa_array = kappa_array[sorted_indices][
-                :, sorted_indices
-            ]
+            sorted_kappa_array = kappa_array[sorted_indices][:, sorted_indices]
 
             path = pathlib.Path(f"./data/p_cc_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
