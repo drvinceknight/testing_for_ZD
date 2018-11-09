@@ -64,13 +64,20 @@ in economic and evolutionary game theory to understand the evolution of
 cooperative behaviour.
 
 In~\cite{Press2012} a class of strategies that can provably extort given
-opponents was described.
-These so called Zero-Determinant (ZD) strategies ...
-% TODO Add quote about how important these are
-In~\cite{Hilbe2013, Moran1707} some questions have
-% TODO Add more references
-already been asked about the true effectiveness of these strategies in an
-evolutionary setting. Here another question is asked: is it possible to
+opponents was described. These so called Zero-Determinant (ZD) strategies caused
+a substantial reaction in the game theoretic community. As stated
+in~\cite{hilbe2015partners}, the American Mathematical Society's news section
+stated that `the world of game theory is currently on fire' at the time.
+In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
+ichinose2018zero, Moran1707} some questions have already been asked about the
+true effectiveness of these strategies in an evolutionary setting. For
+example~\cite{adami2013evolutionary} showed that ZD strategies were not
+evolutionarily stable. Furthermore, in that work it was also postulated that
+`evolutionarily successful ZD strategies can be designed that use longer memory
+to distinguish self from non-self'. This paper offers an example of such a
+postulate.
+
+The main question being asked here is: is it possible to
 recognise this extortionate behaviour? A mathematical procedure for suspicion is
 presented, reflecting the way that the continued actions of an extortionate
 individual might raise suspicion.
@@ -87,8 +94,8 @@ a measure of how close a given strategy is to being ZD. This allows for the
 recognition of extortionate behaviour even in the cases of numeric inexactitude
 that would otherwise imply a strategy was not extortionate. It is also possible
 to recognise sophisticated strategies that act extortionately against some
-opponents but not others. This was a concept suggested in~\cite{}. % TODO Add
-                                                                   % reference
+opponents but not others. This was the concept suggested
+in~\cite{adami2013evolutionary}.
 
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 which contains a large number of Prisoner Dilemma strategies available for
@@ -195,7 +202,8 @@ check if a strategy is extortionate. The conditions correspond to:
 \end{align}
 
 The algebraic steps necessary to prove these results are available in the
-supporting materials.
+supporting materials, and note that an equivalent formulation was obtained
+in~\cite{adami2013evolutionary}.
 
 All extortionate strategies reside on a triangular (\ref{eqn:condition_for_chi})
 plane (\ref{eqn:condition_for_p1}) in 3 dimensions (\ref{eqn:condition_for_p4}).
@@ -372,7 +380,7 @@ Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
 with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
 results of this analysis are shown in
 Figure~\ref{fig:kappa_and_probabilities_in_full}. The top ranking strategies
-by number of wins seem to be extortionate (but not against all strategies) and
+by number of wins act in an extortionate way (but not against all strategies) and
 it can be seen that a small subgroup of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
 do not extort each other, however they \textbf{do} exhibit extortionate
@@ -389,9 +397,15 @@ behaviour towards a number of the lower ranking strategies.
 \end{figure}
 
 A detailed look at selected strategies is given in
-Table~\ref{tbl:overall_summary_results}. It can be seen that \texttt{Extort-2}
-wins many matches but does not achieve a high mean score or a high mutual
-cooperation rate (\(P(CC)\)).
+Table~\ref{tbl:overall_summary_results}. The high scoring strategies presented
+have a large variation in \(\kappa\) whilst the ZD strategies have a low score
+but high probability of winning. This evidences an idea proposed
+in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
+their opponent and defend themselves against extortion.
+The high ranking strategies were in fact trained to maximise
+score~\cite{Harper2017} which seems to have created strategies able to extort
+weaker strategies whilst cooperating with stronger ones. Indeed unconditional
+extortion is self defeating.
 
 \begin{table}[!hbtp]
     \begin{center}
@@ -412,8 +426,7 @@ in~\cite{Press2012}: a mathematical model for suspicion. All extortionate
 strategies have been classified as lying on a triangular plane.  This rigorous
 classification fails to be robust to small measurement error, thus a statistical
 approach is proposed approximating the solution of a linear system. Using this,
-a large number of pairwise interactions is simulated and in fact very few
-strategies are found to act extortionately.
+a large number of pairwise interactions is simulated.
 
 The work of~\cite{Press2012}, whilst showing that a clever approach to taking
 advantage of another memory-one strategy exists: this is not the full story.
@@ -437,16 +450,24 @@ Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
 the system: the various strategies are ranked by scores. It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
 only \input{./assets/img/replicator_dynamics/main.tex}
-have a final distribution value greater than \(10 ^ {-2}\)). This confirms the
-findings of~\cite{Moran1707} in which sophisticated strategies resist
-evolutionary invasion of shorter memory strategies. Recalling
+have a final distribution value greater than \(10 ^ {-2}\)). Recalling
 Figure~\ref{fig:kappa_and_probabilities_in_full} this demonstrates that:
 
 \begin{itemize}
     \item Cooperation emerges through the evolutionary process: the high scoring
         strategies do not exhibit extortionate behaviour towards each other.
-    \item Purely extortionate strategies do not survive the evolutionary process.
+    \item Purely extortionate strategies have an essentially 0 probability of
+        surviving the process defined by (\ref{eqn:replicator_dynamics}).
 \end{itemize}
+
+This confirms the
+findings of~\cite{Moran1707} in which sophisticated strategies resist
+evolutionary invasion of shorter memory strategies. This also confirms the work
+of~\cite{adami2013evolutionary, hilbe2015partners} which proved that ZD
+strategies where not evolutionarily stable due to the fact that they score
+poorly against themselves. When comparing to the data provided
+in~\cite{Moran1707}, there is some indication that strategies that fixate in a
+Moran process have a high value of \(\kappa\).
 
 \begin{figure}[!htbp]
     \centering
@@ -463,10 +484,10 @@ commonly thought that evolutionary cooperation required strategies that followed
 a simple set of rules. The discovery/definition of extortionate
 strategies~\cite{Press2012} seemingly showed that complex strategies could be
 taken advantage of. In this manuscript it has been shown that not only is it
-possible to be detect and prevent extortionate behaviour but that more complex
+possible to detect and prevent extortionate behaviour but that more complex
 strategies can be evolutionary stable. The complex strategies in question were
 obtained through reinforcement learning approaches~\cite{Harper2017, Moran1707}.
-Thus, this work demonstrates the possibility for the evolution of cooperation
+This work demonstrates the possibility for the evolution of cooperation
 through suspicion.
 
 \section*{Acknowledgements}
