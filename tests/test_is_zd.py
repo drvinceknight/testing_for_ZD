@@ -8,11 +8,11 @@ def test_is_approximate_p_with_missing_states():
 
 def test_is_approximate_p_with_missing_states_and_non_default_prior():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
-    assert np.array_equal(zd.approximate_p(p, p_emptyset=1), np.array([8 / 9, 1, 1 / 3, 1]))
+    assert np.array_equal(zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 1]))
 
 def test_is_approximate_p_with_non_missing_states():
     p = np.array([8 / 9, 1, 1 / 3, 0])
-    assert np.array_equal(zd.approximate_p(p, p_emptyset=1), np.array([8 / 9, 1, 1 / 3, 0]))
+    assert np.array_equal(zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 0]))
 
 
 def test_get_least_squares():

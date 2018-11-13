@@ -25,7 +25,7 @@ def main(
 
     columns = [
         "Player index",
-        "Initial cooperation",
+        "Cooperation count",
         "Opponent index",
         "Score",
         "Win",
@@ -47,7 +47,7 @@ def main(
     groups = ["Player index", "Opponent index"]
     counts = [
         "Score",
-        "Initial cooperation",
+        "Cooperation count",
         "Win",
         "CC count",
         "CD count",
@@ -63,14 +63,11 @@ def main(
         "DD to D count",
     ]
     summation = ddf.groupby(groups)[counts].sum()
-    count_matches = ddf.groupby(groups)["Initial cooperation"].count()
 
     print(
         f"Processing {tournament_type} for {player_group} players per opponent"
     )
-    number_of_matches = da.compute(count_matches, da.get)[0]
     df = da.compute(summation, da.get)[0]
-    df["Matches played"] = number_of_matches
 
     df.reset_index(inplace=True)
     path = pathlib.Path("./")
@@ -83,9 +80,7 @@ def main(
     )
 
     print(f"Processing {tournament_type} for {player_group} players overall")
-    number_of_matches = df.groupby("Player index")["Matches played"].sum()
     df = df.groupby(["Player index"])[counts].sum()
-    df["Matches played"] = number_of_matches
 
     df.reset_index(inplace=True)
     path = pathlib.Path("./")
@@ -108,12 +103,14 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
         df[column] = df[f"{state} to C count"] / (
             df[f"{state} to C count"] + df[f"{state} to D count"]
         )
-    df["P(C|emptyset)"] = df["Initial cooperation"] / df["Matches played"]
-    columns.append("P(C|emptyset)")
 
     total_states = (
         df["CC count"] + df["CD count"] + df["DC count"] + df["DD count"]
     )
+
+    df["P(C)"] = df["Cooperation count"] / total_states
+    columns.append("P(C)")
+
     for state in ("CC", "CD", "DC", "DD"):
         column = f"P({state})"
         columns.append(column)
@@ -130,11 +127,10 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
     number_of_rows = df.shape[0]
     for index, row in tqdm.tqdm(df.iterrows(), total=number_of_rows):
         p = row[probabilities].values.astype("float64")
-        p_emptyset = row["P(C|emptyset)"]
+        p_c = row["P(C)"]
 
-        xbar, residual = zd.get_least_squares(p=p, p_emptyset=p_emptyset)
-        computed_xbar, computed_residual = zd.compute_least_squares(p,
-                p_emptyset=p_emptyset)
+        xbar, residual = zd.get_least_squares(p=p, p_c=p_c)
+        computed_xbar, computed_residual = zd.compute_least_squares(p, p_c=p_c)
 
         alpha, beta = xbar
         computed_alpha, computed_beta = xbar
