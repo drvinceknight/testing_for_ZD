@@ -31,7 +31,7 @@ def main(process_data=False):
 
     for i, column in enumerate(("Score", "Win")):
         ax = axarr[i]
-        #x_tick_locations = range(1, len(players) + 1)
+        # x_tick_locations = range(1, len(players) + 1)
 
         for index, label, marker in zip(
             [~df["Extort"], df["Extort"]],
@@ -39,12 +39,7 @@ def main(process_data=False):
             ("o", "+"),
         ):
             ranks = df[column].rank(ascending=False, method="first")[index]
-            ax.scatter(
-                ranks,
-                df[index]["kappa"],
-                label=label,
-                marker=marker,
-            )
+            ax.scatter(ranks, df[index]["kappa"], label=label, marker=marker)
         sorted_indices = sorted(
             range(len(players)), key=lambda index: -df[column].iloc[index]
         )
