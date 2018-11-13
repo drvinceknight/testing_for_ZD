@@ -1,17 +1,17 @@
 import numpy as np
 
-def approximate_p(p, p_emptyset=1/2):
+def approximate_p(p, p_c=1/2):
     """
     Approximate missing state probabilities with p_emptyset
     """
-    p[~np.isfinite(p)] = p_emptyset
+    p[~np.isfinite(p)] = p_c
     return p
 
-def is_ZD(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
+def is_ZD(p, p_c=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     """
     Check is a strategy p is ZD.
     """
-    p = approximate_p(p=p, p_emptyset=p_emptyset)
+    p = approximate_p(p=p, p_c=p_c)
     R, S, T, P = rstp
     tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
     expected_tilde_p1 = (
@@ -25,7 +25,7 @@ def is_ZD(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     )
 
 
-def compute_least_squares(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1])):
+def compute_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):
     """
     Compute the solution via a least squares minimisation problem.
 
@@ -34,7 +34,7 @@ def compute_least_squares(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1])):
     - xstar
     - residual
     """
-    p = approximate_p(p=p, p_emptyset=p_emptyset)
+    p = approximate_p(p=p, p_c=p_c)
     R, S, T, P = rstp
     C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
     tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
@@ -44,7 +44,7 @@ def compute_least_squares(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1])):
     return xstar, SSError
 
 
-def get_least_squares(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1])):
+def get_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):
     """
     Obtain the least squares directly
 
@@ -53,7 +53,7 @@ def get_least_squares(p, p_emptyset=1/2, rstp=np.array([3, 0, 5, 1])):
     - xstar
     - residual
     """
-    p = approximate_p(p=p, p_emptyset=p_emptyset)
+    p = approximate_p(p=p, p_c=p_c)
     R, S, T, P = rstp
     C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
     tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
