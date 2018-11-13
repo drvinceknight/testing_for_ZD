@@ -35,19 +35,17 @@ def main(process_data=False):
 
         mean_kappa = df.groupby("Player index")["kappa"].mean()
         std_kappa = df.groupby("Player index")["kappa"].std()
-        cv_kappa = std_kappa / mean_kappa
         df = pd.DataFrame(
             {
                 "mean_kappa": mean_kappa,
                 "std_kappa": std_kappa,
-                "cv_kappa": cv_kappa,
             }
         )
         ts = np.linspace(0, 10, 2 * 10 ** 2)
         x0 = np.array([1 / N for _ in range(N)])
         xs = odeint(func=dx, y0=x0, t=ts, args=(array,))
         df["s_i"] = xs[-1]
-        df["survive"] = df["s_i"] >= 10 ** -4
+        df["survive"] = df["s_i"] >= 1 / N
         df.to_csv("main.csv")
 
     else:
@@ -61,7 +59,7 @@ def main(process_data=False):
     ):
         for index, label, marker, color in zip(
             [~df["survive"], df["survive"]],
-            [f"$x_i \leq 10 ^{{- 4}}$ ($N={(~df['survive']).sum()}$)", None],
+            [f"$s_i \leq 1 / N$ ($n={(~df['survive']).sum()}$)", None],
             (".", "+"),
             ("grey", "black"),
         ):
@@ -75,12 +73,11 @@ def main(process_data=False):
 
         x = df[var]
         y = df["s_i"]
-        N = df.shape[0]
         slope, intercept, r_value, p_value, std_err = linregress(x, y)
         ax.plot(
             df[var],
             slope * df[var] + intercept,
-            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $N={N}$)",
+            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$)",
             color="black",
         )
 
@@ -91,7 +88,7 @@ def main(process_data=False):
         ax.plot(
             df[var],
             slope * df[var] + intercept,
-            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $N={N}$) for $s_i> 10 ^{{-4}}$",
+            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$) for $s_i> 1 / N$",
             color="black",
             linestyle=":",
         )
