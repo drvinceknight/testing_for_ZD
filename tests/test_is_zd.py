@@ -2,6 +2,18 @@ import numpy as np
 
 import testzd as zd
 
+def test_is_approximate_p_with_missing_states():
+    p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
+    assert np.array_equal(zd.approximate_p(p), np.array([8 / 9, 1 / 2, 1 / 3, 1 / 2]))
+
+def test_is_approximate_p_with_missing_states_and_non_default_prior():
+    p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
+    assert np.array_equal(zd.approximate_p(p, p_emptyset=1), np.array([8 / 9, 1, 1 / 3, 1]))
+
+def test_is_approximate_p_with_non_missing_states():
+    p = np.array([8 / 9, 1, 1 / 3, 0])
+    assert np.array_equal(zd.approximate_p(p, p_emptyset=1), np.array([8 / 9, 1, 1 / 3, 0]))
+
 
 def test_get_least_squares():
     p = np.array([8 / 9, 1 / 2, 1 / 3, 0])
@@ -22,9 +34,9 @@ def test_get_least_squares_with_high_residual():
 def test_get_least_squares_with_missing_values():
     p = np.array([8 / 9, 1, 1 / 3, np.nan])
     xstar, residual = zd.get_least_squares(p)
-    assert np.isnan(residual)
-    assert np.isnan(xstar[0])
-    assert np.isnan(xstar[1])
+    assert np.isclose(residual, 0.0588235)
+    assert np.isfinite(xstar[0])
+    assert np.isfinite(xstar[1])
 
 
 def test_compute_least_squares():
@@ -48,9 +60,9 @@ def test_compute_least_squares_with_high_residual():
 def test_compute_least_squares_with_missing_values():
     p = np.array([8 / 9, 1, 1 / 3, np.nan])
     xstar, residual = zd.compute_least_squares(p)
-    assert np.isnan(residual)
-    assert np.isnan(xstar[0])
-    assert np.isnan(xstar[1])
+    assert np.isclose(residual, 0.0588235)
+    assert np.isfinite(xstar[0])
+    assert np.isfinite(xstar[1])
 
 
 def test_is_ZD_for_valid_ZD_strategy():
@@ -58,9 +70,9 @@ def test_is_ZD_for_valid_ZD_strategy():
     assert zd.is_ZD(p) == True
 
 
-def test_is_ZD_for_valid_ZD_strategy_with_missing_states():
+def test_is_ZD_for_invalid_ZD_strategy_with_missing_states():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
-    assert zd.is_ZD(p) == True
+    assert zd.is_ZD(p) == False
 
 
 def test_is_ZD_for_valid_ZD_strategy_with_different_rstp():

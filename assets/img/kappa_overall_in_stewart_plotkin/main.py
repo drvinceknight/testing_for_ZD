@@ -21,7 +21,7 @@ def main(process_data=False):
         df["Player name"] = df.apply(
             lambda row: player_names[row["Player index"]], axis=1
         )
-        df["Extort"] = (df["complete"]) & (df["P(C|DD)"] == 0) & (df["chi"] > 1)
+        df["Extort"] = df["chi"] > 1
         df.sort_values("Win", ascending=False)
         df.to_csv("main.csv", index=False)
     else:
@@ -31,19 +31,17 @@ def main(process_data=False):
 
     for i, column in enumerate(("Score", "Win")):
         ax = axarr[i]
-        x_tick_locations = range(1, len(players) + 1)
+        #x_tick_locations = range(1, len(players) + 1)
 
         for index, label, marker in zip(
             [~df["Extort"], df["Extort"]],
-            [r"$p_4 \ne 0$", "$p_4 = 0$"],
+            [r"$\chi > 1$", "$\chi \leq 1$"],
             ("o", "+"),
         ):
-            ranks = df[column].rank(ascending=False, method="first")[
-                df["complete"] & index
-            ]
+            ranks = df[column].rank(ascending=False, method="first")[index]
             ax.scatter(
                 ranks,
-                df[df["complete"] & index]["kappa"],
+                df[index]["kappa"],
                 label=label,
                 marker=marker,
             )

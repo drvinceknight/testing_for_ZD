@@ -24,7 +24,7 @@ def main(process_data=False):
             "../../../data/processed/full/std/per_opponent/main.csv"
         )
 
-        df["Extort"] = (df["complete"]) & (df["P(C|DD)"] == 0) & (df["chi"] > 1)
+        df["Extort"] = df["chi"] > 1
 
         number_of_players = len(overall_df.index)
         kappa_array = np.zeros((number_of_players, number_of_players))
@@ -101,14 +101,20 @@ def main(process_data=False):
         fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-        axarr[i, 1].imshow(probability_arrays["P(CC)"])
+        im = axarr[i, 1].imshow(probability_arrays["P(CC)"])
         axarr[i, 1].set_title("$P(CC)$")
         axarr[i, 1].set_xlabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[i, 1])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-        axarr[i, 2].imshow(probability_arrays["P(CD)"])
+        im = axarr[i, 2].imshow(probability_arrays["P(CD)"])
         axarr[i, 2].set_title("$P(CD)$")
         axarr[i, 2].set_xlabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[i, 2])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
         im = axarr[i, 3].imshow(probability_arrays["P(DD)"])
