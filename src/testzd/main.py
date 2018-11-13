@@ -20,9 +20,7 @@ def is_ZD(p, p_c=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     chi = (
         P * tilde_p[1] - P * tilde_p[2] + S * tilde_p[2] - T * tilde_p[1]
     ) / (P * tilde_p[1] - P * tilde_p[2] - S * tilde_p[1] + T * tilde_p[2])
-    return (
-        np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
-    )
+    return np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
 
 
 def compute_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):

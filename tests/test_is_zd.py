@@ -2,9 +2,13 @@ import numpy as np
 
 import testzd as zd
 
+
 def test_is_approximate_p_with_missing_states():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
-    assert np.array_equal(zd.approximate_p(p), np.array([8 / 9, 1 / 2, 1 / 3, 1 / 2]))
+    assert np.array_equal(
+        zd.approximate_p(p), np.array([8 / 9, 1 / 2, 1 / 3, 1 / 2])
+    )
+
 
 def test_is_approximate_p_with_missing_states_and_non_default_prior():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])

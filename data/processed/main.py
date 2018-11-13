@@ -116,7 +116,6 @@ def write_probabilities_and_measures_to_file(df, filename, columns):
         columns.append(column)
         df[f"P({state})"] = df[f"{state} count"] / total_states
 
-
     residuals = []
     kappas = []
     alphas = []
