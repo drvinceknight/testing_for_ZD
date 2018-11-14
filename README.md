@@ -29,7 +29,7 @@ achieved at https://doi.org/10.5281/zenodo.1297075
 
 **Having created and activated the conda environment**
 
-### Download and unpack the data
+### Download and unpack the archived data
 
 ```
 $ invoke data
@@ -58,6 +58,7 @@ $ invoke main
 Note that you can simply run:
 
 ```
+$ invoke data
 $ invoke build
 ```
 
