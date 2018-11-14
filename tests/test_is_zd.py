@@ -12,11 +12,16 @@ def test_is_approximate_p_with_missing_states():
 
 def test_is_approximate_p_with_missing_states_and_non_default_prior():
     p = np.array([8 / 9, np.nan, 1 / 3, np.nan])
-    assert np.array_equal(zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 1]))
+    assert np.array_equal(
+        zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 1])
+    )
+
 
 def test_is_approximate_p_with_non_missing_states():
     p = np.array([8 / 9, 1, 1 / 3, 0])
-    assert np.array_equal(zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 0]))
+    assert np.array_equal(
+        zd.approximate_p(p, p_c=1), np.array([8 / 9, 1, 1 / 3, 0])
+    )
 
 
 def test_get_least_squares():
@@ -25,6 +30,12 @@ def test_get_least_squares():
     assert np.isclose(residual, 0)
     assert np.isclose(xstar[0], 0.055555555555555525)
     assert np.isclose(xstar[1], -0.11111111111111113)
+
+
+def test_get_least_squares_of_cooperator():
+    p = np.array([1, 1, 1, 1])
+    xstar, residual = zd.get_least_squares(p)
+    assert np.isclose(residual, 0.23529411764705888)
 
 
 def test_get_least_squares_with_high_residual():

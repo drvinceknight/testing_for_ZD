@@ -35,12 +35,7 @@ def main(process_data=False):
 
         mean_kappa = df.groupby("Player index")["kappa"].mean()
         std_kappa = df.groupby("Player index")["kappa"].std()
-        df = pd.DataFrame(
-            {
-                "mean_kappa": mean_kappa,
-                "std_kappa": std_kappa,
-            }
-        )
+        df = pd.DataFrame({"mean_kappa": mean_kappa, "std_kappa": std_kappa})
         ts = np.linspace(0, 10, 2 * 10 ** 2)
         x0 = np.array([1 / N for _ in range(N)])
         xs = odeint(func=dx, y0=x0, t=ts, args=(array,))
