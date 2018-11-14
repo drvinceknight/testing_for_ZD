@@ -115,6 +115,8 @@ def data(c):
     get(c)
     print("Unpacking data")
     unpack(c)
+    print("Data from previously archived research:")
+    c.run("cd assets/img/compare-fixation-to-kappa/; inv data")
 
 
 @task

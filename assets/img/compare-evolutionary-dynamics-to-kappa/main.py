@@ -100,8 +100,8 @@ def main(process_data=False):
             linestyle=":",
         )
 
-        ax.set_xlabel(xlabel)
-        ax.set_ylabel("$s_i$")
+        ax.set_xlabel(xlabel, fontsize=20)
+        ax.set_ylabel("$s_i$", fontsize=18)
         ax.legend(bbox_to_anchor=(0.0, 1.02, 1.0, 0.102))
         epsilon = 10 ** -3
         ax.set_ylim(-epsilon, np.max(df["s_i"]) + epsilon)

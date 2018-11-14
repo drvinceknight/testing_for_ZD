@@ -67,54 +67,53 @@ In~\cite{Press2012} a class of strategies that can provably extort given
 opponents was described. These so called Zero-Determinant (ZD) strategies caused
 a substantial reaction in the game theoretic community. As stated
 in~\cite{hilbe2015partners}, the American Mathematical Society's news section
-stated that `the world of game theory is currently on fire' at the time.
+stated that `the world of game theory is currently on fire'.
 In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
 ichinose2018zero, Moran1707} some questions have already been asked about the
 true effectiveness of these strategies in an evolutionary setting. For
 example~\cite{adami2013evolutionary} showed that ZD strategies were not
 evolutionarily stable. Furthermore, in that work it was also postulated that
 `evolutionarily successful ZD strategies can be designed that use longer memory
-to distinguish self from non-self'. This paper offers an example of such a
-postulate.
+to distinguish self from non-self'.
 
-The main question being asked here is: is it possible to
-recognise this extortionate behaviour? A mathematical procedure for suspicion is
-presented, reflecting the way that the continued actions of an extortionate
-individual might raise suspicion.
+The main question being asked in this work is: is it possible to recognise this
+extortionate ZD behaviour? A mathematical procedure for suspicion is presented,
+reflecting the way that the continued actions of an extortionate individual
+might raise suspicion.
 
 ZD strategies are defined by a constrained set of transition probabilities
 \(p\in\mathbb{R}^4\) (so called memory-one strategies). In this work, a
 procedure is offered that will quantify if any strategy is acting in an
 extortionate way. A \(p\in\mathbb{R}^4\) can be measured from actual
 interactions, regardless of whether or not the strategy is defined in such a
-way. In Section~\ref{sec:kappa-zd-strategies} a \(\kappa\)-ZD strategy is
-defined as a strategy for which the measured \(p\) is sufficiently close (this
-will be done in a rigorous manner) to a ZD strategy. The value of \(\kappa\) is
-a measure of how close a given strategy is to being ZD. This allows for the
+way. In Section~\ref{sec:kappa-zd-strategies} a measure \(\kappa\) is defined
+that measures how close a measured \(p\in\mathbb{R}^4\) is to being ZD.
+This allows for the
 recognition of extortionate behaviour even in the cases of numeric inexactitude
 that would otherwise imply a strategy was not extortionate. It is also possible
 to recognise sophisticated strategies that act extortionately against some
 opponents but not others. This was the concept suggested
-in~\cite{adami2013evolutionary}.
+in~\cite{adami2013evolutionary} when speaking about being able to distinguish
+self from non-self.
 
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 which contains a large number of Prisoner Dilemma strategies available for
-extensive numerical examples.  The approach is presented
-in Section~\ref{sec:kappa-zd-strategies}.  All of the code and data discussed
-in Section~\ref{sec:numerical-experiments} is open sourced, archived and
-written according to best scientific principles~\cite{Wilson2014}. The data
-archive can be found at~\cite{vincent_knight_2018_1297075}.
-
-This large tournament is complemented with an evolutionary consideration that
-offers some insight in to the effectiveness of extortionate strategies.
+extensive numerical examples.  The approach is presented in
+Section~\ref{sec:kappa-zd-strategies}.  All of the code and data discussed in
+Section~\ref{sec:numerical-experiments} is open sourced, archived and written
+according to best scientific principles~\cite{Wilson2014}. The data archive can
+be found at~\cite{vincent_knight_2018_1297075}.  In
+Section~\ref{sec:evolutionary-dynamics}, this large tournament is complemented
+with an evolutionary consideration that offers some insight in to the
+effectiveness of extortionate strategies.
 
 \section{Recognising Extortion}\label{sec:kappa-zd-strategies}
 
 Zero Determinant (ZD) strategies are introduced in~\cite{Press2012} in the
-context of matches between two memory-one strategies.  Memory-one strategies are
+context of matches between two memory-one strategies. Memory-one strategies are
 represented as elements of \(\mathbb{R}^4\) mapping a state of \({\{C, D\}}^2\)
-to a probability of cooperating.  A match between two such strategies creates a
-Markov chain with transient states \({\{C, D\}}^2\).  The main result
+to a probability of cooperating. A match between two such strategies creates a
+Markov chain with transient states \({\{C, D\}}^2\). The main result
 of~\cite{Press2012} is that given two memory-one players \(p,
 q\in\mathbb{R}^4\), a linear relationship between the players' scores can be
 forced by one of the players.
@@ -255,6 +254,15 @@ In this particular instance the measured value of \(p\) for the known
 extortionate strategy would be: \((2/2, 1/5, 3/8, 4/4)\) which is does not fit
 the definition of a ZD strategy.
 
+Note that measurement of behaviour might in some cases lead to missing values.
+For example the strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\) when playing against a
+cooperator will in fact never visit any state which would allow to measure
+\(p_3\) and \(p_4\). To overcome this, it is proposed that if \(s\) is a state
+that is not visited than \(p_s\) is approximated using a sensible prior. In
+Section~\ref{sec:numerical-experiments} the overall cooperation rate is used.
+Another approach to overcoming this measurement error would be to measure our
+strategies in a minimalistically noisy environment.
+
 Identifying if a strategy is ZD strategy can be written in the following linear
 algebraic form where \(x=(\alpha, \beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2
 - 1, \tilde p_3)\):
@@ -289,10 +297,10 @@ Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} can
 now be applied:
 
 \begin{equation}\label{eqn:x_star_formula}
-    x^* = \left(C^TC\right)^{-1}C^Tp^*
+    x^* = {\left(C^{T}C\right)}^{-1}C^{T}p^{*}
 \end{equation}
 
-This \(x^*\) corresponds to the nearest ZD strategy that corresponds to the
+This \(x^*\) corresponds to the nearest ZD strategy to the
 measured \(p\). It is in fact a normal projection of \(p\) on to the plane
 defined by (\ref{eqn:condition_for_p1}).
 
@@ -321,15 +329,14 @@ wakefield2013bayesian} gives an expression for
                              = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
 \end{equation}
 
-By observing interactions (human or otherwise), their memory-one representation
-can be inferred and if
-(\ref{eqn:measured_condition_for_chi}) hold
-then (\ref{eqn:x_SSError_formula}) can be used to identify if a strategy is
-acting extortionately.
+Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
+strategy against any other can can be measured and if
+(\ref{eqn:measured_condition_for_chi}) holds then (\ref{eqn:x_SSError_formula})
+can be used to identify if a strategy is acting extortionately.
 
 For a measured \(p\), \(\text{SS}_{\text{error}}\) corresponds to the best
 fitting \(\alpha, \beta\), which omits the value of \(p_4\) which is 0 if the
-strategy is extortionate~(\ref{eqn:eqn:condition_for_p4}). Suspicion of
+strategy is extortionate~(\ref{eqn:condition_for_p4}). Suspicion of
 extortion then corresponds to a threshold on the following value \(\kappa\):
 
 \begin{equation}\label{eqn:kappa_definition}
@@ -346,7 +353,7 @@ that take place in a large computer based tournament of the IPD\@.
 
 In~\cite{Stewart2012} results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex} strategies,
-was presented with specific consideration given to ZD strategies. This
+were presented with specific consideration given to ZD strategies. This
 tournament is reproduced here using the Axelrod-Python
 library~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
@@ -355,10 +362,7 @@ repeated \input{assets/tex/number_of_repetitions/main.tex}times. All of this
 interaction data is available at~\cite{vincent_knight_2018_1297075}. Note that
 in the interest of open scientific practice,~\cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
-which are not investigated here. A good
-match between the inferred Markov chain and the state distribution of the actual
-interactions has been verified. Data for this is presented in the supplementary
-materials.
+which are not investigated here.
 
 Figure~\ref{fig:kappa_overall_in_stewart_plotkin} shows the
 \(\kappa\) values for all the strategies in the tournament, as
@@ -434,7 +438,7 @@ Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
 the system: the various strategies are ranked by scores. It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
 only \input{./assets/img/replicator_dynamics/main.tex}
-have a final distribution value greater than \(10 ^ {-2}\)).
+have a final long run probability value greater than \(10 ^ {-2}\)).
 
 \begin{figure}[!htbp]
     \centering
@@ -457,10 +461,10 @@ their memory one representation depending on the opponent.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/compare-evolutionary-dynamics-to-kappa/main.pdf}
+    \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-kappa/main.pdf}
     \caption{Linear regression analysis of long run probabilities of
-    (\ref{eqn:replicator_dynamics}) against various summary measures of
-    \(\kappa\)}
+    (\ref{eqn:replicator_dynamics}) against the mean, median and standard
+    deviation of \(\kappa\) (for a given strategy).}
     \label{fig:compare-evolutionary-dynamics-to-kappa}
 \end{figure}
 
@@ -478,29 +482,36 @@ we note that there is a significant relationship between the variability of
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/compare-fixation-to-kappa/main.pdf}
+    \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-kappa/main.pdf}
     \caption{Linear regression analysis of pairwise fixation probabilities
-        from~\cite{Moran1707} against various summary measures of \(\kappa\).}
+    from~\cite{Moran1707} against the mean, median and standard deviation of
+    \(\kappa\) (for a given strategy).}
     \label{fig:compare-fixation-to-kappa}
 \end{figure}
 
 Note that in both Figures~\ref{fig:compare-evolutionary-dynamics-to-kappa}
 and~\ref{fig:compare-fixation-to-kappa}, there is a large proportion of
-strategies with median \(\kappa\) \(1.23\). This corresponds to \(p=(1,1,1,1)\)
-(a cooperator).
+strategies with \(\tilde\kappa\approx1.23\). This corresponds to \(p=(1,1,1,1)\)
+(a cooperator) and indicates cooperative behaviour.
 
-\begin{itemize}
-    \item Cooperation emerges through the evolutionary process: the high scoring
-        strategies do not exhibit extortionate behaviour towards each other.
-    \item Purely extortionate strategies have an essentially 0 probability of
-        surviving the process defined by (\ref{eqn:replicator_dynamics}).
-\end{itemize}
+These findings confirm the work of~\cite{Moran1707} in which sophisticated
+strategies resist evolutionary invasion of shorter memory strategies. This also
+confirms the work of~\cite{adami2013evolutionary, hilbe2015partners} which
+proved that ZD strategies where not evolutionarily stable due to the fact that
+they score poorly against themselves.
 
-This confirms the findings of~\cite{Moran1707} in which sophisticated strategies
-resist evolutionary invasion of shorter memory strategies. This also confirms
-the work of~\cite{adami2013evolutionary, hilbe2015partners} which proved that ZD
-strategies where not evolutionarily stable due to the fact that they score
-poorly against themselves.
+The work also provides strong evidence to the importance of adaptability:
+strategies that offer a variety of behaviours corresponding to a higher standard
+deviation of \(\kappa\) are significantly more likely to survive the
+evolutionary process. This corresponds to the following quote
+of~\cite{darwin1869origin}:
+
+\begin{quote}
+``It is not the most intellectual of the species that survives; it is not the
+strongest that survives; but the species that survives is the one that is able
+to adapt to and to adjust best to the changing environment in which it finds
+itself.''
+\end{quote}
 
 \section{Conclusion}\label{sec:conclusion}
 
@@ -517,7 +528,11 @@ advantage of another memory-one strategy exists: this is not the full story.
 Though the elegance of this result is very attractive, just as the simplicity of
 the victory of Tit For Tat in Axelrod's original tournaments was, it is
 incomplete.  Extortionate strategies achieve a high number of wins but they do
-not achieve a high score.
+not achieve a high score and fail to be evolutionarily stable.
+
+Instead, it is in fact the more sophisticated strategies that are able to adapt
+to their opponent and act extortionately against weaker strategies and
+cooperate with like minded strategies that perform well.
 
 Following Axelrod's seminal work~\cite{Axelrod1980, Axelrod1980a}, it was
 commonly thought that evolutionary cooperation required strategies that followed
@@ -555,7 +570,6 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 \section*{Supplementary materials}
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
-\includepdf{assets/pdf/comparison_of_state_probabilities/main.pdf}
 \includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
 
 \end{document}
