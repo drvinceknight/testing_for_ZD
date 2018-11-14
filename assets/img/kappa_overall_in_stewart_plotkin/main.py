@@ -33,13 +33,15 @@ def main(process_data=False):
         ax = axarr[i]
         # x_tick_locations = range(1, len(players) + 1)
 
-        for index, label, marker in zip(
+        for index, label, marker, color in zip(
             [~df["Extort"], df["Extort"]],
             [r"$\chi > 1$", "$\chi \leq 1$"],
             ("o", "+"),
+            ("black", "grey"),
         ):
             ranks = df[column].rank(ascending=False, method="first")[index]
-            ax.scatter(ranks, df[index]["kappa"], label=label, marker=marker)
+            ax.scatter(ranks, df[index]["kappa"], label=label, marker=marker,
+                    color=color)
         sorted_indices = sorted(
             range(len(players)), key=lambda index: -df[column].iloc[index]
         )

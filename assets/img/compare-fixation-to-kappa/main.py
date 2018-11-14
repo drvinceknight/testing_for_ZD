@@ -115,11 +115,12 @@ def main(process_data=False):
             slope, intercept, r_value, p_value, std_err = linregress(x, y)
             ax.plot(df[var], slope * df[var] + intercept, color="black")
             ax.set_title(
-                f"{title}: $y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={x.shape[0]}$)"
+                f"{title}: $y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={x.shape[0]}$)",
+                size=13,
             )
 
-            ax.set_xlabel(xlabel)
-            ax.set_ylabel(r"$\overline{(N\cdot x_1)}$ (mean)")
+            ax.set_xlabel(xlabel, fontsize=18)
+            ax.set_ylabel(r"$\overline{(N\cdot x_1)}$ (mean)", fontsize=15)
             epsilon = 10 ** -3
             ax.set_ylim(np.min(df[col]) - epsilon, np.max(df[col]) + epsilon)
     fig.tight_layout()
