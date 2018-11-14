@@ -35,7 +35,14 @@ def main(process_data=False):
 
         mean_kappa = df.groupby("Player index")["kappa"].mean()
         std_kappa = df.groupby("Player index")["kappa"].std()
-        df = pd.DataFrame({"mean_kappa": mean_kappa, "std_kappa": std_kappa})
+        median_kappa = df.groupby("Player index")["kappa"].median()
+        df = pd.DataFrame(
+            {
+                "mean_kappa": mean_kappa,
+                "std_kappa": std_kappa,
+                "median_kappa": median_kappa,
+            }
+        )
         ts = np.linspace(0, 10, 2 * 10 ** 2)
         x0 = np.array([1 / N for _ in range(N)])
         xs = odeint(func=dx, y0=x0, t=ts, args=(array,))
@@ -46,11 +53,15 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(2, figsize=(9, 6))
+    fig, axarr = plt.subplots(3, figsize=(6.4, 9))
     for ax, var, xlabel in zip(
         axarr,
-        ("mean_kappa", "std_kappa"),
-        (r"$\mu_{\kappa}$", r"$\sigma_{\kappa}$"),
+        ("mean_kappa", "median_kappa", "std_kappa"),
+        (
+            r"$\bar{\kappa}$ (mean)",
+            r"$\tilde{\kappa}$ (median)",
+            r"$\sigma_{\kappa}$ (standard deviation)",
+        ),
     ):
         for index, label, marker, color in zip(
             [~df["survive"], df["survive"]],
