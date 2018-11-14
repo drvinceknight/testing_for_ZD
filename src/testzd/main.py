@@ -1,13 +1,15 @@
 import numpy as np
 
-def approximate_p(p, p_c=1/2):
+
+def approximate_p(p, p_c=1 / 2):
     """
     Approximate missing state probabilities with p_emptyset
     """
     p[~np.isfinite(p)] = p_c
     return p
 
-def is_ZD(p, p_c=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
+
+def is_ZD(p, p_c=1 / 2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     """
     Check is a strategy p is ZD.
     """
@@ -23,7 +25,7 @@ def is_ZD(p, p_c=1/2, rstp=np.array([3, 0, 5, 1]), delta=10 ** (-7)):
     return np.isclose(expected_tilde_p1, tilde_p[0]) and chi > 1 and p[3] == 0
 
 
-def compute_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):
+def compute_least_squares(p, p_c=1 / 2, rstp=np.array([3, 0, 5, 1])):
     """
     Compute the solution via a least squares minimisation problem.
 
@@ -42,7 +44,7 @@ def compute_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):
     return xstar, SSError
 
 
-def get_least_squares(p, p_c=1/2, rstp=np.array([3, 0, 5, 1])):
+def get_least_squares(p, p_c=1 / 2, rstp=np.array([3, 0, 5, 1])):
     """
     Obtain the least squares directly
 
