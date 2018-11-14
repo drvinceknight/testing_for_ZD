@@ -416,22 +416,8 @@ extortion is self defeating.
     \label{tbl:overall_summary_results}
 \end{table}
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
 
-This work defines an approach to measure whether or not a player is playing a
-strategy that corresponds to an extortionate strategy as defined
-in~\cite{Press2012}: a mathematical model for suspicion. All extortionate
-strategies have been classified as lying on a triangular plane.  This rigorous
-classification fails to be robust to small measurement error, thus a statistical
-approach is proposed approximating the solution of a linear system. Using this,
-a large number of pairwise interactions is simulated.
-
-The work of~\cite{Press2012}, whilst showing that a clever approach to taking
-advantage of another memory-one strategy exists: this is not the full story.
-Though the elegance of this result is very attractive, just as the simplicity of
-the victory of Tit For Tat in Axelrod's original tournaments was, it is
-incomplete.  Extortionate strategies achieve a high number of wins but they do
-not achieve a high score.
 From the large number of interactions a payoff matrix \(S\)
 can be measured where \(S_{ij}\) denotes the score (using standard values of
 \((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy against the \(j\)th
@@ -448,24 +434,7 @@ Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
 the system: the various strategies are ranked by scores. It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
 only \input{./assets/img/replicator_dynamics/main.tex}
-have a final distribution value greater than \(10 ^ {-2}\)). Recalling
-Figure~\ref{fig:kappa_and_probabilities_in_full} this demonstrates that:
-
-\begin{itemize}
-    \item Cooperation emerges through the evolutionary process: the high scoring
-        strategies do not exhibit extortionate behaviour towards each other.
-    \item Purely extortionate strategies have an essentially 0 probability of
-        surviving the process defined by (\ref{eqn:replicator_dynamics}).
-\end{itemize}
-
-This confirms the
-findings of~\cite{Moran1707} in which sophisticated strategies resist
-evolutionary invasion of shorter memory strategies. This also confirms the work
-of~\cite{adami2013evolutionary, hilbe2015partners} which proved that ZD
-strategies where not evolutionarily stable due to the fact that they score
-poorly against themselves. When comparing to the data provided
-in~\cite{Moran1707}, there is some indication that strategies that fixate in a
-Moran process have a high value of \(\kappa\).
+have a final distribution value greater than \(10 ^ {-2}\)).
 
 \begin{figure}[!htbp]
     \centering
@@ -476,6 +445,79 @@ Moran process have a high value of \(\kappa\).
     distribution.}
     \label{fig:replicator_dynamics}
 \end{figure}
+
+In Figure~\ref{fig:compare-evolutionary-dynamics-to-kappa} linear models are
+fitted to three summary measures of \(\kappa\) against the long run
+probabilities \(s\) of (\ref{eqn:replicator_dynamics}). In all cases the
+predictive power of these models is small (a low \(R^2\)) however, we note a
+significant positive correlation between the standard deviation of \(\kappa\)
+and \(s\). Indeed: strategies that perform strongly according to equation
+(\ref{eqn:replicator_dynamics}) seem to be strategies that are able to modify
+their memory one representation depending on the opponent.
+
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=.95\textwidth]{./assets/img/compare-evolutionary-dynamics-to-kappa/main.pdf}
+    \caption{Linear regression analysis of long run probabilities of
+    (\ref{eqn:replicator_dynamics}) against various summary measures of
+    \(\kappa\)}
+    \label{fig:compare-evolutionary-dynamics-to-kappa}
+\end{figure}
+
+In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
+Moran process is made available at~\cite{vincent_knight_2017_1040129}
+Figure~\ref{fig:compare-fixation-to-kappa} shows linear models fitted to three
+summary measures of \(\kappa\) and the mean (over population size \(N\) and
+opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
+as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
+As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
+other population sizes which is why it is presented in isolation. Similarly to
+the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-kappa}
+we note that there is a significant relationship between the variability of
+\(\kappa\) and the ability for a strategy to become fixed.
+
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=.95\textwidth]{./assets/img/compare-fixation-to-kappa/main.pdf}
+    \caption{Linear regression analysis of pairwise fixation probabilities
+        from~\cite{Moran1707} against various summary measures of \(\kappa\).}
+    \label{fig:compare-fixation-to-kappa}
+\end{figure}
+
+Note that in both Figures~\ref{fig:compare-evolutionary-dynamics-to-kappa}
+and~\ref{fig:compare-fixation-to-kappa}, there is a large proportion of
+strategies with median \(\kappa\) \(1.23\). This corresponds to \(p=(1,1,1,1)\)
+(a cooperator).
+
+\begin{itemize}
+    \item Cooperation emerges through the evolutionary process: the high scoring
+        strategies do not exhibit extortionate behaviour towards each other.
+    \item Purely extortionate strategies have an essentially 0 probability of
+        surviving the process defined by (\ref{eqn:replicator_dynamics}).
+\end{itemize}
+
+This confirms the findings of~\cite{Moran1707} in which sophisticated strategies
+resist evolutionary invasion of shorter memory strategies. This also confirms
+the work of~\cite{adami2013evolutionary, hilbe2015partners} which proved that ZD
+strategies where not evolutionarily stable due to the fact that they score
+poorly against themselves.
+
+\section{Conclusion}\label{sec:conclusion}
+
+This work defines an approach to measure whether or not a player is playing a
+strategy that corresponds to an extortionate strategy as defined
+in~\cite{Press2012}: a mathematical model for suspicion. All extortionate
+strategies have been classified as lying on a triangular plane.  This rigorous
+classification fails to be robust to small measurement error, thus a statistical
+approach is proposed approximating the solution of a linear system. Using this,
+a large number of pairwise interactions is simulated.
+
+The work of~\cite{Press2012}, whilst showing that a clever approach to taking
+advantage of another memory-one strategy exists: this is not the full story.
+Though the elegance of this result is very attractive, just as the simplicity of
+the victory of Tit For Tat in Axelrod's original tournaments was, it is
+incomplete.  Extortionate strategies achieve a high number of wins but they do
+not achieve a high score.
 
 Following Axelrod's seminal work~\cite{Axelrod1980, Axelrod1980a}, it was
 commonly thought that evolutionary cooperation required strategies that followed
