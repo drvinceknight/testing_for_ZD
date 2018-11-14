@@ -53,7 +53,7 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(3, figsize=(6.4, 9))
+    fig, axarr = plt.subplots(1, 3, figsize=(19.6, 4))
     for ax, var, xlabel in zip(
         axarr,
         ("mean_kappa", "median_kappa", "std_kappa"),
@@ -79,6 +79,7 @@ def main(process_data=False):
 
         x = df[var]
         y = df["s_i"]
+        N = df.shape[0]
         slope, intercept, r_value, p_value, std_err = linregress(x, y)
         ax.plot(
             df[var],
