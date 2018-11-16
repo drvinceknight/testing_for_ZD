@@ -92,8 +92,8 @@ ZD strategies are defined by a constrained set of transition probabilities
 procedure is offered that will quantify if any strategy is acting in an
 extortionate way. A \(p\in\mathbb{R}^4\) can be measured from actual
 interactions, regardless of whether or not the strategy is defined in such a
-way. In Section~\ref{sec:kappa-zd-strategies} a measure \(\kappa\) is defined
-that measures how close a measured \(p\in\mathbb{R}^4\) is to being ZD.
+way. In Section~\ref{sec:sserror-zd-strategies} a measure is used
+to capture how close a given \(p\in\mathbb{R}^4\) is to being ZD.
 This allows for the
 recognition of extortionate behaviour even in the cases of numeric inexactitude
 that would otherwise imply a strategy was not extortionate. It is also possible
@@ -105,7 +105,7 @@ self from non-self.
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 which contains a large number of Prisoner Dilemma strategies available for
 extensive numerical examples.  The approach is presented in
-Section~\ref{sec:kappa-zd-strategies}.  All of the code and data discussed in
+Section~\ref{sec:sserror-zd-strategies}.  All of the code and data discussed in
 Section~\ref{sec:numerical-experiments} is open sourced, archived and written
 according to best scientific principles~\cite{Wilson2014}. The data archive can
 be found at~\cite{vincent_knight_2018_1297075}.  In
@@ -113,7 +113,7 @@ Section~\ref{sec:evolutionary-dynamics}, this large tournament is complemented
 with an evolutionary consideration that offers some insight in to the
 effectiveness of extortionate strategies.
 
-\section{Recognising Extortion}\label{sec:kappa-zd-strategies}
+\section{Recognising Extortion}\label{sec:sserror-zd-strategies}
 
 Zero Determinant (ZD) strategies are introduced in~\cite{Press2012} in the
 context of matches between two memory-one strategies. Memory-one strategies are
@@ -176,7 +176,7 @@ In this case constraints (\ref{eqn:linear_relationship_for_p}) and
             \label{eqn:condition_for_tilde_p2}\\
     \tilde p_3 & = \alpha T + \beta S - P (\alpha + \beta)
             \label{eqn:condition_for_tilde_p3}\\
-    \tilde p_4 & = \alpha P + \beta P - P (\alpha + \beta)
+    \tilde p_4 & = \alpha P + \beta P - P (\alpha + \beta) = 0
             \label{eqn:condition_for_tilde_p4}
 \end{align}
 
@@ -271,7 +271,7 @@ strategies in a minimalistically noisy environment.
 
 Identifying if a strategy is ZD strategy can be written in the following linear
 algebraic form where \(x=(\alpha, \beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2
-- 1, \tilde p_3)\):
+- 1, \tilde p_3, \tilde p_4)\):
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
     Cx= p^*
@@ -287,6 +287,7 @@ given by:
         R - P & R- P \\
         S - P & T- P \\
         T - P & S- P \\
+        0     & 0 \\
     \end{bmatrix}
 \end{equation}
 
@@ -341,13 +342,9 @@ strategy against any other can can be measured and if
 can be used to identify if a strategy is acting extortionately.
 
 For a measured \(p\), \(\text{SS}_{\text{error}}\) corresponds to the best
-fitting \(\alpha, \beta\), which omits the value of \(p_4\) which is 0 if the
-strategy is extortionate~(\ref{eqn:condition_for_p4}). Suspicion of
-extortion then corresponds to a threshold on the following value \(\kappa\):
-
-\begin{equation}\label{eqn:kappa_definition}
-    \kappa = \text{SS}_{\text{error}} + p_4 ^ 2
-\end{equation}
+fitting \(\alpha, \beta\). Suspicion of
+extortion then corresponds to a threshold on the following value
+\(\text{SS}_{\text{error}\).
 
 Comparing theoretic and actual plays of the
 IPD is not novel, see for example~\cite{Rand2013}.
@@ -370,14 +367,14 @@ in the interest of open scientific practice,~\cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
 which are not investigated here.
 
-Figure~\ref{fig:kappa_overall_in_stewart_plotkin} shows the
-\(\kappa\) values for all the strategies in the tournament, as
+Figure~\ref{fig:sserror_overall_in_stewart_plotkin} shows the
+\(\text{SS}_{\text{error}}\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
 \(\kappa\) approximately 0) gains a large number of wins.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/kappa_overall_in_stewart_plotkin/main.pdf}
+    \includegraphics[width=.8\textwidth]{./assets/img/sserror_overall_in_stewart_plotkin/main.pdf}
     \caption{\(\kappa\) and state probabilities for the strategies
         of~\cite{Stewart2012}, ordered both by number of wins and overall score.
         }
