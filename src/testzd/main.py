@@ -36,8 +36,8 @@ def compute_least_squares(p, p_c=1 / 2, rstp=np.array([3, 0, 5, 1])):
     """
     p = approximate_p(p=p, p_c=p_c)
     R, S, T, P = rstp
-    C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
-    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
+    C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P], [0, 0]])
+    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
     xstar, residuals = np.linalg.lstsq(C, tilde_p, rcond=None)[:2]
     SSError = residuals[0]
 
@@ -55,8 +55,8 @@ def get_least_squares(p, p_c=1 / 2, rstp=np.array([3, 0, 5, 1])):
     """
     p = approximate_p(p=p, p_c=p_c)
     R, S, T, P = rstp
-    C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P]])
-    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2]])
+    C = np.array([[R - P, R - P], [S - P, T - P], [T - P, S - P], [0, 0]])
+    tilde_p = np.array([p[0] - 1, p[1] - 1, p[2], p[3]])
     xstar = np.linalg.inv(C.transpose() @ C) @ C.transpose() @ tilde_p
     SSError = tilde_p.transpose() @ tilde_p - tilde_p @ C @ xstar
     return xstar, SSError

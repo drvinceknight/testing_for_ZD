@@ -35,7 +35,7 @@ def test_get_least_squares():
 def test_get_least_squares_of_cooperator():
     p = np.array([1, 1, 1, 1])
     xstar, residual = zd.get_least_squares(p)
-    assert np.isclose(residual, 0.23529411764705888)
+    assert np.isclose(residual, 1.23529411764705888)
 
 
 def test_get_least_squares_with_high_residual():
@@ -49,7 +49,7 @@ def test_get_least_squares_with_high_residual():
 def test_get_least_squares_with_missing_values():
     p = np.array([8 / 9, 1, 1 / 3, np.nan])
     xstar, residual = zd.get_least_squares(p)
-    assert np.isclose(residual, 0.0588235)
+    assert np.isclose(residual, 0.3088235)
     assert np.isfinite(xstar[0])
     assert np.isfinite(xstar[1])
 
@@ -75,7 +75,7 @@ def test_compute_least_squares_with_high_residual():
 def test_compute_least_squares_with_missing_values():
     p = np.array([8 / 9, 1, 1 / 3, np.nan])
     xstar, residual = zd.compute_least_squares(p)
-    assert np.isclose(residual, 0.0588235)
+    assert np.isclose(residual, 0.3088235)
     assert np.isfinite(xstar[0])
     assert np.isfinite(xstar[1])
 
