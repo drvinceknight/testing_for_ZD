@@ -27,7 +27,8 @@ def main(process_data=False):
         df["Extort"] = df["chi"] > 1
 
         number_of_players = len(overall_df.index)
-        kappa_array = np.zeros((number_of_players, number_of_players))
+        sserror_array = np.zeros((number_of_players, number_of_players))
+        chi_array = np.zeros((number_of_players, number_of_players))
         probability_arrays = {
             "P(CC)": np.zeros((number_of_players, number_of_players)),
             "P(CD)": np.zeros((number_of_players, number_of_players)),
@@ -35,15 +36,16 @@ def main(process_data=False):
             "P(DD)": np.zeros((number_of_players, number_of_players)),
         }
 
-        kappa_array.fill(np.nan)
         for array in probability_arrays.values():
             array.fill(np.nan)
 
         for index, row in tqdm.tqdm(df.iterrows(), total=df.shape[0]):
-            if row["Extort"]:
-                kappa_array[row["Player index"], row["Opponent index"]] = row[
-                    "kappa"
-                ]
+            sserror_array[row["Player index"], row["Opponent index"]] = row[
+                "residual"
+            ]
+            chi_array[row["Player index"], row["Opponent index"]] = row[
+                "Extort"
+            ]
             for state, array in probability_arrays.items():
                 array[row["Player index"], row["Opponent index"]] = row[state]
 
@@ -53,7 +55,8 @@ def main(process_data=False):
             sorted_arrays = {}
             for key, array in probability_arrays.items():
                 sorted_arrays[key] = array[sorted_indices][:, sorted_indices]
-            sorted_kappa_array = kappa_array[sorted_indices][:, sorted_indices]
+            sorted_sserror_array = sserror_array[sorted_indices][:, sorted_indices]
+            sorted_chi_array = chi_array[sorted_indices][:, sorted_indices]
 
             path = pathlib.Path(f"./data/p_cc_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
@@ -71,11 +74,15 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_arrays["P(DD)"])
 
-            path = pathlib.Path(f"./data/kappa_by_{column}/")
+            path = pathlib.Path(f"./data/sserror_by_{column}/")
             path.mkdir(exist_ok=True, parents=True)
-            np.savetxt(str(path / "main.csv"), sorted_kappa_array)
+            np.savetxt(str(path / "main.csv"), sorted_sserror_array)
 
-    fig, axarr = plt.subplots(nrows=2, ncols=4, figsize=(15, 15))
+            path = pathlib.Path(f"./data/chi_by_{column}/")
+            path.mkdir(exist_ok=True, parents=True)
+            np.savetxt(str(path / "main.csv"), sorted_chi_array)
+
+    fig, axarr = plt.subplots(nrows=2, ncols=5, figsize=(15, 15))
     for i, column in enumerate(["Win", "Score"]):
         probability_arrays = {}
         probability_arrays["P(CC)"] = np.loadtxt(
@@ -90,10 +97,11 @@ def main(process_data=False):
         probability_arrays["P(DD)"] = np.loadtxt(
             f"./data/p_dd_by_{column}/main.csv"
         )
-        kappa_array = np.loadtxt(f"./data/kappa_by_{column}/main.csv")
+        sserror_array = np.loadtxt(f"./data/sserror_by_{column}/main.csv")
+        chi_array = np.loadtxt(f"./data/chi_by_{column}/main.csv")
 
-        im = axarr[i, 0].imshow(kappa_array)
-        axarr[i, 0].set_title("$\kappa$")
+        im = axarr[i, 0].imshow(sserror_array)
+        axarr[i, 0].set_title("SSerror")
         axarr[i, 0].set_xlabel(f"Ranks by {column}")
         axarr[i, 0].set_ylabel(f"Ranks by {column}")
         divider = make_axes_locatable(axarr[i, 0])
@@ -101,26 +109,38 @@ def main(process_data=False):
         fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-        im = axarr[i, 1].imshow(probability_arrays["P(CC)"])
-        axarr[i, 1].set_title("$P(CC)$")
+        im = axarr[i, 1].imshow(chi_array)
+        axarr[i, 1].set_title("$\chi$")
         axarr[i, 1].set_xlabel(f"Ranks by {column}")
+        axarr[i, 1].set_ylabel(f"Ranks by {column}")
         divider = make_axes_locatable(axarr[i, 1])
         cax = divider.append_axes("right", size="5%", pad=0.05)
-        fig.colorbar(im, cax=cax)
+
+        cbar = fig.colorbar(im, cax, ticks=[0, 1])
+        cbar.ax.set_yticklabels(['$\leq 1$', '$> 1$'])
+
         fig.tight_layout()
 
-        im = axarr[i, 2].imshow(probability_arrays["P(CD)"])
-        axarr[i, 2].set_title("$P(CD)$")
+        im = axarr[i, 2].imshow(probability_arrays["P(CC)"])
+        axarr[i, 2].set_title("$P(CC)$")
         axarr[i, 2].set_xlabel(f"Ranks by {column}")
         divider = make_axes_locatable(axarr[i, 2])
         cax = divider.append_axes("right", size="5%", pad=0.05)
         fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-        im = axarr[i, 3].imshow(probability_arrays["P(DD)"])
-        axarr[i, 3].set_title("$P(DD)$")
+        im = axarr[i, 3].imshow(probability_arrays["P(DC)"])
+        axarr[i, 3].set_title("$P(DC)$")
         axarr[i, 3].set_xlabel(f"Ranks by {column}")
         divider = make_axes_locatable(axarr[i, 3])
+        cax = divider.append_axes("right", size="5%", pad=0.05)
+        fig.colorbar(im, cax=cax)
+        fig.tight_layout()
+
+        im = axarr[i, 4].imshow(probability_arrays["P(DD)"])
+        axarr[i, 4].set_title("$P(DD)$")
+        axarr[i, 4].set_xlabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[i, 4])
         cax = divider.append_axes("right", size="5%", pad=0.05)
         fig.colorbar(im, cax=cax)
         fig.tight_layout()

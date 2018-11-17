@@ -391,7 +391,7 @@ reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
 Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
 with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
 results of this analysis are shown in
-Figure~\ref{fig:sserror_and_probabilities_in_full}. The top ranking strategies
+Figure~\ref{fig:sse_chi_probabilities_in_full}. The top ranking strategies
 by number of wins act in an extortionate way (but not against all strategies) and
 it can be seen that a small subgroup of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
@@ -400,12 +400,14 @@ behaviour towards a number of the lower ranking strategies.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/kappa_and_probabilities_in_full/main.pdf}
-    \caption{\(\kappa\) for the strategies for the full
-        tournament. For the \(\kappa\) plot only strategy
-        interactions for which \(\chi>1\) are displayed. Note that
-        \(P(DC)\) is not shown as it corresponds to the transpose of \(P(CD)\).}
-    \label{fig:kappa_and_probabilities_in_full}
+    \includegraphics[width=.95\textwidth]{./assets/img/sse_chi_probabilities_in_full/main.pdf}
+    \caption{\(\SSe\), \(\chi\) and state probabilities for the strategies for
+        the full tournament. Note that \(P(CD)\) is not shown as it corresponds
+        to the transpose of \(P(DC)\).  The strategies with high number of wins
+        have a low \(\SSe\) and \(\chi>1\). The strategies with a high score
+        have a high \(\SSe\) against the other high scoring strategies but a low
+        \(\SSe\) and high \(\chi\) against the low scoring strategies.}
+    \label{fig:sse_chi_probabilities_in_full}
 \end{figure}
 
 A detailed look at selected strategies is given in
