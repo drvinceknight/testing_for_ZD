@@ -33,9 +33,9 @@ def main(process_data=False):
         df = moran_df.merge(
             df, on=("Player index", "Opponent index"), how="right"
         )
-        mean_kappa = df.groupby("Player index")["kappa"].mean()
-        std_kappa = df.groupby("Player index")["kappa"].std()
-        median_kappa = df.groupby("Player index")["kappa"].median()
+        mean_sserror = df.groupby("Player index")["residual"].mean()
+        std_sserror = df.groupby("Player index")["residual"].std()
+        median_sserror = df.groupby("Player index")["residual"].median()
         mean_fixation = df.groupby("Player index")["Normalised fixation"].mean()
         mean_fixation_N_two = (
             df[df["N"] == 2]
@@ -80,9 +80,9 @@ def main(process_data=False):
 
         df = pd.DataFrame(
             {
-                "mean_kappa": mean_kappa,
-                "median_kappa": median_kappa,
-                "std_kappa": std_kappa,
+                "mean_sserror": mean_sserror,
+                "median_sserror": median_sserror,
+                "std_sserror": std_sserror,
                 "mean_fixation": mean_fixation,
                 "mean_fixation_N_two": mean_fixation_N_two,
                 "mean_fixation_N_not_two": mean_fixation_N_not_two,
@@ -99,21 +99,21 @@ def main(process_data=False):
         ("$2\leq N\leq 14$", "$N=2$", "$2<N\leq 14$"),
         ("mean_fixation", "mean_fixation_N_two", "mean_fixation_N_not_two"),
     ):
+        y = df[col]
         for ax, var, xlabel in zip(
             axrow,
-            ("mean_kappa", "median_kappa", "std_kappa"),
+            ("mean_sserror", "median_sserror", "std_sserror"),
             (
-                r"$\bar\kappa$ (mean)",
-                r"$\tilde\kappa$ (median)",
-                r"$\sigma_{\kappa}$ (standard deviation)",
+                r"Mean SSerror",
+                r"Median SSerror",
+                r"Standard deviation SSerror",
             ),
         ):
-            ax.scatter(df[var], df[col], color="black", marker="+")
-
             x = df[var]
-            y = df[col]
+            ax.scatter(x, y, color="black", marker="+")
+
             slope, intercept, r_value, p_value, std_err = linregress(x, y)
-            ax.plot(df[var], slope * df[var] + intercept, color="black")
+            ax.plot(x, slope * x + intercept, color="black")
             ax.set_title(
                 f"{title}: $y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={x.shape[0]}$)",
                 size=13,

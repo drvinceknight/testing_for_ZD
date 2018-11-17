@@ -33,14 +33,14 @@ def main(process_data=False):
             if pair[0] == pair[1]:
                 array[pair] /= 2
 
-        mean_kappa = df.groupby("Player index")["kappa"].mean()
-        std_kappa = df.groupby("Player index")["kappa"].std()
-        median_kappa = df.groupby("Player index")["kappa"].median()
+        mean_sserror = df.groupby("Player index")["residual"].mean()
+        std_sserror = df.groupby("Player index")["residual"].std()
+        median_sserror = df.groupby("Player index")["residual"].median()
         df = pd.DataFrame(
             {
-                "mean_kappa": mean_kappa,
-                "std_kappa": std_kappa,
-                "median_kappa": median_kappa,
+                "mean_sserror": mean_sserror,
+                "std_sserror": std_sserror,
+                "median_sserror": median_sserror,
             }
         )
         ts = np.linspace(0, 10, 2 * 10 ** 2)
@@ -56,11 +56,11 @@ def main(process_data=False):
     fig, axarr = plt.subplots(1, 3, figsize=(19.6, 4))
     for ax, var, xlabel in zip(
         axarr,
-        ("mean_kappa", "median_kappa", "std_kappa"),
+        ("mean_sserror", "median_sserror", "std_sserror"),
         (
-            r"$\bar{\kappa}$ (mean)",
-            r"$\tilde{\kappa}$ (median)",
-            r"$\sigma_{\kappa}$ (standard deviation)",
+            r"Mean SSerror",
+            r"Median SSerror",
+            r"Standard deviation SSerror",
         ),
     ):
         for index, label, marker, color in zip(
