@@ -490,38 +490,56 @@ their memory one representation depending on the opponent.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-kappa/main.pdf}
+    \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
     \caption{Linear regression analysis of long run probabilities of
     (\ref{eqn:replicator_dynamics}) against the mean, median and standard
     deviation of \(\kappa\) (for a given strategy).}
-    \label{fig:compare-evolutionary-dynamics-to-kappa}
+    \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
 
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
 Moran process is made available at~\cite{vincent_knight_2017_1040129}
-Figure~\ref{fig:compare-fixation-to-kappa} shows linear models fitted to three
+Figure~\ref{fig:compare-fixation-to-sserror} shows linear models fitted to three
 summary measures of \(\kappa\) and the mean (over population size \(N\) and
 opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
 as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
 As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
 other population sizes which is why it is presented in isolation. Similarly to
-the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-kappa}
+the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror}
 we note that there is a significant relationship between the variability of
 \(\kappa\) and the ability for a strategy to become fixed.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-kappa/main.pdf}
+    \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-sserror/main.pdf}
     \caption{Linear regression analysis of pairwise fixation probabilities
     from~\cite{Moran1707} against the mean, median and standard deviation of
     \(\kappa\) (for a given strategy).}
-    \label{fig:compare-fixation-to-kappa}
+    \label{fig:compare-fixation-to-sserror}
 \end{figure}
 
-Note that in both Figures~\ref{fig:compare-evolutionary-dynamics-to-kappa}
-and~\ref{fig:compare-fixation-to-kappa}, there is a large proportion of
-strategies with \(\tilde\kappa\approx1.23\). This corresponds to \(p=(1,1,1,1)\)
+Note that in both Figures~\ref{fig:compare-evolutionary-dynamics-to-sserror}
+and~\ref{fig:compare-fixation-to-sserror}, there is a large proportion of
+strategies with \(\tilde\kappa\approx1.23\). Similarly to
+Table~\ref{tbl:overall_summary_results} corresponds to \(p=(1,1,1,1)\)
 (a cooperator) and indicates cooperative behaviour.
+
+Using recursive feature elimination a better linear model can be found that
+compliments these results. This is shown in
+Table~\ref{tbl:compare-fixation-to-sserror}.
+
+\begin{table}[!hbtp]
+    \begin{center}
+    \tiny
+    \input{./assets/tex/compare-fixation-to-sserror/main.tex}
+    \end{center}
+    %TODO Clean up this table if we keep this.
+    \caption{General linear model. This shows that strategies with a high mean
+        and low median are likely to be evolutionarily stable. This corresponds
+        to negatively skewed distributions of \(\SSe\) which again highlights
+        the importance of adaptability.}
+    \label{tbl:compare-fixation-to-sserror}
+\end{table}
 
 These findings confirm the work of~\cite{Moran1707} in which sophisticated
 strategies resist evolutionary invasion of shorter memory strategies. This also
