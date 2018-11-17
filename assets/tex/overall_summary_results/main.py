@@ -26,24 +26,23 @@ def main(process_data=False):
         df["Name"] = player_names
         df["P(Win)"] = df["Win"] / (len(player_names) * parameters.REPETITIONS)
         df["Rank"] = df["Score"].rank(ascending=False).astype(int)
-        kappa = df["kappa"].round(4)
-        df["kappa"] = kappa
+        sserror = df["residual"].round(4)
+        df["residual"] = sserror
 
-        strategies_of_interest += list(df.sort_values("kappa").head(5)["Name"])
-        strategies_of_interest += list(df.sort_values("kappa").tail(5)["Name"])
+        strategies_of_interest += list(df.sort_values("residual").head(5)["Name"])
+        strategies_of_interest += list(df.sort_values("residual").tail(5)["Name"])
         strategies_of_interest += list(df.sort_values("P(Win)").tail(2)["Name"])
         strategies_of_interest += list(df.sort_values("P(CC)").tail(2)["Name"])
         strategies_of_interest += list(df.sort_values("Score").head(5)["Name"])
         strategies_of_interest += list(df.sort_values("Score").tail(5)["Name"])
 
-        columns = ["Rank", "Name", "Score per turn", "P(Win)", "P(CC)", "kappa"]
+        columns = ["Rank", "Name", "Score per turn", "P(Win)", "P(CC)"]
         df = df[columns]
 
         df.rename(
             columns={
                 "P(Win)": "$P($Win$)$",
                 "P(CC)": "$P(CC)$",
-                "kappa": r"Overall $\kappa$",
             },
             inplace=True,
         )
@@ -51,27 +50,23 @@ def main(process_data=False):
         per_opponent_df = pd.read_csv(
             "../../../data/processed/full/std/per_opponent/main.csv"
         )
-        min_kappa = per_opponent_df.groupby("Player index")["kappa"].min().abs()
-        max_kappa = per_opponent_df.groupby("Player index")["kappa"].max().abs()
-        mean_kappa = per_opponent_df.groupby("Player index")["kappa"].mean()
-        median_kappa = per_opponent_df.groupby("Player index")["kappa"].median()
-        ninety_fifth_quantile_kappa = per_opponent_df.groupby("Player index")[
-            "kappa"
+        mean_sserror = per_opponent_df.groupby("Player index")["residual"].mean()
+        median_chi = per_opponent_df.groupby("Player index")["chi"].median()
+        ninety_fifth_quantile_sserror = per_opponent_df.groupby("Player index")[
+            "residual"
         ].quantile(0.95)
-        fifth_quantile_kappa = per_opponent_df.groupby("Player index")[
-            "kappa"
+        fifth_quantile_sserror = per_opponent_df.groupby("Player index")[
+            "residual"
         ].quantile(0.05)
-        std_kappa = per_opponent_df.groupby("Player index")["kappa"].std()
+        std_sserror = per_opponent_df.groupby("Player index")["residual"].std()
         per_opponent_df = pd.DataFrame(
             {
                 "Name": player_names,
-                "Min $\kappa$": min_kappa,
-                "5% CI $\kappa$": fifth_quantile_kappa,
-                "Median $\kappa$": median_kappa,
-                "Mean $\kappa$": mean_kappa,
-                "Std $\kappa$": std_kappa,
-                "95% CI $\kappa$": ninety_fifth_quantile_kappa,
-                "Max $\kappa$": max_kappa,
+                "Median $\chi$": median_chi,
+                "5% CI SSerror": fifth_quantile_sserror,
+                "Mean SSerror": mean_sserror,
+                "Std SSerror": std_sserror,
+                "95% CI SSerror": ninety_fifth_quantile_sserror,
             }
         )
 
