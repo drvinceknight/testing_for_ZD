@@ -14,6 +14,7 @@
 \usepackage{booktabs}
 
 \bibliography{main.bib}
+\newcommand{\SSe}{\text{SS}_{\text{error}}}
 
 \title{Suspicion: Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
@@ -312,10 +313,10 @@ measured \(p\). It is in fact a normal projection of \(p\) on to the plane
 defined by (\ref{eqn:condition_for_p1}).
 
 The squared norm of the remaining error is referred to as
-\(\text{SS}_{\text{error}}\):
+\(\SSe\):
 
 \begin{equation}\label{eqn:r_squared}
-    \text{SS}_{\text{error}} = \|C x^*- p^*\|_2^2
+    \SSe = \|C x^*- p^*\|_2^2
 \end{equation}
 
 This gives expressions for \(\alpha, \beta\) as \(\alpha=x^*_1\) and
@@ -328,12 +329,12 @@ becomes:
 
 A further known result~~\cite{kutner2004applied, rao1973linear,
 wakefield2013bayesian} gives an expression for
-\(\text{SS}_{\text{error}}\):
+\(\SSe\):
 
 \begin{equation}\label{eqn:x_SSError_formula}
-    \text{SS}_{\text{error}} = {p ^ *} ^ T p ^ * -
-                               p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
-                             = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
+    \SSe = {p ^ *} ^ T p ^ * -
+           p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
+         = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
 \end{equation}
 
 Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
@@ -341,10 +342,10 @@ strategy against any other can can be measured and if
 (\ref{eqn:measured_condition_for_chi}) holds then (\ref{eqn:x_SSError_formula})
 can be used to identify if a strategy is acting extortionately.
 
-For a measured \(p\), \(\text{SS}_{\text{error}}\) corresponds to the best
+For a measured \(p\), \(\SSe\) corresponds to the best
 fitting \(\alpha, \beta\). Suspicion of
 extortion then corresponds to a threshold on the following value
-\(\text{SS}_{\text{error}\).
+\(\SSe\).
 
 Comparing theoretic and actual plays of the
 IPD is not novel, see for example~\cite{Rand2013}.
@@ -367,24 +368,30 @@ in the interest of open scientific practice,~\cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
 which are not investigated here.
 
-Figure~\ref{fig:sserror_overall_in_stewart_plotkin} shows the
-\(\text{SS}_{\text{error}}\) values for all the strategies in the tournament, as
+Figure~\ref{fig:sserror_in_stewart_plotkin} shows the
+\(\SSe\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
 \(\kappa\) approximately 0) gains a large number of wins.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/sserror_overall_in_stewart_plotkin/main.pdf}
-    \caption{\(\kappa\) and state probabilities for the strategies
-        of~\cite{Stewart2012}, ordered both by number of wins and overall score.
+    \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_stewart_plotkin/main.pdf}
+    \caption{\(\SSe\) and \(\chi\) for~\cite{Stewart2012},
+        ordered both by number of wins and overall score. The dashed line shows
+        the \(\chi=1\) boundary highlighting which strategies act in an
+        extortionate manner. The strategies which a low variation in
+        \(\SSe\) and high \(\chi\) win the most matches, although even the known
+        extortionate strategy does not act in a perfectly extortionate manner in
+        all matches. The strategies with a high score have a large variation in
+        \(\SSe\).
         }
-    \label{fig:kappa_overall_in_stewart_plotkin}
+    \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
 
 Here, the work of~\cite{Stewart2012} is extended by investigating a tournament
 with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
 results of this analysis are shown in
-Figure~\ref{fig:kappa_and_probabilities_in_full}. The top ranking strategies
+Figure~\ref{fig:sserror_and_probabilities_in_full}. The top ranking strategies
 by number of wins act in an extortionate way (but not against all strategies) and
 it can be seen that a small subgroup of strategies achieve mutual defection.
 All the top ranking strategies according to score achieve mutual cooperation and
