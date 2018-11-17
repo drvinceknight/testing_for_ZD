@@ -426,11 +426,28 @@ extortion is self defeating.
     \tiny
     \input{./assets/tex/overall_summary_results/main.tex}
     \end{center}
-    \caption{Summary of results for a selected list of strategies. The overall
-             \(\kappa\) is computed by considering all transitions against all
-             opponents.}
+    \caption{Summary of results for a selected list of strategies. Similarly to
+        Figure~\ref{fig:sserror_in_stewart_plotkin}, the high scoring strategies
+        have a higher standard deviation of \(\SSe\). The strategies with a
+        large number of wins have a low \(\SSe\) and low variation of
+        \(\SSe\). Note that a value of \(\chi=0.063\) and \(\SSe=1.235\)
+        corresponds to a vector \(p=(1,1,1,1)\) which highlights that the high
+        scoring strategies, adapt and in fact cooperate often. A graphical
+        representation of this table is given in
+        Figure~\ref{fig:sserror_in_selection}).}
     \label{tbl:overall_summary_results}
 \end{table}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_selection/main.pdf}
+    \caption{\(\SSe\) and \(\chi\) for the same selection of strategies as
+        Table~\ref{tbl:overall_summary_results}. A similar conclusion to that of
+        Figure~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
+        that win often do not have a large variation of \(\SSe\) whilst the
+        strategies that score highly do.}
+    \label{fig:sserror_in_selection}
+\end{figure}
 
 \section{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
 
@@ -441,7 +458,7 @@ strategy. Using this, the replicator equation describes the evolution of the
 system based on a population density fitness function:
 
 \begin{equation}\label{eqn:replicator_dynamics}
-    \frac{dx_i}{dt} = x_i(S_i-x^TS x)
+     \frac{d x_i}{dt} = x_i ((Sx)_i - x^T S x)
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
