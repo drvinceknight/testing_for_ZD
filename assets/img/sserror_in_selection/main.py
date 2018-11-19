@@ -22,7 +22,7 @@ def main():
         "Tit For Tat",
         "Win-Stay Lose-Shift",
     ]
-    df = pd.read_csv("../../../data/processed/full/std/per_opponent/main.csv")
+    df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
     df["Name"] = df.apply(
         lambda row: player_names[row["Player index"]], axis=1
     )
@@ -36,6 +36,10 @@ def main():
     strategies_of_interest += list(df.sort_values("Score").head(5)["Name"])
     strategies_of_interest += list(df.sort_values("Score").tail(5)["Name"])
 
+    df = pd.read_csv("../../../data/processed/full/std/per_opponent/main.csv")
+    df["Name"] = df.apply(
+        lambda row: player_names[row["Player index"]], axis=1
+    )
     df = df[df["Name"].isin(strategies_of_interest)]
 
     df["Extort"] = df["chi"] > 1
@@ -52,7 +56,6 @@ def main():
         ax.violinplot(data)
 
         ax.boxplot(data)
-
 
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_xlabel("Strategies")
