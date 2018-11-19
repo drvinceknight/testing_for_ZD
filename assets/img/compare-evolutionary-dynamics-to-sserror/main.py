@@ -34,77 +34,41 @@ def main(process_data=False):
                 array[pair] /= 2
 
         mean_sserror = df.groupby("Player index")["residual"].mean()
-        std_sserror = df.groupby("Player index")["residual"].std()
-        median_sserror = df.groupby("Player index")["residual"].median()
+        var_sserror = df.groupby("Player index")["residual"].var()
         df = pd.DataFrame(
             {
                 "mean_sserror": mean_sserror,
-                "std_sserror": std_sserror,
-                "median_sserror": median_sserror,
+                "var_sserror": var_sserror,
             }
         )
         ts = np.linspace(0, 10, 2 * 10 ** 2)
         x0 = np.array([1 / N for _ in range(N)])
         xs = odeint(func=dx, y0=x0, t=ts, args=(array,))
         df["s_i"] = xs[-1]
-        df["survive"] = df["s_i"] >= 1 / N
         df.to_csv("main.csv")
 
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(1, 3, figsize=(19.6, 4))
+    fig, axarr = plt.subplots(1, 2, figsize=(19.6, 4))
     for ax, var, xlabel in zip(
         axarr,
-        ("mean_sserror", "median_sserror", "std_sserror"),
-        (
-            r"Mean SSerror",
-            r"Median SSerror",
-            r"Standard deviation SSerror",
-        ),
+        ("mean_sserror", "var_sserror"),
+        (r"Mean SSerror", r"Variance SSerror"),
     ):
-        for index, label, marker, color in zip(
-            [~df["survive"], df["survive"]],
-            [f"$s_i \leq 1 / N$ ($n={(~df['survive']).sum()}$)", None],
-            (".", "+"),
-            ("grey", "black"),
-        ):
-            ax.scatter(
-                df[index][var],
-                df[index]["s_i"],
-                label=label,
-                color=color,
-                marker=marker,
-            )
+        ax.scatter(df[var], df["s_i"], color="black")
 
         x = df[var]
         y = df["s_i"]
         N = df.shape[0]
         slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        ax.plot(
-            df[var],
-            slope * df[var] + intercept,
-            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$)",
-            color="black",
-        )
+        ax.plot(x, slope * x + intercept, color="black")
 
-        x = df[df["survive"]][var]
-        y = df[df["survive"]]["s_i"]
-        N = df["survive"].sum()
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        ax.plot(
-            df[var],
-            slope * df[var] + intercept,
-            label=f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$) for $s_i> 1 / N$",
-            color="black",
-            linestyle=":",
-        )
-
+        ax.set_title(f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$)", size=13)
+        epsilon = 10 ** -2
+        ax.set_ylim(-epsilon, np.max(df["s_i"]) + epsilon)
         ax.set_xlabel(xlabel, fontsize=20)
         ax.set_ylabel("$s_i$", fontsize=18)
-        ax.legend(bbox_to_anchor=(0.0, 1.02, 1.0, 0.102))
-        epsilon = 10 ** -3
-        ax.set_ylim(-epsilon, np.max(df["s_i"]) + epsilon)
     fig.tight_layout()
     fig.savefig("main.pdf")
 
