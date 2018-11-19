@@ -258,7 +258,7 @@ strategy (\(p=(0, 0, 1, 1)\)):
 \end{table}
 
 In this particular instance the measured value of \(p\) for the known
-extortionate strategy would be: \((2/2, 1/5, 3/8, 4/4)\) which is does not fit
+extortionate strategy would be: \((2/2, 1/5, 3/8, 0/4)\) which does not fit
 the definition of a ZD strategy.
 
 Note that measurement of behaviour might in some cases lead to missing values.
@@ -479,23 +479,37 @@ have a final long run probability value greater than \(10 ^ {-2}\)).
     \label{fig:replicator_dynamics}
 \end{figure}
 
-In Figure~\ref{fig:compare-evolutionary-dynamics-to-kappa} linear models are
-fitted to three summary measures of \(\kappa\) against the long run
-probabilities \(s\) of (\ref{eqn:replicator_dynamics}). In all cases the
+In Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} linear models are
+fitted to the mean and variance of \(\SSe\) against the long run
+probabilities \(s\) of (\ref{eqn:replicator_dynamics}). In both cases the
 predictive power of these models is small (a low \(R^2\)) however, we note a
-significant positive correlation between the standard deviation of \(\kappa\)
+significant positive correlation between the variance of \(\SSe\)
 and \(s\). Indeed: strategies that perform strongly according to equation
 (\ref{eqn:replicator_dynamics}) seem to be strategies that are able to modify
-their memory one representation depending on the opponent.
+their memory one representation depending on the opponent. A general linear
+model is shown in Table~\ref{tbl:compare-evolutionary-dynamics-to-sserror} with
+stronger predictive power and giving similar conclusions.
 
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
     \caption{Linear regression analysis of long run probabilities of
-    (\ref{eqn:replicator_dynamics}) against the mean, median and standard
-    deviation of \(\kappa\) (for a given strategy).}
+    (\ref{eqn:replicator_dynamics}) against the mean, and variance 
+    of \(\SSe\) (for a given strategy).}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
+
+\begin{table}[!hbtp]
+    \begin{center}
+    \tiny
+    \input{./assets/tex/compare-evolutionary-dynamics-to-sserror/main.tex}
+    \end{center}
+    \caption{General linear model. This shows that strategies with a high mean
+    and low median are more likely to survive the evolutionary dynamics. This
+    corresponds to negatively skewed distributions of \(\SSe\) which again
+    highlights the importance of adaptability.}
+    \label{tbl:compare-evolutionary-dynamics-to-sserror}
+\end{table}
 
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
 Moran process is made available at~\cite{vincent_knight_2017_1040129}
