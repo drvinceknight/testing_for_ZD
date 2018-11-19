@@ -34,8 +34,7 @@ def main(process_data=False):
             df, on=("Player index", "Opponent index"), how="right"
         )
         mean_sserror = df.groupby("Player index")["residual"].mean()
-        std_sserror = df.groupby("Player index")["residual"].std()
-        median_sserror = df.groupby("Player index")["residual"].median()
+        var_sserror = df.groupby("Player index")["residual"].var()
         mean_fixation = df.groupby("Player index")["Normalised fixation"].mean()
         mean_fixation_N_two = (
             df[df["N"] == 2]
@@ -81,8 +80,7 @@ def main(process_data=False):
         df = pd.DataFrame(
             {
                 "mean_sserror": mean_sserror,
-                "median_sserror": median_sserror,
-                "std_sserror": std_sserror,
+                "var_sserror": var_sserror,
                 "mean_fixation": mean_fixation,
                 "mean_fixation_N_two": mean_fixation_N_two,
                 "mean_fixation_N_not_two": mean_fixation_N_not_two,
@@ -93,20 +91,19 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(3, 3, figsize=(20, 8))
+    fig, axarr = plt.subplots(2, 2, figsize=(20, 8))
     for axrow, title, col in zip(
         axarr,
-        ("$2\leq N\leq 14$", "$N=2$", "$2<N\leq 14$"),
-        ("mean_fixation", "mean_fixation_N_two", "mean_fixation_N_not_two"),
+        ("$N=2$", "$2<N\leq 14$"),
+        ("mean_fixation_N_two", "mean_fixation_N_not_two"),
     ):
         y = df[col]
         for ax, var, xlabel in zip(
             axrow,
-            ("mean_sserror", "median_sserror", "std_sserror"),
+            ("mean_sserror", "var_sserror"),
             (
                 r"Mean SSerror",
-                r"Median SSerror",
-                r"Standard deviation SSerror",
+                r"Variance SSerror",
             ),
         ):
             x = df[var]
@@ -120,7 +117,7 @@ def main(process_data=False):
             )
 
             ax.set_xlabel(xlabel, fontsize=18)
-            ax.set_ylabel(r"$\overline{(N\cdot x_1)}$ (mean)", fontsize=15)
+            ax.set_ylabel(r"Mean $(N\cdot x_1)$", fontsize=15)
             epsilon = 10 ** -3
             ax.set_ylim(np.min(df[col]) - epsilon, np.max(df[col]) + epsilon)
     fig.tight_layout()
