@@ -41,21 +41,19 @@
     Zero Determinant strategies. It has been theoretically shown that these
     strategies can ``extort'' large classes of other strategies.
 
-    In this work, we describe an approach to identify if observed strategies are
-    playing in an extortionate manner. This corresponds to a mathematical model
-    of suspicion. Furthermore, experimental analysis of a large tournament with
+    This work will conceptually demonstrate that it is possible to recognise
+    this extortion using a linear algebraic approach. Further to this, a large
+    tournament with
     \input{assets/tex/number_of_full_strategies/main.tex}strategies is
-    considered. In this setting the most highly performing strategies do not
-    play in an extortionate manner against each other but do against lower
-    performing strategies.  This suggests that whilst the theory of Zero
+    considered with which it will be demonstrated that sophisticated strategies
+    exist that do in fact recognise this behaviour and adapt to their opponents.
+    Statistical analysis of these strategies will demonstrated that one of the
+    biggest factors correlated to evolutionary stability is in fact
+    adaptability.
+
+    This suggests that whilst the theory of Zero
     Determinant strategies suggests that memory is not of fundamental importance
     to the evolution of cooperative behaviour, this narrative is incomplete.
-
-    By considering evolutionary frameworks, we use this measure of extortion to
-    obtain a statistically significant correlation between the variability of
-    behaviour and evolutionary stability. This shows that complex strategies
-    that are able to adapt their behaviour for each interaction are more likely 
-    to survive the evolutionary process.
 \end{abstract}
 
 \section{Introduction}\label{sec:introduction}
@@ -83,11 +81,6 @@ evolutionarily stable. Furthermore, in that work it was also postulated that
 `evolutionarily successful ZD strategies can be designed that use longer memory
 to distinguish self from non-self'.
 
-The main question being asked in this work is: is it possible to recognise this
-extortionate ZD behaviour? A mathematical procedure for suspicion is presented,
-reflecting the way that the continued actions of an extortionate individual
-might raise suspicion.
-
 ZD strategies are defined by a constrained set of transition probabilities
 \(p\in\mathbb{R}^4\) (so called memory-one strategies). In this work, a
 procedure is offered that will quantify if any strategy is acting in an
@@ -105,11 +98,10 @@ self from non-self.
 
 This work makes use of the Axelrod Python library~\cite{Knight2016, Knight2018}
 which contains a large number of Prisoner Dilemma strategies available for
-extensive numerical examples.  The approach is presented in
-Section~\ref{sec:sserror-zd-strategies}.  All of the code and data discussed in
+extensive numerical examples. All of the code and data discussed in
 Section~\ref{sec:numerical-experiments} is open sourced, archived and written
 according to best scientific principles~\cite{Wilson2014}. The data archive can
-be found at~\cite{vincent_knight_2018_1297075}.  In
+be found at~\cite{vincent_knight_2018_1297075}. In
 Section~\ref{sec:evolutionary-dynamics}, this large tournament is complemented
 with an evolutionary consideration that offers some insight in to the
 effectiveness of extortionate strategies.
@@ -344,8 +336,8 @@ can be used to identify if a strategy is acting extortionately.
 
 For a measured \(p\), \(\SSe\) corresponds to the best
 fitting \(\alpha, \beta\). Suspicion of
-extortion then corresponds to a threshold on the following value
-\(\SSe\).
+extortion then corresponds to a threshold on
+\(\SSe\) and a comparison of the measured \(\chi=\frac{-\beta}{\alpha}\).
 
 Comparing theoretic and actual plays of the
 IPD is not novel, see for example~\cite{Rand2013}.
@@ -371,7 +363,7 @@ which are not investigated here.
 Figure~\ref{fig:sserror_in_stewart_plotkin} shows the
 \(\SSe\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy (which has an expected
-\(\kappa\) approximately 0) gains a large number of wins.
+\(\SSe\) approximately 0) gains a large number of wins.
 
 \begin{figure}[!htbp]
     \centering
@@ -410,10 +402,29 @@ behaviour towards a number of the lower ranking strategies.
     \label{fig:sse_chi_probabilities_in_full}
 \end{figure}
 
+Figure~\ref{fig:relationship_between_sse_and_chi} shows the relationship between
+\(\chi\) and \(\SSe\), whilst Figure~\ref{fig:sse_chi_probabilities_in_full}
+seems to indicate that if a strategy has a low \(\SSe\) then it is acting
+extortionately \(\chi>1\) this is not necessarily the case.
+
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=.95\textwidth]{./assets/img/relationship_between_sse_and_chi/main.pdf}
+    \caption{Linear relationship between \(\SSe\) and \(\chi\), note that 5\%
+        and 95\% confidence levels are considered to ignore extreme values of
+        \(\chi\). Whilst a significant relationship between \(\SSe\) and
+        \(\chi\) exists it is clear that having a low \(\SSe\) does not
+        guarantee extortionate behaviour.}
+    \label{fig:relationship_between_sse_and_chi}
+\end{figure}
+
 A detailed look at selected strategies is given in
-Table~\ref{tbl:overall_summary_results}. The high scoring strategies presented
-have a large variation in \(\kappa\) whilst the ZD strategies have a low score
-but high probability of winning. This evidences an idea proposed
+Table~\ref{tbl:overall_summary_results} and
+Figure~\ref{fig:sserror_in_selection}. The high scoring strategies presented
+have a large variation in \(\SSe\) whilst the ZD strategies have a low score
+but high probability of winning. A version of
+Figure~\ref{fig:sserror_in_selection} with all the strategies considered is
+available in the appendix and gives the same conclusion. This evidences an idea proposed
 in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
 their opponent and defend themselves against extortion.
 The high ranking strategies were in fact trained to maximise
@@ -494,7 +505,7 @@ stronger predictive power and giving similar conclusions.
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
     \caption{Linear regression analysis of long run probabilities of
-    (\ref{eqn:replicator_dynamics}) against the mean, and variance 
+    (\ref{eqn:replicator_dynamics}) against the mean, and variance
     of \(\SSe\) (for a given strategy).}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
@@ -514,29 +525,24 @@ stronger predictive power and giving similar conclusions.
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
 Moran process is made available at~\cite{vincent_knight_2017_1040129}
 Figure~\ref{fig:compare-fixation-to-sserror} shows linear models fitted to three
-summary measures of \(\kappa\) and the mean (over population size \(N\) and
+summary measures of \(\SSe\) and the mean (over population size \(N\) and
 opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
 as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
 As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
 other population sizes which is why it is presented in isolation. Similarly to
 the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror}
 we note that there is a significant relationship between the variability of
-\(\kappa\) and the ability for a strategy to become fixed.
+\(\SSe\) and the ability for a strategy to become fixed.
 
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-sserror/main.pdf}
     \caption{Linear regression analysis of pairwise fixation probabilities
-    from~\cite{Moran1707} against the mean, median and standard deviation of
-    \(\kappa\) (for a given strategy).}
+    from~\cite{Moran1707} against the mean and variance of
+    \(\SSe\) (for a given strategy averaged over all opponents and population
+    sizes).}
     \label{fig:compare-fixation-to-sserror}
 \end{figure}
-
-Note that in both Figures~\ref{fig:compare-evolutionary-dynamics-to-sserror}
-and~\ref{fig:compare-fixation-to-sserror}, there is a large proportion of
-strategies with \(\tilde\kappa\approx1.23\). Similarly to
-Table~\ref{tbl:overall_summary_results} corresponds to \(p=(1,1,1,1)\)
-(a cooperator) and indicates cooperative behaviour.
 
 Using recursive feature elimination a better linear model can be found that
 compliments these results. This is shown in
@@ -563,7 +569,7 @@ they score poorly against themselves.
 
 The work also provides strong evidence to the importance of adaptability:
 strategies that offer a variety of behaviours corresponding to a higher standard
-deviation of \(\kappa\) are significantly more likely to survive the
+deviation of \(\SSe\) are significantly more likely to survive the
 evolutionary process. This corresponds to the following quote
 of~\cite{darwin1869origin}:
 
@@ -628,6 +634,7 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 \printbibliography
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
+\includepdf{assets/img/sserror_in_std/main.pdf}
 \includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
 
 \end{document}
