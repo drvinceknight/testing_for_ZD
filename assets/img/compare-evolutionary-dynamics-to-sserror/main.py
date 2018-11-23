@@ -54,7 +54,7 @@ def main(process_data=False):
     for ax, var, xlabel in zip(
         axarr,
         ("mean_sserror", "var_sserror"),
-        (r"Mean SSerror", r"Variance SSerror"),
+        (r"Mean SSE", r"Variance SSE"),
     ):
         ax.scatter(df[var], df["s_i"], color="black")
 

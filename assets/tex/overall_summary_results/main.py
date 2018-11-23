@@ -63,10 +63,10 @@ def main(process_data=False):
             {
                 "Name": player_names,
                 "Median $\chi$": median_chi,
-                "5% CI SSerror": fifth_quantile_sserror,
-                "Mean SSerror": mean_sserror,
-                "Std SSerror": std_sserror,
-                "95% CI SSerror": ninety_fifth_quantile_sserror,
+                "5% CI SSE": fifth_quantile_sserror,
+                "Mean SSE": mean_sserror,
+                "Std SSE": std_sserror,
+                "95% CI SSE": ninety_fifth_quantile_sserror,
             }
         )
 
