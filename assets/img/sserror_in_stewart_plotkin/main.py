@@ -27,7 +27,7 @@ def main():
 
     fig, axarr = plt.subplots(2, 2, figsize=(10, 10))
 
-    for axrow, var, var_title, in zip(axarr, ("residual", "chi"), ("SSerror", "$\chi$")):
+    for axrow, var, var_title, in zip(axarr, ("residual", "chi"), ("SSE", "$\chi$")):
         for ax, column in zip(axrow, ("Score", "Win")):
 
             sorted_indices = summary_df.sort_values(column, ascending=False).index

@@ -16,7 +16,7 @@ def main():
     plt.title(f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={len(X)}$)")
     plt.scatter(X, Y)
     plt.plot(X, slope * X + intercept, color="black")
-    plt.xlabel("SSerror")
+    plt.xlabel("SSE")
     plt.ylabel("$\chi$");
     plt.savefig("main.pdf") 
 

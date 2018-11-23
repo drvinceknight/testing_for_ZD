@@ -14,7 +14,7 @@
 \usepackage{booktabs}
 
 \bibliography{main.bib}
-\newcommand{\SSe}{\text{SS}_{\text{error}}}
+\newcommand{\SSe}{\text{SSE}}
 
 \title{Suspicion: Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
@@ -304,8 +304,8 @@ This \(x^*\) corresponds to the nearest ZD strategy to the
 measured \(p\). It is in fact a normal projection of \(p\) on to the plane
 defined by (\ref{eqn:condition_for_p1}).
 
-The squared norm of the remaining error is referred to as
-\(\SSe\):
+The squared norm of the remaining error is referred to as sum of squared errors
+of prediction (\(\SSe\)):
 
 \begin{equation}\label{eqn:r_squared}
     \SSe = \|C x^*- p^*\|_2^2
@@ -421,16 +421,15 @@ extortionately \(\chi>1\) this is not necessarily the case.
 A detailed look at selected strategies is given in
 Table~\ref{tbl:overall_summary_results} and
 Figure~\ref{fig:sserror_in_selection}. The high scoring strategies presented
-have a large variation in \(\SSe\) whilst the ZD strategies have a low score
-but high probability of winning. A version of
-Figure~\ref{fig:sserror_in_selection} with all the strategies considered is
-available in the appendix and gives the same conclusion. This evidences an idea proposed
+have a large variation in \(\SSe\) whilst the ZD strategies have a low score but
+high probability of winning. A version of Figure~\ref{fig:sserror_in_selection}
+with all the strategies considered is available in the appendix and gives the
+same conclusion. This evidences an idea proposed
 in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
-their opponent and defend themselves against extortion.
-The high ranking strategies were in fact trained to maximise
-score~\cite{Harper2017} which seems to have created strategies able to extort
-weaker strategies whilst cooperating with stronger ones. Indeed unconditional
-extortion is self defeating.
+their opponent and defend themselves against extortion.  The high ranking
+strategies were in fact trained to maximise score~\cite{Harper2017} which seems
+to have created strategies able to extort weaker strategies whilst cooperating
+with stronger ones. Indeed unconditional extortion is self defeating.
 
 \begin{table}[!hbtp]
     \begin{center}
@@ -497,7 +496,9 @@ predictive power of these models is small (a low \(R^2\)) however, we note a
 significant positive correlation between the variance of \(\SSe\)
 and \(s\). Indeed: strategies that perform strongly according to equation
 (\ref{eqn:replicator_dynamics}) seem to be strategies that are able to modify
-their memory one representation depending on the opponent. A general linear
+their memory one representation depending on the opponent. Whilst the specific
+memory one representation might not be one that acts extortionately, a high
+\(\SSe\) does imply that a strategy is not extortionate. A general linear
 model is shown in Table~\ref{tbl:compare-evolutionary-dynamics-to-sserror} with
 stronger predictive power and giving similar conclusions.
 
@@ -609,7 +610,10 @@ taken advantage of. In this manuscript it has been shown that not only is it
 possible to detect and prevent extortionate behaviour but that more complex
 strategies can be evolutionary stable. The complex strategies in question were
 obtained through reinforcement learning approaches~\cite{Harper2017, Moran1707}.
-This work demonstrates the possibility for the evolution of cooperation
+Thus, this demonstrates that it is possible to recognise extortion, both
+theoretically using \(\SSe\) but also that this ability can develop through
+reinforcement learning.
+This work shows the possibility for the evolution of cooperation
 through suspicion.
 
 \section*{Acknowledgements}

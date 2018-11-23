@@ -62,9 +62,9 @@ def main():
         ax.set_xticks(range(1, len(sorted_players) + 1))
         ax.set_xticklabels(sorted_players, rotation="vertical")
         if column == "Score":
-            title = f"SSerror sorted by score"
+            title = f"SSE sorted by score"
         else:
-            title = f"SSerror sorted by number of wins"
+            title = f"SSE sorted by number of wins"
         ax.set_title(title)
     fig.tight_layout()
 

@@ -101,7 +101,7 @@ def main(process_data=False):
         chi_array = np.loadtxt(f"./data/chi_by_{column}/main.csv")
 
         im = axarr[i, 0].imshow(sserror_array)
-        axarr[i, 0].set_title("SSerror")
+        axarr[i, 0].set_title("SSE")
         axarr[i, 0].set_xlabel(f"Ranks by {column}")
         axarr[i, 0].set_ylabel(f"Ranks by {column}")
         divider = make_axes_locatable(axarr[i, 0])

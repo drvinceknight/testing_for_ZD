@@ -45,9 +45,9 @@ def main():
         ax.set_yticks(range(1, len(sorted_players) + 1))
         ax.set_yticklabels(sorted_players)
         if column == "Score":
-            title = f"SSerror sorted by score"
+            title = f"SSE sorted by score"
         else:
-            title = f"SSerror sorted by number of wins"
+            title = f"SSE sorted by number of wins"
         ax.set_title(title, size=20)
     fig.tight_layout()
 

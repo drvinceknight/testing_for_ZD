@@ -102,8 +102,8 @@ def main(process_data=False):
             axrow,
             ("mean_sserror", "var_sserror"),
             (
-                r"Mean SSerror",
-                r"Variance SSerror",
+                r"Mean SSE",
+                r"Variance SSE",
             ),
         ):
             x = df[var]
