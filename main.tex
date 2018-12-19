@@ -164,8 +164,7 @@ satisfied
     \gamma = - P(\alpha + \beta)
 \end{equation}
 
-then the player can ensure they get a score \(\chi\) times
-larger than the opponent. This extortion coefficient is given by:
+then the player can ensure \((S_X - P)=\chi(S_Y-P)\) where:
 
 \begin{equation}\label{eqn:definition_of_chi}
     \chi=\frac{-\beta}{\alpha}
@@ -420,6 +419,7 @@ Figure~\ref{fig:relationship_between_sse_and_chi} shows the relationship between
 \(\chi\) and \(\SSe\). Note that while a strategy may attempt to act
 extortionately, not all opponents can be extorted. For example, a strategy
 that always defects never receives a lower score than its opponent, and
+% TODO This section needs to be rephrased.
 therefore $\chi < 1$ for the would-be extortionate opponent. Accordingly, a low
 SSE indicates extortionate behavior rather than successful extortion. This is
 why there is not a strong correlation between SSE and $\chi$ in Figure~\ref{fig:sse_chi_probabilities_in_full}.
@@ -491,26 +491,27 @@ describes the evolution of a population of strategies:
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
-integration technique described in~\cite{Petzold1983} and
-Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
-the system with strategies ranked by score. It is clear to see that
+integration technique described in~\cite{Petzold1983} until a stationary vector
+\(x=s\) is found.
+Figure~\ref{fig:replicator_dynamics} shows the stationary probabilities for each
+strategy ranked by score.
+It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
-only \input{./assets/img/replicator_dynamics/main.tex}have a final long run
-probability value greater than \(10 ^ {-2}\), these strategies are on the bottom
-right.)
+only \input{./assets/img/replicator_dynamics/main.tex}have a stationary
+probability value greater than \(10 ^ {-2}\)).
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
-    \caption{Numerical simulation of the replicator equation
-    (\ref{eqn:replicator_dynamics}): strategies are ordered by score. Some
-    selected strategies are highlighted with their long run population
-    distribution.}
+    \caption{Stationary distribution of the replicator dynamics
+    (\ref{eqn:replicator_dynamics}): strategies are ordered by score. Note that
+    strategies that make use of the knowledge of the length of the game are
+    removed from this analysis as they have an evolutionary advantage.}
     \label{fig:replicator_dynamics}
 \end{figure}
 
 Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} plots the mean and
-variance of \(\SSe\) against the long run
+variance of \(\SSe\) against the stationary
 probabilities \(s\) of (\ref{eqn:replicator_dynamics}). Strategies that perform
 strongly according to equation
 (\ref{eqn:replicator_dynamics}) seem to be strategies that are able to modify
@@ -523,7 +524,7 @@ stronger predictive power and giving similar conclusions.
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
-    \caption{Linear regression analysis of long run probabilities of
+    \caption{Linear regression analysis of stationary probabilities of
     (\ref{eqn:replicator_dynamics}) against the mean, and variance
     of \(\SSe\) (for a given strategy).}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
@@ -534,8 +535,8 @@ stronger predictive power and giving similar conclusions.
     \tiny
     \input{./assets/tex/compare-evolutionary-dynamics-to-sserror/main.tex}
     \end{center}
-    \caption{General linear model. This shows that strategies with a high mean
-    and low median are more likely to survive the evolutionary dynamics. This
+    \caption{General linear model. This shows that strategies with a low mean
+    and high median are more likely to survive the evolutionary dynamics. This
     corresponds to negatively skewed distributions of \(\SSe\) which again
     highlights the importance of adaptability.}
     \label{tbl:compare-evolutionary-dynamics-to-sserror}

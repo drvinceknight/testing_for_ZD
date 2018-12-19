@@ -8,18 +8,20 @@ from scipy.integrate import odeint
 
 parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 
-strategies = [s.name for s in parameters.PLAYER_GROUPS["full"]]
-strategies_of_interest = [
-    "ZD-GTFT-2",
-    "ZD-GEN-2",
-    "ZD-Extort-2",
-    "EvolvedLookerUp2_2_2",
-    "Evolved ANN 5",
-    "Tit For Tat",
-    "Win-Stay Lose-Shift",
+# These three strategies always win because they make use of the length of the
+# matches.
+strategies_not_of_interest = [
+    s.name
+    for s in parameters.PLAYER_GROUPS["full"]
+    if "length" in s.classifier["makes_use_of"]
 ]
-strategies_of_interest_indices = np.array(
-    [i for i, s in enumerate(strategies) if s in strategies_of_interest]
+
+all_strategies = [s.name for s in parameters.PLAYER_GROUPS["full"]]
+strategies_of_interest = [
+    name for name in all_strategies if name not in strategies_not_of_interest
+]
+indices_of_interest = np.array(
+    [i for i, s in enumerate(all_strategies) if s in strategies_of_interest]
 )
 
 
@@ -33,8 +35,9 @@ def dx(x, t, S):
 
 
 def main(process_data=False):
-    N = len(parameters.PLAYER_GROUPS["full"])
     if process_data:
+        N = len(all_strategies)
+
         df = pd.read_csv(
             "../../../data/processed/full/std/per_opponent/main.csv"
         )
@@ -46,48 +49,42 @@ def main(process_data=False):
             if pair[0] == pair[1]:
                 array[pair] /= 2
 
-        np.savetxt("main.csv", array)
-    else:
-        array = np.loadtxt("main.csv")
+        array = array[indices_of_interest][:, indices_of_interest]
+        N = array.shape[0]
 
-    sorted_indices = np.argsort(-np.mean(array, axis=1))
-    sorted_array = array[sorted_indices][:, sorted_indices]
-    rank_of_strategies_of_interest = [
-        np.where(sorted_indices == ele)[0][0]
-        for ele in strategies_of_interest_indices
-    ]
+        sorted_indices = np.argsort(-np.mean(array, axis=1))
+        sorted_array = array[sorted_indices][:, sorted_indices]
 
-    ts = np.linspace(0, 10, 2 * 10 ** 2)
-    x0 = np.array([1 / N for _ in range(N)])
-    xs = odeint(func=dx, y0=x0, t=ts, args=(sorted_array,))
+        ts = np.linspace(0, 10, 6 * 10 ** 4)
+        x0 = np.array([1 / N for _ in range(N)])
+        while not np.allclose(dx(x0, t=0, S=sorted_array), 0):
+            xs = odeint(func=dx, y0=x0, t=ts, args=(sorted_array,))
+            x0 = xs[-1]
 
-    plt.figure(figsize=(8, 4))
-    plt.stackplot(ts, xs.transpose())
-    plt.ylabel("Population distribution")
-    plt.xlabel("Time units")
-
-    for rank, indx in zip(
-        rank_of_strategies_of_interest, strategies_of_interest_indices
-    ):
-        name = strategies[indx]
-        long_run_prob = xs[-1][rank]
-        y = np.cumsum(xs[-1])[rank] - xs[-1][rank] / 2
-        plt.annotate(
-            f"{name}: $x_{{{rank + 1}}}={round(long_run_prob, 3)}$",
-            xy=(9.95, y),
-            xycoords="data",
-            xytext=(10.5, y),
-            textcoords="data",
-            arrowprops=dict(facecolor="black", shrink=0.05),
-            horizontalalignment="left",
-            verticalalignment="middle",
+        df = pd.DataFrame(
+            {
+                "name": strategies_of_interest,
+                "stationary": x0,
+                "sorted_indices": sorted_indices,
+            }
         )
+        df.to_csv("main.csv", index=False)
+    else:
+        df = pd.read_csv("main.csv")
+        x0 = df["stationary"].values
+        sorted_indices = df["sorted_indices"]
 
+    N = x0.shape[0]
+    plt.figure(figsize=(8, 4))
+    plt.scatter(range(1, N + 1), x0)
+    plt.ylabel("Stationary distribution")
+    plt.xlabel("Strategies sorted by score")
+    plt.ylim(0, np.max(x0) * 1.1)
     plt.tight_layout()
     plt.savefig("main.pdf", bbox_inches="tight")
 
     with open("main.tex", "w") as f:
-        f.write(str(sum(xs[-1] >= 10 ** -2)))
+        f.write(str(sum(x0 >= 10 ** -2)))
 
 
 if __name__ == "__main__":
