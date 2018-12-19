@@ -38,7 +38,7 @@ def main():
         data = [df[df["Player index"] == player_index]["residual"] for player_index in sorted_indices]
 
         ax.violinplot(data, vert=False)
-        ax.boxplot(data, vert=False)
+        ax.boxplot(data, vert=False, showmeans=True)
 
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_ylabel("Strategies")

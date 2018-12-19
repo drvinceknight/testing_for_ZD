@@ -33,7 +33,7 @@ def main():
             sorted_indices = summary_df.sort_values(column, ascending=False).index
             data = [df[df["Player index"] == player_index][var] for player_index in sorted_indices]
             ax.violinplot(data)
-            ax.boxplot(data)
+            ax.boxplot(data, showmeans=True)
 
             if var == "chi":
                 ax.axhline(1, linestyle="--", color="black")
