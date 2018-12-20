@@ -32,11 +32,11 @@ def main(process_data=False):
         strategies_of_interest += list(df.sort_values("residual").head(5)["Name"])
         strategies_of_interest += list(df.sort_values("residual").tail(5)["Name"])
         strategies_of_interest += list(df.sort_values("P(Win)").tail(2)["Name"])
-        strategies_of_interest += list(df.sort_values("P(CC)").tail(2)["Name"])
+        strategies_of_interest += list(df.sort_values("P(DD)").tail(2)["Name"])
         strategies_of_interest += list(df.sort_values("Score").head(5)["Name"])
         strategies_of_interest += list(df.sort_values("Score").tail(5)["Name"])
 
-        columns = ["Rank", "Name", "Score per turn", "P(Win)", "P(CC)"]
+        columns = ["Rank", "Name", "Score per turn", "P(Win)", "P(DD)"]
         df = df[columns]
 
         df.rename(
@@ -50,23 +50,17 @@ def main(process_data=False):
         per_opponent_df = pd.read_csv(
             "../../../data/processed/full/std/per_opponent/main.csv"
         )
+        skewness = per_opponent_df.groupby("Player index")["residual"].skew()
         mean_sserror = per_opponent_df.groupby("Player index")["residual"].mean()
         median_chi = per_opponent_df.groupby("Player index")["chi"].median()
-        ninety_fifth_quantile_sserror = per_opponent_df.groupby("Player index")[
-            "residual"
-        ].quantile(0.95)
-        fifth_quantile_sserror = per_opponent_df.groupby("Player index")[
-            "residual"
-        ].quantile(0.05)
-        std_sserror = per_opponent_df.groupby("Player index")["residual"].std()
+        var_sserror = per_opponent_df.groupby("Player index")["residual"].var()
         per_opponent_df = pd.DataFrame(
             {
                 "Name": player_names,
                 "Median $\chi$": median_chi,
-                "5% CI SSE": fifth_quantile_sserror,
                 "Mean SSE": mean_sserror,
-                "Std SSE": std_sserror,
-                "95% CI SSE": ninety_fifth_quantile_sserror,
+                "Skew SSE": skewness,
+                "Var SSE": var_sserror,
             }
         )
 
