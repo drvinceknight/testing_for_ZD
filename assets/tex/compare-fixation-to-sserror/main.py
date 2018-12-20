@@ -45,7 +45,7 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    aggregate_df = df.groupby("Player index").agg(["mean", "median", "std", "max", "min", "var"]).dropna()
+    aggregate_df = df.groupby("Player index").agg(["mean", "median", "std", "max", "min", "var", "skew"]).dropna()
     Y = aggregate_df["Normalised fixation"]["mean"]
     X = aggregate_df[["residual", "chi"]]
 
