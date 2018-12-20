@@ -86,7 +86,7 @@ def main(process_data=False):
             x0 = xs[-1]
 
         aggregate_df = df.groupby("Player index").agg(
-            ["mean", "median", "std", "max", "min", "var"]
+            ["mean", "median", "std", "max", "min", "var", "skew"]
         )
         aggregate_df["$s_i$"] = x0
 
