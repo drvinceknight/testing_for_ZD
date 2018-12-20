@@ -56,8 +56,10 @@ def main(process_data=False):
 
         mean_sserror = df.groupby("Player index")["residual"].mean()
         var_sserror = df.groupby("Player index")["residual"].var()
+        skewness = df.groupby("Player index")["residual"].skew()
         df = pd.DataFrame(
-            {"mean_sserror": mean_sserror, "var_sserror": var_sserror}
+            {"mean_sserror": mean_sserror, "var_sserror": var_sserror,
+                "skew_sserror": skewness}
         )
 
         N = array.shape[0]
@@ -73,9 +75,9 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(1, 2, figsize=(19.6, 4))
+    fig, axarr = plt.subplots(1, 3, figsize=(19.6, 4))
     for ax, var, xlabel in zip(
-        axarr, ("mean_sserror", "var_sserror"), (r"Mean SSE", r"Variance SSE")
+        axarr, ("mean_sserror", "var_sserror", "skew_sserror"), (r"Mean SSE", r"Variance SSE", "Skew SSE")
     ):
         ax.scatter(df[var], df["s_i"], color="black")
 
