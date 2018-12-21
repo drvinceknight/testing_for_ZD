@@ -52,7 +52,7 @@ def main(process_data=False):
     model = carry_out_recursive_feature_elimination(n_features_to_select=2, Y=Y, X=X)
     with open("main.tex", "w") as f:
         for table in model.summary().tables:
-            f.write(table.as_latex_tabular())
+            f.write(table.as_latex_tabular().replace("residual", "SSE"))
 
 
 

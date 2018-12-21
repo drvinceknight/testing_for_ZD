@@ -57,26 +57,26 @@ def carry_out_recursive_feature_elimination(n_features_to_select, Y, X):
 
 
 def main(process_data=False):
+    N = len(parameters.PLAYER_GROUPS["full"])
+
+    df = pd.read_csv(
+        "../../../data/processed/full/std/per_opponent/main.csv"
+    )
+
+    df = df[
+        (df["Player index"].isin(indices_of_interest))
+        & (df["Opponent index"].isin(indices_of_interest))
+    ]
+
+    array = np.zeros((N, N))
+    for pair, score in df.groupby(["Player index", "Opponent index"])[
+        "Score"
+    ]:
+        array[pair] = score / (parameters.TURNS * parameters.REPETITIONS)
+        if pair[0] == pair[1]:
+            array[pair] /= 2
+
     if process_data:
-        N = len(parameters.PLAYER_GROUPS["full"])
-
-        df = pd.read_csv(
-            "../../../data/processed/full/std/per_opponent/main.csv"
-        )
-
-        df = df[
-            (df["Player index"].isin(indices_of_interest))
-            & (df["Opponent index"].isin(indices_of_interest))
-        ]
-
-        array = np.zeros((N, N))
-        for pair, score in df.groupby(["Player index", "Opponent index"])[
-            "Score"
-        ]:
-            array[pair] = score / (parameters.TURNS * parameters.REPETITIONS)
-            if pair[0] == pair[1]:
-                array[pair] /= 2
-
         array = array[indices_of_interest][:, indices_of_interest]
         N = array.shape[0]
         ts = np.linspace(0, 10, 6 * 10 ** 4)
@@ -84,16 +84,16 @@ def main(process_data=False):
         while not np.allclose(dx(x0, t=0, S=array), 0):
             xs = odeint(func=dx, y0=x0, t=ts, args=(array,))
             x0 = xs[-1]
-
-        aggregate_df = df.groupby("Player index").agg(
-            ["mean", "median", "std", "max", "min", "var", "skew"]
-        )
-        aggregate_df["$s_i$"] = x0
-
-        df = aggregate_df
-        df.to_csv("main.csv")
+        np.savetxt("main.csv", x0, delimiter=",")
     else:
-        df = pd.read_csv("main.csv")
+        x0 = np.loadtxt("main.csv", delimiter=",")
+
+    aggregate_df = df.groupby("Player index").agg(
+        ["mean", "median", "std", "max", "min", "var", "skew"]
+    )
+    aggregate_df["$s_i$"] = x0
+
+    df = aggregate_df
 
     Y = df["$s_i$"]
     X = df[["residual", "chi"]]
@@ -103,7 +103,7 @@ def main(process_data=False):
     )
     with open("main.tex", "w") as f:
         for table in model.summary().tables:
-            f.write(table.as_latex_tabular())
+            f.write(table.as_latex_tabular().replace("residual", "SSE"))
 
 
 if __name__ == "__main__":
