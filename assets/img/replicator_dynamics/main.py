@@ -76,7 +76,7 @@ def main(process_data=False):
 
     N = x0.shape[0]
     plt.figure(figsize=(8, 4))
-    plt.scatter(range(1, N + 1), x0)
+    plt.scatter(range(1, N + 1), x0, color="black")
     plt.ylabel("Stationary distribution")
     plt.xlabel("Strategies sorted by score")
     plt.ylim(0, np.max(x0) * 1.1)
