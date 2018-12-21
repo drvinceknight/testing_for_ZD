@@ -82,65 +82,25 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_chi_array)
 
-    fig, axarr = plt.subplots(nrows=2, ncols=5, figsize=(15, 15))
+    fig, axarr = plt.subplots(nrows=1, ncols=4, figsize=(15, 15))
     for i, column in enumerate(["Win", "Score"]):
-        probability_arrays = {}
-        probability_arrays["P(CC)"] = np.loadtxt(
-            f"./data/p_cc_by_{column}/main.csv"
-        )
-        probability_arrays["P(CD)"] = np.loadtxt(
-            f"./data/p_cd_by_{column}/main.csv"
-        )
-        probability_arrays["P(DC)"] = np.loadtxt(
-            f"./data/p_dc_by_{column}/main.csv"
-        )
-        probability_arrays["P(DD)"] = np.loadtxt(
-            f"./data/p_dd_by_{column}/main.csv"
-        )
         sserror_array = np.loadtxt(f"./data/sserror_by_{column}/main.csv")
-        chi_array = np.loadtxt(f"./data/chi_by_{column}/main.csv")
+        pdd_array = np.loadtxt(f"./data/p_dd_by_{column}/main.csv")
 
-        im = axarr[i, 0].imshow(sserror_array)
-        axarr[i, 0].set_title("SSE")
-        axarr[i, 0].set_xlabel(f"Ranks by {column}")
-        axarr[i, 0].set_ylabel(f"Ranks by {column}")
-        divider = make_axes_locatable(axarr[i, 0])
+        im = axarr[2 * i].imshow(sserror_array)
+        axarr[2 * i].set_title("SSE")
+        axarr[2 * i].set_xlabel(f"Ranks by {column}")
+        axarr[2 * i].set_ylabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[2 * i])
         cax = divider.append_axes("right", size="5%", pad=0.05)
         fig.colorbar(im, cax=cax)
         fig.tight_layout()
 
-        im = axarr[i, 1].imshow(chi_array)
-        axarr[i, 1].set_title("$\chi$")
-        axarr[i, 1].set_xlabel(f"Ranks by {column}")
-        axarr[i, 1].set_ylabel(f"Ranks by {column}")
-        divider = make_axes_locatable(axarr[i, 1])
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-
-        cbar = fig.colorbar(im, cax, ticks=[0, 1])
-        cbar.ax.set_yticklabels(['$\leq 1$', '$> 1$'])
-
-        fig.tight_layout()
-
-        im = axarr[i, 2].imshow(probability_arrays["P(CC)"])
-        axarr[i, 2].set_title("$P(CC)$")
-        axarr[i, 2].set_xlabel(f"Ranks by {column}")
-        divider = make_axes_locatable(axarr[i, 2])
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        fig.colorbar(im, cax=cax)
-        fig.tight_layout()
-
-        im = axarr[i, 3].imshow(probability_arrays["P(DC)"])
-        axarr[i, 3].set_title("$P(DC)$")
-        axarr[i, 3].set_xlabel(f"Ranks by {column}")
-        divider = make_axes_locatable(axarr[i, 3])
-        cax = divider.append_axes("right", size="5%", pad=0.05)
-        fig.colorbar(im, cax=cax)
-        fig.tight_layout()
-
-        im = axarr[i, 4].imshow(probability_arrays["P(DD)"])
-        axarr[i, 4].set_title("$P(DD)$")
-        axarr[i, 4].set_xlabel(f"Ranks by {column}")
-        divider = make_axes_locatable(axarr[i, 4])
+        im = axarr[2 * i + 1].imshow(pdd_array)
+        axarr[2 * i + 1].set_title("P(DD)")
+        axarr[2 * i + 1].set_xlabel(f"Ranks by {column}")
+        axarr[2 * i + 1].set_ylabel(f"Ranks by {column}")
+        divider = make_axes_locatable(axarr[2 * i + 1])
         cax = divider.append_axes("right", size="5%", pad=0.05)
         fig.colorbar(im, cax=cax)
         fig.tight_layout()
