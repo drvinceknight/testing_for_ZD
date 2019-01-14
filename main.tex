@@ -285,7 +285,7 @@ imputation. In Section~\ref{sec:numerical-experiments} the overall cooperation
 rate is used. Another approach to overcoming this measurement error would be to
 measure our strategies in a sufficiently noisy environment.
 
-We can measure how close a strategy is to being extortionate using standard
+We can measure how close a strategy is to being zero determinant using standard
 linear algebraic approaches. Essentially we attempt to find \(x=(\alpha,
 \beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3, \tilde p_4)\)
 such that
@@ -388,7 +388,7 @@ the always cooperating strategy Cooperator the \(\SSe\) is far from zero.
     \caption{\(\SSe\) and best fitting \(\chi\) for~\cite{Stewart2012},
         ordered both by number of wins and overall score. The dashed line shows
         the \(\chi=1\) boundary highlighting which strategies act in an
-        extortionate manner. The strategies which a positive skew
+        extortionate manner. The strategies with a positive skew
         \(\SSe\) and high \(\chi\) win the most matches, although even the known
         extortionate strategy does not act in a perfectly extortionate manner in
         all matches. The strategies with a high score have a negatively skewed
@@ -429,12 +429,11 @@ corresponds to the high values of \(P(DD)\) seen in
 Figure~\ref{fig:sse_chi_probabilities_in_full}.
 
 A detailed look at selected strategies is given in
-Table~\ref{tbl:overall_summary_results} and
-Figure~\ref{fig:sserror_in_selection}. The high scoring strategies presented
+Table~\ref{tbl:overall_summary_results}. The high scoring strategies presented
 have a negatively skewed \(\SSe\) whilst the ZD strategies have a low score but
 high probability of winning and higher probability of mutual defection.
-A version of Figure~\ref{fig:sserror_in_selection}
-with all the strategies considered is available in the appendix and gives the
+The skew of \(\SSe\) of all strategies is shown in
+Figure~\ref{fig:sserror_in_std} and supports the
 same conclusion. This evidences an idea proposed
 in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
 their opponent and defend themselves against extortion.  The high ranking
@@ -461,12 +460,12 @@ with stronger ones. Indeed unconditional extortion is self defeating.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_selection/main.pdf}
-    \caption{\(\SSe\) for the same selection of strategies as
-        Table~\ref{tbl:overall_summary_results}. A similar conclusion to that of
+    \includegraphics[width=\textwidth]{./assets/img/sserror_in_std/main.pdf}
+    \caption{\(\SSe\) for all strategies considered.
+        A similar conclusion to that of
         Figure~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
         that score highly have a negatively skewed \(\SSe\).}
-    \label{fig:sserror_in_selection}
+        \label{fig:sserror_in_std}
 \end{figure}
 
 \section{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
@@ -516,7 +515,7 @@ with stronger predictive power and confirming these conclusions.
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
-    \caption{Mean, variance and skew of \(\SSe\) versus the stationary 
+    \caption{Mean, variance and skew of \(\SSe\) versus the stationary
     probabilities of (\ref{eqn:replicator_dynamics}) a linear regression line is
     included for comparison despite the fact that there is a visible non linear
     relationship. The plot of the skew clearly shows that all high probabilities
@@ -561,8 +560,9 @@ in Table~\ref{tbl:compare-fixation-to-sserror} which confirms the conclusions.
     population sizes). As for
     Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} the linear
     regression lines are include for comparison despite there being no clear
-    linear relationship. Strategies with above neutral
-    fixation (\(N\cdot x_1>1\)) the \(\SSe\) has negative skew.}
+    linear relationship. The clustering either side of a value of skew equal to
+    0 show that strategies with above neutral
+    fixation (\(N\cdot x_1>1\)) negative skew.}
     \label{fig:compare-fixation-to-sserror}
 \end{figure}
 
@@ -664,7 +664,6 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 \printbibliography
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
-\includepdf{assets/img/sserror_in_std/main.pdf}
 \includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
 
 \end{document}
