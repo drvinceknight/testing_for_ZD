@@ -3,6 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.stats import skew
 
 import imp
 
@@ -24,19 +25,24 @@ def main():
     df.sort_values("Win", ascending=False)
 
     summary_df = df.groupby("Player index")["Win", "Score"].sum()
+    X = range(1, len(players) + 1)
 
     fig, axarr = plt.subplots(2, 2, figsize=(10, 10))
 
-    for axrow, var, var_title, in zip(axarr, ("residual", "chi"), ("SSE", "$\chi$")):
+    for axrow, var, var_title, in zip(axarr, ("residual", "chi"), ("SSE", "Mean $\chi$")):
         for ax, column in zip(axrow, ("Score", "Win")):
 
             sorted_indices = summary_df.sort_values(column, ascending=False).index
             data = [df[df["Player index"] == player_index][var] for player_index in sorted_indices]
-            ax.violinplot(data)
-            ax.boxplot(data)
 
             if var == "chi":
                 ax.axhline(1, linestyle="--", color="black")
+                ax.scatter(X, list(map(np.mean, data)), color="black")
+            else:
+                ax.scatter(X, list(map(np.mean, data)), color="black", label="Mean")
+                ax.scatter(X, list(map(skew, data)), color="black", marker="+", label="Skew")
+                ax.axhline(0, color="black", linestyle="--")
+                ax.legend()
 
             sorted_players = [players[i].name for i in sorted_indices]
             ax.set_xlabel("Strategies")

@@ -3,6 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+from scipy.stats import skew
 
 import imp
 
@@ -46,6 +47,7 @@ def main():
     df.sort_values("Win", ascending=False)
 
     summary_df = df.groupby("Player index")["Win", "Score"].sum()
+    X = range(1, len(set(strategies_of_interest)) + 1)
 
     fig, axarr = plt.subplots(1, 2, figsize=(10, 5))
 
@@ -53,13 +55,15 @@ def main():
 
         sorted_indices = summary_df.sort_values(column, ascending=False).index
         data = [df[df["Player index"] == player_index]["residual"] for player_index in sorted_indices]
-        ax.violinplot(data)
 
-        ax.boxplot(data)
+        ax.scatter(X, list(map(np.mean, data)), color="black", label="Mean")
+        ax.scatter(X, list(map(skew, data)), color="black", marker="+", label="Skew")
+        ax.axhline(0, color="black", linestyle="--")
+        ax.legend()
 
         sorted_players = [players[i].name for i in sorted_indices]
         ax.set_xlabel("Strategies")
-        ax.set_xticks(range(1, len(sorted_players) + 1))
+        ax.set_xticks(X)
         ax.set_xticklabels(sorted_players, rotation="vertical")
         if column == "Score":
             title = f"SSE sorted by score"

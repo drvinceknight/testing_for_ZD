@@ -45,14 +45,14 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    aggregate_df = df.groupby("Player index").agg(["mean", "median", "std", "max", "min", "var"]).dropna()
+    aggregate_df = df.groupby("Player index").agg(["mean", "median", "std", "max", "min", "var", "skew"]).dropna()
     Y = aggregate_df["Normalised fixation"]["mean"]
     X = aggregate_df[["residual", "chi"]]
 
     model = carry_out_recursive_feature_elimination(n_features_to_select=2, Y=Y, X=X)
     with open("main.tex", "w") as f:
         for table in model.summary().tables:
-            f.write(table.as_latex_tabular())
+            f.write(table.as_latex_tabular().replace("residual", "SSE"))
 
 
 

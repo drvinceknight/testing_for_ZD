@@ -107,7 +107,7 @@ effectiveness of extortionate strategies.
 Several theoretical insights emerge from this work. Infamously, extortionate
 strategies do not play well with themselves. In \cite{press2012},
 Press and Dyson claim that a player with a ``theory of mind'' would
-rationally chose to cooperate against an opponent that also has knowledge
+rationally choose to cooperate against an opponent that also has knowledge
 of zero determinant strategies to avoid sustained mutual defection. While not
 possible for memory-one strategies, we show that this behavior is exhibited by
 relatively simple strategies of memory depth two or more via strategies that
@@ -164,8 +164,7 @@ satisfied
     \gamma = - P(\alpha + \beta)
 \end{equation}
 
-then the player can ensure they get a score \(\chi\) times
-larger than the opponent. This extortion coefficient is given by:
+then the player can ensure \((S_X - P)=\chi(S_Y-P)\) where:
 
 \begin{equation}\label{eqn:definition_of_chi}
     \chi=\frac{-\beta}{\alpha}
@@ -286,9 +285,10 @@ imputation. In Section~\ref{sec:numerical-experiments} the overall cooperation
 rate is used. Another approach to overcoming this measurement error would be to
 measure our strategies in a sufficiently noisy environment.
 
-We can measure how close a strategy is to being extortionate with a bit of
-linear algebra. Essentially we attempt to find \(x=(\alpha, \beta)\) and
-\(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3, \tilde p_4)\) such that
+We can measure how close a strategy is to being zero determinant using standard
+linear algebraic approaches. Essentially we attempt to find \(x=(\alpha,
+\beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3, \tilde p_4)\)
+such that
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
     Cx= p^*
@@ -354,10 +354,12 @@ wakefield2013bayesian} gives an expression for
 Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
 strategy against any other can can be measured and if
 (\ref{eqn:measured_condition_for_chi}) holds then (\ref{eqn:x_SSError_formula})
-can be used to identify if a strategy is acting extortionately. For a measured
+can be used to identify if a strategy is acting extortionately. While the
+specific memory-one representation might not be one that acts extortionately, a
+high \(\SSe\) does imply that a strategy is not extortionate. For a measured
 \(p\), \(\SSe\) corresponds to the best fitting \(\alpha, \beta\). Suspicion of
-extortion then corresponds to a threshold on
-\(\SSe\) and a comparison of the measured \(\chi=\frac{-\beta}{\alpha}\).
+extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
+measured \(\chi=\frac{-\beta}{\alpha}\).
 
 \section{Numerical experiments}\label{sec:numerical-experiments}
 
@@ -383,64 +385,55 @@ the always cooperating strategy Cooperator the \(\SSe\) is far from zero.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_stewart_plotkin/main.pdf}
-    \caption{\(\SSe\) and \(\chi\) for~\cite{Stewart2012},
+    \caption{\(\SSe\) and best fitting \(\chi\) for~\cite{Stewart2012},
         ordered both by number of wins and overall score. The dashed line shows
         the \(\chi=1\) boundary highlighting which strategies act in an
-        extortionate manner. The strategies which a low variation in
+        extortionate manner. The strategies with a positive skew
         \(\SSe\) and high \(\chi\) win the most matches, although even the known
         extortionate strategy does not act in a perfectly extortionate manner in
-        all matches. The strategies with a high score have a large variation in
+        all matches. The strategies with a high score have a negatively skewed
         \(\SSe\).
         }
     \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
 
-Next we investigate a tournament with \input{assets/tex/number_of_full_strategies/main.tex}strategies. The
-results of this analysis are shown in
-Figure~\ref{fig:sse_chi_probabilities_in_full}. The top ranking strategies
-by number of wins act in an extortionate way (but not against all opponents) and
-it can be seen that a small subgroup of strategies achieve mutual defection.
-All the top ranking strategies according to score achieve mutual cooperation and
-do not extort each other, however they \textbf{do} exhibit extortionate
-behaviour towards a number of the lower ranking strategies.
+Next we investigate a tournament with
+\input{assets/tex/number_of_full_strategies/main.tex}strategies. The results of
+this analysis are shown in Figure~\ref{fig:sse_chi_probabilities_in_full}. The
+top ranking strategies by number of wins act in an extortionate way (but not
+against all opponents) and it can be seen that a small subgroup of strategies
+achieve mutual defection.  All the top ranking strategies according to score
+do not extort each other, however they
+\textbf{do} exhibit extortionate behaviour towards a number of the lower ranking
+strategies.
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.95\textwidth]{./assets/img/sse_chi_probabilities_in_full/main.pdf}
-    \caption{\(\SSe\), \(\chi\) and state probabilities for the strategies for
-        the full tournament. Note that \(P(CD)\) is not shown as it corresponds
-        to the transpose of \(P(DC)\).  The strategies with high number of wins
-        have a low \(\SSe\) and \(\chi>1\). The strategies with a high score
-        have a high \(\SSe\) against the other high scoring strategies but a low
-        \(\SSe\) and high \(\chi\) against the low scoring strategies.}
+    \caption{\(\SSe\) and \(P(DD)\) and state probabilities for the strategies for
+        the full tournament. The strategies with high number of wins
+        have a low \(\SSe\) however are often locked in mutual defection as
+        evidenced by a high \(P(DD)\). The strategies with a high score
+        have a high \(\SSe\) against the other high scoring strategies
+        indicating that fixed linear relationship is being enforced. However
+        against the low scoring strategies they have a lower \(\SSe\) and
+        against the very lowest scoring strategies a high \(P(DD)\).}
     \label{fig:sse_chi_probabilities_in_full}
 \end{figure}
 
-Figure~\ref{fig:relationship_between_sse_and_chi} shows the relationship between
-\(\chi\) and \(\SSe\). Note that while a strategy may attempt to act
-extortionately, not all opponents can be extorted. For example, a strategy
-that always defects never receives a lower score than its opponent, and
-therefore $\chi < 1$ for the would-be extortionate opponent. Accordingly, a low
-SSE indicates extortionate behavior rather than successful extortion. This is
-why there is not a strong correlation between SSE and $\chi$ in Figure~\ref{fig:sse_chi_probabilities_in_full}.
-
-\begin{figure}[!hbtp]
-    \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/relationship_between_sse_and_chi/main.pdf}
-    \caption{Linear relationship between \(\SSe\) and \(\chi\), note that 5\%
-        and 95\% confidence levels are considered to ignore extreme values of
-        \(\chi\). Whilst a significant relationship between \(\SSe\) and
-        \(\chi\) exists it is clear that having a low \(\SSe\) does not
-        guarantee extortionate behaviour.}
-    \label{fig:relationship_between_sse_and_chi}
-\end{figure}
+Note that while a strategy may attempt to act extortionately, not all opponents
+can be effectively extorted. For example, a strategy that always defects never
+receives a lower score than its opponent. As defined by \cite{Press2012}, an
+extortionate ZD strategy will mutually defect with such an opponent which
+corresponds to the high values of \(P(DD)\) seen in
+Figure~\ref{fig:sse_chi_probabilities_in_full}.
 
 A detailed look at selected strategies is given in
-Table~\ref{tbl:overall_summary_results} and
-Figure~\ref{fig:sserror_in_selection}. The high scoring strategies presented
-have a large variation in \(\SSe\) whilst the ZD strategies have a low score but
-high probability of winning. A version of Figure~\ref{fig:sserror_in_selection}
-with all the strategies considered is available in the appendix and gives the
+Table~\ref{tbl:overall_summary_results}. The high scoring strategies presented
+have a negatively skewed \(\SSe\) whilst the ZD strategies have a low score but
+high probability of winning and higher probability of mutual defection.
+The skew of \(\SSe\) of all strategies is shown in
+Figure~\ref{fig:sserror_in_std} and supports the
 same conclusion. This evidences an idea proposed
 in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
 their opponent and defend themselves against extortion.  The high ranking
@@ -455,8 +448,8 @@ with stronger ones. Indeed unconditional extortion is self defeating.
     \end{center}
     \caption{Summary of results for a selected list of strategies. Similarly to
         Figure~\ref{fig:sserror_in_stewart_plotkin}, the high scoring strategies
-        have a higher standard deviation of \(\SSe\). The strategies with a
-        large number of wins have a low \(\SSe\) and low variation of
+        have a negatively skewed \(\SSe\). The strategies with a
+        large number of wins have a low \(\SSe\) and positively skewed
         \(\SSe\). Note that a value of \(\chi=0.063\) and \(\SSe=1.235\)
         corresponds to a vector \(p=(1,1,1,1)\) which highlights that the high
         scoring strategies, adapt and in fact cooperate often. A graphical
@@ -467,13 +460,12 @@ with stronger ones. Indeed unconditional extortion is self defeating.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_selection/main.pdf}
-    \caption{\(\SSe\) and \(\chi\) for the same selection of strategies as
-        Table~\ref{tbl:overall_summary_results}. A similar conclusion to that of
+    \includegraphics[width=\textwidth]{./assets/img/sserror_in_std/main.pdf}
+    \caption{\(\SSe\) for all strategies considered.
+        A similar conclusion to that of
         Figure~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
-        that win often do not have a large variation of \(\SSe\) whilst the
-        strategies that score highly do.}
-    \label{fig:sserror_in_selection}
+        that score highly have a negatively skewed \(\SSe\).}
+        \label{fig:sserror_in_std}
 \end{figure}
 
 \section{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
@@ -491,41 +483,43 @@ describes the evolution of a population of strategies:
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
-integration technique described in~\cite{Petzold1983} and
-Figure~\ref{fig:replicator_dynamics} shows the evolution of the distribution of
-the system with strategies ranked by score. It is clear to see that
+integration technique described in~\cite{Petzold1983} until a stationary vector
+\(x=s\) is found.
+Figure~\ref{fig:replicator_dynamics} shows the stationary probabilities for each
+strategy ranked by score.
+It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
-only \input{./assets/img/replicator_dynamics/main.tex}have a final long run
-probability value greater than \(10 ^ {-2}\), these strategies are on the bottom
-right.)
+only \input{./assets/img/replicator_dynamics/main.tex}have a stationary
+probability value greater than \(10 ^ {-2}\)).
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
-    \caption{Numerical simulation of the replicator equation
-    (\ref{eqn:replicator_dynamics}): strategies are ordered by score. Some
-    selected strategies are highlighted with their long run population
-    distribution.}
+    \caption{Stationary distribution of the replicator dynamics
+    (\ref{eqn:replicator_dynamics}): strategies are ordered by score. Note that
+    strategies that make use of the knowledge of the length of the game are
+    removed from this analysis as they have an evolutionary advantage.}
     \label{fig:replicator_dynamics}
 \end{figure}
 
 Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} plots the mean and
-variance of \(\SSe\) against the long run
-probabilities \(s\) of (\ref{eqn:replicator_dynamics}). Strategies that perform
-strongly according to equation
-(\ref{eqn:replicator_dynamics}) seem to be strategies that are able to modify
-their memory one representation depending on the opponent. While the specific
-memory-one representation might not be one that acts extortionately, a high
-\(\SSe\) does imply that a strategy is not extortionate. A general linear
-model is shown in Table~\ref{tbl:compare-evolutionary-dynamics-to-sserror} with
-stronger predictive power and giving similar conclusions.
+skew of \(\SSe\) against the stationary probabilities \(s\) of
+(\ref{eqn:replicator_dynamics}). Strategies that perform strongly according to
+equation (\ref{eqn:replicator_dynamics}) seem to be strategies that have a
+negative skew of \(\SSe\): indicating that they often have a high value of
+\(\SSe\) (ie do not act extortionately) but have a long left tail allowing them
+to adapt when necessary. A general linear model obtained using recursive feature
+elimination is shown in Table~\ref{tbl:compare-evolutionary-dynamics-to-sserror}
+with stronger predictive power and confirming these conclusions.
 
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
-    \caption{Linear regression analysis of long run probabilities of
-    (\ref{eqn:replicator_dynamics}) against the mean, and variance
-    of \(\SSe\) (for a given strategy).}
+    \caption{Mean, variance and skew of \(\SSe\) versus the stationary
+    probabilities of (\ref{eqn:replicator_dynamics}) a linear regression line is
+    included for comparison despite the fact that there is a visible non linear
+    relationship. The plot of the skew clearly shows that all high probabilities
+    have a negative skew.}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
 
@@ -534,8 +528,8 @@ stronger predictive power and giving similar conclusions.
     \tiny
     \input{./assets/tex/compare-evolutionary-dynamics-to-sserror/main.tex}
     \end{center}
-    \caption{General linear model. This shows that strategies with a high mean
-    and low median are more likely to survive the evolutionary dynamics. This
+    \caption{General linear model. This shows that strategies with a low mean
+    and high median are more likely to survive the evolutionary dynamics. This
     corresponds to negatively skewed distributions of \(\SSe\) which again
     highlights the importance of adaptability.}
     \label{tbl:compare-evolutionary-dynamics-to-sserror}
@@ -552,29 +546,31 @@ as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
 As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
 other population sizes which is why it is presented in isolation. Similarly to
 the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror}
-we note that there is a significant relationship between the variability of
+we note that there is a significant relationship between the skew of
 \(\SSe\) and the ability for a strategy to become fixed.
+A general linear model obtained through recursive feature elimination is shown
+in Table~\ref{tbl:compare-fixation-to-sserror} which confirms the conclusions.
 
 \begin{figure}[!hbtp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-sserror/main.pdf}
-    \caption{Linear regression analysis of pairwise fixation probabilities
-    from~\cite{Moran1707} against the mean and variance of
-    \(\SSe\) (for a given strategy averaged over all opponents and population
-    sizes).}
+    \caption{The mean, variance and skew of
+    \(\SSe\) against the normalised pairwise fixation probabilities
+    from~\cite{Moran1707} (for a given strategy averaged over all opponents and
+    population sizes). As for
+    Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} the linear
+    regression lines are include for comparison despite there being no clear
+    linear relationship. The clustering either side of a value of skew equal to
+    0 show that strategies with above neutral
+    fixation (\(N\cdot x_1>1\)) negative skew.}
     \label{fig:compare-fixation-to-sserror}
 \end{figure}
-
-Using recursive feature elimination a better linear model can be found that
-compliments these results. This is shown in
-Table~\ref{tbl:compare-fixation-to-sserror}.
 
 \begin{table}[!hbtp]
     \begin{center}
     \tiny
     \input{./assets/tex/compare-fixation-to-sserror/main.tex}
     \end{center}
-    %TODO Clean up this table if we keep this.
     \caption{General linear model. This shows that strategies with a high mean
         and low median are likely to be evolutionarily stable. This corresponds
         to negatively skewed distributions of \(\SSe\) which again highlights
@@ -668,7 +664,6 @@ Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 \printbibliography
 
 \includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
-\includepdf{assets/img/sserror_in_std/main.pdf}
 \includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
 
 \end{document}

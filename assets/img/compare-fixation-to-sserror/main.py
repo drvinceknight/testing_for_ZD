@@ -35,6 +35,7 @@ def main(process_data=False):
         )
         mean_sserror = df.groupby("Player index")["residual"].mean()
         var_sserror = df.groupby("Player index")["residual"].var()
+        skewness = df.groupby("Player index")["residual"].skew()
         mean_fixation = df.groupby("Player index")["Normalised fixation"].mean()
         mean_fixation_N_two = (
             df[df["N"] == 2]
@@ -81,6 +82,7 @@ def main(process_data=False):
             {
                 "mean_sserror": mean_sserror,
                 "var_sserror": var_sserror,
+                "skew_sserror": skewness,
                 "mean_fixation": mean_fixation,
                 "mean_fixation_N_two": mean_fixation_N_two,
                 "mean_fixation_N_not_two": mean_fixation_N_not_two,
@@ -91,7 +93,7 @@ def main(process_data=False):
     else:
         df = pd.read_csv("main.csv")
 
-    fig, axarr = plt.subplots(2, 2, figsize=(20, 8))
+    fig, axarr = plt.subplots(2, 3, figsize=(20, 8))
     for axrow, title, col in zip(
         axarr,
         ("$N=2$", "$2<N\leq 14$"),
@@ -100,10 +102,11 @@ def main(process_data=False):
         y = df[col]
         for ax, var, xlabel in zip(
             axrow,
-            ("mean_sserror", "var_sserror"),
+            ("mean_sserror", "var_sserror", "skew_sserror"),
             (
                 r"Mean SSE",
                 r"Variance SSE",
+                r"Skew SSE",
             ),
         ):
             x = df[var]
