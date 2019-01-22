@@ -77,12 +77,12 @@ evolutionarily stable. Furthermore, in that work it was also postulated that
 `evolutionarily successful ZD strategies could be designed that use longer memory
 to distinguish self from non-self'.
 
-The algebraic relationships of extortion define a submanifold of
+The algebraic relationships of extortion define a subspace of
 \(p\in\mathbb{R}^4\) which can be used broaden the definition of an extortionate
 strategy by requiring only that the defining cooperation probabilities of a
 strategy are close to an algebraically extortionate strategy, by the usual
 technique of orthogonal projection. Moreover, given the history of play of a
-strategy in an empirical matchup, we can empirically observe its four
+strategy in an actual matchup, we can empirically observe its four
 cooperation probabilities, measure the distance to the subspace of extortionate
 strategies, and use this distance as a measure of the extortionality of a
 strategy. This method can be applied to any strategy regardless of the memory
@@ -92,8 +92,8 @@ We apply this method to the largest known corpus of strategies for the iterated
 prisoner's dilemma (the Axelrod Python library~\cite{Knight2016, Knight2018})
 and show empirically that the method in fact detects extortionate strategies.
 A large tournament with \input{assets/tex/number_of_full_strategies/main.tex}
-strategies was run, with which it will be demonstrated that sophisticated
-strategies do in fact recognise extortionate behaviour and adapt to their
+strategies demonstrates that sophisticated
+strategies can in fact recognise extortionate behaviour and adapt to their
 opponents. Further, statistical analysis of these strategies in the context of
 evolutionary dynamics demonstrates the importance of adaptability to achieve
 evolutionary stability. All of the code and data discussed in
@@ -107,16 +107,16 @@ effectiveness of extortionate strategies.
 Several theoretical insights emerge from this work. Infamously, extortionate
 strategies do not play well with themselves. In \cite{press2012},
 Press and Dyson claim that a player with a ``theory of mind'' would
-rationally choose to cooperate against an opponent that also has knowledge
+rationally chose to cooperate against an opponent that also has knowledge
 of zero determinant strategies to avoid sustained mutual defection. While not
 possible for memory-one strategies, we show that this behavior is exhibited by
-relatively simple strategies of memory depth two or more via strategies that
-emerged from an evolutionary selection process. Similarly, in
+relatively simple longer memory strategies which previously emerged from an
+evolutionary selection process. Similarly, in
 \cite{adami2013evolutionary}, Adami and Hintze suggest that there may exist
 strategies that are able to selectively behave extortionately to some opponents
 and cooperatively to others. We show that this is indeed the case for the same
-evolved strategies. It seems that humans have trouble defining such strategies
-but evolution is able to simply by optimizing for total payoff in IPD
+evolved strategies. It seems that humans have trouble explicitly creating such
+strategies but evolution is able to simply by optimizing for total payoff in IPD
 interactions. Accordingly, while resistance to extortionate behavior appears
 critical to the evolution of cooperation, there is no prohibition on selectively
 extorting weaker opponents, even in population dynamics, and this behavior is
@@ -319,7 +319,7 @@ variable \(x\). The best fitting \(x^*\) is defined by:
 
 Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} yield
 $x^*$, corresponding to the nearest extortionate strategy to the
-measured \(p\). It is in fact a normal projection of \(p\) on to the plane
+measured \(p\). It is in fact an orthogonal projection of \(p\) on to the plane
 defined by (\ref{eqn:condition_for_p1}).
 
 \begin{equation}\label{eqn:x_star_formula}
@@ -599,9 +599,9 @@ itself.''
 
 \section{Conclusion}\label{sec:conclusion}
 
-This work defines an approach to measure whether or not a player is playing a
-strategy that corresponds to an extortionate strategy as defined
-in~\cite{Press2012}. All extortionate
+This work defines an approach to measure whether or not a player is using an
+extortionate strategy as defined in~\cite{Press2012}, or a strategy that behaves
+similarly, broadening the definition of extortionate behavior. All extortionate
 strategies have been classified as lying on a triangular plane.  This rigorous
 classification fails to be robust to small measurement error, thus a statistical
 approach is proposed approximating the solution of a linear system. This method
