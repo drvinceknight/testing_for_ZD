@@ -6,8 +6,10 @@
             includefoot,
             footskip=30pt]{geometry}
 \usepackage{layout}
+\usepackage{multicol}
 
 \usepackage{biblatex}
+\renewcommand{\bibfont}{\scriptsize}
 
 \bibliography{main.bib}
 
@@ -21,9 +23,12 @@
 \maketitle
 
 
-\begin{enumerate}
-    \input{../../tex/list_of_strategies/main.tex}
-\end{enumerate}
+\begin{multicols}{2}
+    \begin{enumerate}
+        \scriptsize
+        \input{../../tex/list_of_strategies/main.tex}
+    \end{enumerate}
+\end{multicols}
 
 \printbibliography
 
