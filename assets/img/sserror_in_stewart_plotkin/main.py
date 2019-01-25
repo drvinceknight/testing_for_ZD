@@ -35,10 +35,14 @@ def main():
             sorted_indices = summary_df.sort_values(column, ascending=False).index
             data = [df[df["Player index"] == player_index][var] for player_index in sorted_indices]
 
-            ax.scatter(X, list(map(np.mean, data)), color="black", label="Mean")
-            ax.scatter(X, list(map(skew, data)), color="black", marker="+", label="Skew")
-            ax.axhline(0, color="black", linestyle="--")
-            ax.legend()
+            if var == "chi":
+                ax.axhline(1, linestyle="--", color="black")
+                ax.scatter(X, list(map(np.mean, data)), color="black")
+            else:
+                ax.scatter(X, list(map(np.mean, data)), color="black", label="Mean")
+                ax.scatter(X, list(map(skew, data)), color="black", marker="+", label="Skew")
+                ax.axhline(0, color="black", linestyle="--")
+                ax.legend()
 
             sorted_players = [players[i].name for i in sorted_indices]
             ax.set_xlabel("Strategies")
