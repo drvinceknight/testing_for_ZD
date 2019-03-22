@@ -15,15 +15,19 @@
 
 \usepackage{lscape}
 
+\usepackage{authblk}
+
 \bibliography{main.bib}
 \newcommand{\SSe}{\text{SSE}}
 
 \title{Recognising and evaluating the effectiveness
        of extortion in the Iterated Prisoner's Dilemma}
-\author{Vincent A. Knight \and
-        Marc Harper \and
-        Nikoleta E. Glynatsi \and
-        Jonathan Gillard}
+\author[1]{Vincent A. Knight*}
+\author[2]{Marc Harper}
+\author[1]{Nikoleta E. Glynatsi}
+\author[1]{Jonathan Gillard}
+\affil[1]{Cardiff University, School of Mathematics, Cardiff, United Kingdom}
+\affil[2]{Google Inc., Mountain View, CA, United States of America}
 \date{\today}
 
 
@@ -56,8 +60,6 @@ need not prevent cooperation between stronger opponents, and this adaptability
 may be crucial to maintaining cooperation in the long run.
 \end{abstract}
 
-\section{Introduction}\label{sec:introduction}
-
 The Iterated Prisoner's Dilemma is a model for rational and evolutionary
 interactive behaviour, having applications in biology, the study of human
 social behaviour, and many other domains. Since the introduction of
@@ -71,11 +73,13 @@ probabilities can cause a strategy to no longer satisfy the necessary equations.
 
 In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
 ichinose2018zero, Moran1707} the true effectiveness of these strategies in an
-evolutionary setting was discussed. For
-example~\cite{adami2013evolutionary} showed that ZD strategies were not
-evolutionarily stable. Furthermore, in that work it was also postulated that
-`evolutionarily successful ZD strategies could be designed that use longer memory
-to distinguish self from non-self'.
+evolutionary setting was discussed. For example~\cite{adami2013evolutionary}
+showed that ZD strategies were not evolutionarily stable. Furthermore, in that
+work it was also postulated that `evolutionarily successful ZD strategies could
+be designed that use longer memory to distinguish self from non-self'. In a non
+evolutionary context, the work of~\cite{becks2019extortion} uses social
+experiments to suggest that higher rewards promote extortionate
+behaviour where statistical techniques are used to identify such behaviour.
 
 The algebraic relationships of extortion define a subspace of
 \(p\in\mathbb{R}^4\) which can be used broaden the definition of an extortionate
@@ -99,7 +103,9 @@ evolutionary dynamics demonstrates the importance of adaptability to achieve
 evolutionary stability. All of the code and data discussed in
 Section~\ref{sec:numerical-experiments} is open sourced, archived, and written
 according to best scientific principles~\cite{Wilson2014}. The data archive can
-be found at~\cite{vincent_knight_2018_1297075}. In
+be found at~\cite{vincent_knight_2018_1297075} and the source code was developed
+at~\url{https://github.com/drvinceknight/testing_for_ZD/} and has been archived
+at~\cite{vincent_knight_2019_2598534}. In
 Section~\ref{sec:evolutionary-dynamics}, this large tournament is complemented
 with evolutionary dynamics that offer some insight in to the
 effectiveness of extortionate strategies.
@@ -123,7 +129,7 @@ extorting weaker opponents, even in population dynamics, and this behavior is
 evolutionarily advantageous.
 
 
-\section{Recognising Extortion}\label{sec:sserror-zd-strategies}
+\section{Methods: Recognising Extortion}\label{sec:sserror-zd-strategies}
 
 Zero-determinant strategies are a special case of memory-one strategies,
 which are defined by elements of \(\mathbb{R}^4\) mapping a state of
@@ -361,7 +367,7 @@ high \(\SSe\) does imply that a strategy is not extortionate. For a measured
 extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
 measured \(\chi=\frac{-\beta}{\alpha}\).
 
-\section{Numerical experiments}\label{sec:numerical-experiments}
+\section{Results: Numerical experiments}\label{sec:numerical-experiments}
 
 \cite{Stewart2012} presents results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex}strategies
@@ -594,14 +600,15 @@ to adapt to and to adjust best to the changing environment in which it finds
 itself.''
 \end{quote}
 
-\section{Conclusion}\label{sec:conclusion}
+\section{Discussion}\label{sec:conclusion}
 
 This work defines an approach to measure whether or not a player is using an
 extortionate strategy as defined in~\cite{Press2012}, or a strategy that behaves
 similarly, broadening the definition of extortionate behavior. All extortionate
 strategies have been classified as lying on a triangular plane. This rigorous
 classification fails to be robust to small measurement error, thus a statistical
-approach is proposed approximating the solution of a linear system. This method
+approach is proposed approximating the solution of a linear system. 
+This method
 was applied to a large number of pairwise interactions.
 
 The work of~\cite{Press2012}, while showing that a clever approach to taking
@@ -635,7 +642,7 @@ effective complex strategies has been incorrectly generalized to a weakness
 in complex strategies themselves, which is demonstrable not the case. In fact,
 complex strategies can be the most effective against a diverse set of opponents.
 
-In closing, the authors wish to emphasize the the role of comprehensive simulations to temper
+In closing, the authors wish to emphasize the role of comprehensive simulations to temper
 theoretical results from overgeneralization, and perhaps more importantly, the
 ability of simulations to provide insights that are difficult to obtain from theory.
 
@@ -657,6 +664,11 @@ The following open source software libraries were used in this research:
 
 This work was performed using the computational facilities of the Advanced
 Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
+
+\section*{Author contributions}
+
+VK and NG conceived the idea. MH, JG, NG and VK were all involved in carrying
+out the research and writing the manuscript.
 
 \printbibliography
 
