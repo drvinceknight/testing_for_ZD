@@ -62,7 +62,22 @@ may be crucial to maintaining cooperation in the long run.
 
 The Iterated Prisoner's Dilemma is a model for rational and evolutionary
 interactive behaviour, having applications in biology, the study of human
-social behaviour, and many other domains. Since the introduction of
+social behaviour, and many other domains. A standard representation  of the game
+is given in equation~\ref{eqn:theipd}, the constraints ensure a non cooperative
+equilibrium.
+
+\begin{equation}
+    \begin{pmatrix}
+        R & S \\
+        T & P
+    \end{pmatrix}
+    \qquad
+    T > R > P > S\text{ and }2 R > T + S
+    \label{eqn:theipd}
+\end{equation}
+
+
+Since the introduction of
 zero-determinant (ZD) strategies in \cite{Press2012}, extortionate strategies have
 received considerable interest in the literature \cite{hilbe2015partners}.
 These strategies ``enforce'' a difference in stationary
