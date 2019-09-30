@@ -96,10 +96,11 @@ evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
 behaviour where statistical techniques are used to identify such behaviour.
 
-The algebraic relationships of extortion define a subspace of
-\(p\in\mathbb{R}^4\) which can be used broaden the definition of an extortionate
-strategy by requiring only that the defining cooperation probabilities of a
-strategy are close to an algebraically extortionate strategy, by the usual
+The algebraic relationships of extortion, discussed in
+Section~\ref{sec:sec:sserror-zd-strategies}, define a subspace of
+\(p\in\mathbb{R}^4\) which can be used to broaden the definition of an extortionate
+strategy by requiring only that the defining four cooperation probabilities of a
+memory-one strategy are close to an algebraically extortionate strategy, by the usual
 technique of orthogonal projection. Moreover, given the history of play of a
 strategy in an actual matchup, we can empirically observe its four
 cooperation probabilities, measure the distance to the subspace of extortionate
@@ -109,7 +110,7 @@ depth and avoids the algebraic rigidity issues.
 
 We apply this method to the largest known corpus of strategies for the iterated
 prisoner's dilemma (the Axelrod Python library~\cite{Knight2016, Knight2018})
-and show empirically that the method in fact detects extortionate strategies.
+and validate empirically that the method in fact detects extortionate strategies.
 A large tournament with \input{assets/tex/number_of_full_strategies/main.tex}
 strategies demonstrates that sophisticated
 strategies can in fact recognise extortionate behaviour and adapt to their
@@ -137,7 +138,7 @@ evolutionary selection process. Similarly, in
 strategies that are able to selectively behave extortionately to some opponents
 and cooperatively to others. We show that this is indeed the case for the same
 evolved strategies. It seems that humans have trouble explicitly creating such
-strategies but evolution is able to simply by optimizing for total payoff in IPD
+strategies but evolution is able to do so by optimizing for total payoff in IPD
 interactions. Accordingly, while resistance to extortionate behavior appears
 critical to the evolution of cooperation, there is no prohibition on selectively
 extorting weaker opponents, even in population dynamics, and this behavior is
