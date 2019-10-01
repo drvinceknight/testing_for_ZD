@@ -383,9 +383,12 @@ high \(\SSe\) does imply that a strategy is not extortionate. For a measured
 extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
 measured \(\chi=\frac{-\beta}{\alpha}\).
 
-\section{Results: Numerical experiments}\label{sec:numerical-experiments}
+\section{Results: Validation of approach and Numerical experiments}\label{sec:numerical-experiments}
 
-\cite{Stewart2012} presents results from a tournament with
+\subsection{Validation}
+
+To validate the method described, we use~\cite{Stewart2012} which
+presents results from a tournament with
 \input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex}strategies
 with specific consideration given to ZD strategies. This
 tournament is reproduced here using the Axelrod-Python
@@ -402,7 +405,10 @@ Figure~\ref{fig:sserror_in_stewart_plotkin} shows the
 \(\SSe\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy Extort-2 gains a large number of
 wins. Notice that the mean \(\SSe\) for Extort-2 is approximately zero, while for
-the always cooperating strategy Cooperator the \(\SSe\) is far from zero.
+the always cooperating strategy Cooperator the \(\SSe\) is far from zero. It is
+also clear that ZD-GTFT2 which is defined as a ZD strategy does not act
+extortionately which is evident by the fact that it does not rank highly according
+to wins which is due to its value of \(\chi\) being less than 1.
 
 \begin{figure}[!htbp]
     \centering
@@ -417,6 +423,30 @@ the always cooperating strategy Cooperator the \(\SSe\) is far from zero.
         }
     \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
+
+In the next section a tournament with much larger number of strategies is
+presented. As a final validation of the methodology proposed here,
+Table~\ref{tbl:chi_versus_observed_chi_for_zd} shows the known values of
+\(\chi\) versus the measured values for all ZD strategies in the tournament. It
+is clear that the method accurately recovers \(\chi\) from the observed play of
+the strategies. Furthermore, the \(\SSe\) value is low for all of these. The
+values of \(\SSe\) above 1 indicate that whilst these strategies are designed to
+act extortionately they do not do so in all cases. This will be discussed in
+more detail in the next section.
+
+\begin{table}[!hbtp]
+    \begin{center}
+    \input{./assets/tex/chi_versus_observed_chi_for_zd/main.tex}
+    \end{center}
+    \caption{Validating the approach by comparing the measured values of \(\chi\) and the known values of
+    \(\chi\) for all ZD strategies in the larger tournament. The value of
+    \(\chi\) is effectively recovered from observed play and the \(\SSe\)
+    indicates that not all strategies are able to play as expected all the
+time.}
+    \label{tbl:chi_versus_observed_chi_for_zd}
+\end{table}
+
+\subsection{Numerical experiments}
 
 Next we investigate a tournament with
 \input{assets/tex/number_of_full_strategies/main.tex}strategies. The results of
@@ -623,7 +653,7 @@ extortionate strategy as defined in~\cite{Press2012}, or a strategy that behaves
 similarly, broadening the definition of extortionate behavior. All extortionate
 strategies have been classified as lying on a triangular plane. This rigorous
 classification fails to be robust to small measurement error, thus a statistical
-approach is proposed approximating the solution of a linear system. 
+approach is proposed approximating the solution of a linear system.
 This method
 was applied to a large number of pairwise interactions.
 
