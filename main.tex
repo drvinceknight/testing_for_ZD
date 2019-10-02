@@ -63,7 +63,7 @@ may be crucial to maintaining cooperation in the long run.
 The Iterated Prisoner's Dilemma is a model for rational and evolutionary
 interactive behaviour, having applications in biology, the study of human
 social behaviour, and many other domains. A standard representation  of the game
-is given in equation~\ref{eqn:theipd}, the constraints ensure a non cooperative
+is given in equation~\ref{eqn:theipd}, where the constraints ensure a non cooperative
 equilibrium.
 
 \begin{equation}
@@ -406,8 +406,8 @@ Figure~\ref{fig:sserror_in_stewart_plotkin} shows the
 reported in~\cite{Stewart2012} the extortionate strategy Extort-2 gains a large number of
 wins. Notice that the mean \(\SSe\) for Extort-2 is approximately zero, while for
 the always cooperating strategy Cooperator the \(\SSe\) is far from zero. It is
-also clear that ZD-GTFT2 which is defined as a ZD strategy does not act
-extortionately which is evident by the fact that it does not rank highly according
+also clear that ZD-GTFT2 defined as a ZD strategy does not act
+extortionately. This is evident by the fact that it does not rank highly according
 to wins which is due to its value of \(\chi\) being less than 1.
 
 \begin{figure}[!htbp]
@@ -424,11 +424,11 @@ to wins which is due to its value of \(\chi\) being less than 1.
     \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
 
-In the next section a tournament with much larger number of strategies is
-presented. As a final validation of the methodology proposed here,
+Next, the results of a much larger tournament are presented. 
+As a final validation of the proposed methodology here,
 Table~\ref{tbl:chi_versus_observed_chi_for_zd} shows the known values of
 \(\chi\) versus the measured values for all ZD strategies in the tournament. It
-is clear that the method accurately recovers \(\chi\) from the observed play of
+Clearly, the method accurately recovers \(\chi\) from the observed play of
 the strategies. Furthermore, the \(\SSe\) value is low for all of these. The
 values of \(\SSe\) above 1 indicate that whilst these strategies are designed to
 act extortionately they do not do so in all cases. This will be discussed in
@@ -558,7 +558,7 @@ skew (a standard statistical measure on a distribution) of \(\SSe\) against the
 stationary probabilities \(s\) of (\ref{eqn:replicator_dynamics}). Strategies
 that perform strongly according to equation (\ref{eqn:replicator_dynamics}) seem
 to be strategies that have a negative skew of \(\SSe\): indicating that they
-often have a high value of \(\SSe\) (ie do not act extortionately) but have a
+often have a high value of \(\SSe\) (i.e. do not act extortionately) but have a
 long left tail allowing them to adapt when necessary. A general linear model
 obtained using recursive feature elimination is shown in
 Table~\ref{tbl:compare-evolutionary-dynamics-to-sserror} with stronger
