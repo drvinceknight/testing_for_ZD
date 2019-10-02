@@ -587,6 +587,22 @@ predictive power and confirming these conclusions.
     \label{tbl:compare-evolutionary-dynamics-to-sserror}
 \end{table}
 
+Figure~\ref{fig:sserror_distribution_for_selection_of_strategies} shows the
+distribution of the \(\SSe\) for three selected strategies. It is evident that
+Extort-2 almost always has the same low value of \(\SSe\) against all opponents
+(which gives a positively skewed distribution), whereas EvolvedLookerUp2\_2\_2
+and Tit For Tat have a wider distribution of values depending on the opponent
+(which gives a negatively skewed distribution).
+
+\begin{figure}[!hbtp]
+    \centering
+    \includegraphics[width=\textwidth]{./assets/img/sserror_distribution_for_selection_of_strategies/main.pdf}
+    \caption{Distribution of \(\SSe\) values for 3 selected strategies. The
+    first two distributions are negatively skewed and the third has a positive
+    skew.}
+    \label{fig:sserror_distribution_for_selection_of_strategies}
+\end{figure}
+
 \subsection{Finite Population Dynamics: Moran Process}
 
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
