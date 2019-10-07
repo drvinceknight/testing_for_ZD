@@ -27,22 +27,25 @@ def main():
     )
 
     df["Extort"] = df["chi"] > 1
-    df.sort_values("Win", ascending=True)
+    df.sort_values("Win", ascending=False)
 
     summary_df = df.groupby("Player index")["Win", "Score"].sum()
 
-    fig, axarr = plt.subplots(1, 2, figsize=(20, 7))
-    X = range(1, len(players) + 1)
+    fig, axarr = plt.subplots(1, 2, figsize=(30, 35))
+    Y = range(1, len(players) + 1)
 
     for ax, column in zip(axarr, ("Score", "Win")):
 
-        sorted_indices = summary_df.sort_values(column, ascending=False).index
+        sorted_indices = summary_df.sort_values(column).index
         data = [df[df["Player index"] == player_index]["residual"] for player_index in sorted_indices]
 
-        ax.scatter(X, list(map(skew, data)), color="black")
-        ax.axhline(0, color="black", linestyle="--")
+        ax.scatter(list(map(skew, data)), Y, color="black")
+        ax.axvline(0, color="black", linestyle="--")
 
-        ax.set_xlabel("Strategy ranks")
+        sorted_players = [players[i].name for i in sorted_indices]
+        ax.set_ylabel("Strategies")
+        ax.set_yticks(Y)
+        ax.set_yticklabels(sorted_players)
         if column == "Score":
             title = f"Skew of SSE sorted by score"
         else:
