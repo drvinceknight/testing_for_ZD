@@ -510,12 +510,12 @@ with stronger ones. Indeed unconditional extortion is self defeating.
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=\textwidth]{./assets/img/sserror_in_std/main.pdf}
-    \caption{\(\SSe\) for all strategies considered.
+    \caption{\(\SSe\) for all strategies considered over all opponents.
         A similar conclusion to that of
         Figure~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
         that score highly have a negatively skewed \(\SSe\) highlighting their
         ability to adapt to their opponent. The auxiliary materials include a
-        version of this graphic with strategy names..}
+        version of this graphic with strategy names.}
         \label{fig:sserror_in_std}
 \end{figure}
 
@@ -568,10 +568,8 @@ predictive power and confirming these conclusions.
     \centering
     \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
     \caption{Mean, variance and skew of \(\SSe\) versus the stationary
-    probabilities of (\ref{eqn:replicator_dynamics}) a linear regression line is
-    included for comparison despite the fact that there is a visible non linear
-    relationship. The plot of the skew clearly shows that all high probabilities
-    have a negative skew.}
+    probabilities of (\ref{eqn:replicator_dynamics}). The plot of the skew
+    clearly shows that all high probabilities have a negative skew.}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
 
@@ -612,9 +610,8 @@ summary measures of \(\SSe\) and the mean (over population size \(N\) and
 opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
 as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
 As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
-other population sizes which is why it is presented in isolation. Similarly to
-the conclusions from Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror}
-we note that there is a significant relationship between the skew of
+other population sizes which is why it is presented in isolation. 
+We note that there is a significant relationship between the skew of
 \(\SSe\) and the ability for a strategy to become fixed.
 A general linear model obtained through recursive feature elimination is shown
 in Table~\ref{tbl:compare-fixation-to-sserror} which confirms the conclusions.
@@ -625,10 +622,7 @@ in Table~\ref{tbl:compare-fixation-to-sserror} which confirms the conclusions.
     \caption{The mean, variance and skew of
     \(\SSe\) against the normalised pairwise fixation probabilities
     from~\cite{Moran1707} (for a given strategy averaged over all opponents and
-    population sizes). As for
-    Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} the linear
-    regression lines are include for comparison despite there being no clear
-    linear relationship. The clustering either side of a value of skew equal to
+    population sizes). The clustering either side of a value of skew equal to
     0 show that strategies with above neutral
     fixation (\(N\cdot x_1>1\)) negative skew.}
     \label{fig:compare-fixation-to-sserror}
