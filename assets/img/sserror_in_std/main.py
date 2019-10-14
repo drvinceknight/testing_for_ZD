@@ -11,42 +11,36 @@ parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 
 
 def main():
-    players = parameters.PLAYER_GROUPS["full"]
-    player_names = [s.name for s in players]
-
+    player_names = [s.name for s in parameters.PLAYER_GROUPS["full"]]
     df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
-    df["Name"] = df.apply(
-        lambda row: player_names[row["Player index"]], axis=1
+    df["Score per turn"] = df["Score"] / (
+        parameters.TURNS * parameters.REPETITIONS * (len(player_names))
     )
+    df["Name"] = player_names
     df["P(Win)"] = df["Win"] / (len(player_names) * parameters.REPETITIONS)
-    df["Rank"] = df["Score"].rank(ascending=False).astype(int)
+    sserror = df["residual"].round(4)
+    df["residual"] = sserror
 
-    df = pd.read_csv("../../../data/processed/full/std/per_opponent/main.csv")
-    df["Name"] = df.apply(
-        lambda row: player_names[row["Player index"]], axis=1
+    columns = ["Name", "Score per turn", "P(Win)"]
+    df = df[columns]
+
+    per_opponent_df = pd.read_csv(
+        "../../../data/processed/full/std/per_opponent/main.csv"
     )
-
-    df["Extort"] = df["chi"] > 1
-    df.sort_values("Win", ascending=True)
-
-    summary_df = df.groupby("Player index")["Win", "Score"].sum()
+    skewness = per_opponent_df.groupby("Player index")["residual"].skew()
+    df["Skew"] = skewness
 
     fig, axarr = plt.subplots(1, 2, figsize=(20, 7))
-    X = range(1, len(players) + 1)
+    for ax, column in zip(axarr, ("Score per turn", "P(Win)")):
 
-    for ax, column in zip(axarr, ("Score", "Win")):
-
-        sorted_indices = summary_df.sort_values(column, ascending=False).index
-        data = [df[df["Player index"] == player_index]["residual"] for player_index in sorted_indices]
-
-        ax.scatter(X, list(map(skew, data)), color="black")
+        ax.scatter(df[column], df["Skew"], color="black")
         ax.axhline(0, color="black", linestyle="--")
 
-        ax.set_xlabel("Strategy ranks")
-        if column == "Score":
-            title = f"Skew of SSE sorted by score"
+        ax.set_xlabel(f"{column}")
+        if column == "Score per turn":
+            title = f"Skew of SSE against score"
         else:
-            title = f"Skew of SSE sorted by number of wins"
+            title = f"Skew of SSE against number of wins"
         ax.set_title(title, size=20)
     fig.tight_layout()
 
