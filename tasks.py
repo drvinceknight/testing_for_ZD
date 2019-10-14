@@ -124,4 +124,4 @@ def test(c):
     """
     Test all packaged code and notebooks
     """
-    c.run("pytest --nbval --current-env")
+    c.run("pytest --current-env")

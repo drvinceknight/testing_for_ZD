@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from scipy.integrate import odeint
-from scipy.stats import linregress
 
 parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 # These three strategies always win because they make use of the length of the
@@ -84,13 +83,6 @@ def main(process_data=False):
         x = df[var]
         y = df["s_i"]
         N = df.shape[0]
-        slope, intercept, r_value, p_value, std_err = linregress(x, y)
-        ax.plot(x, slope * x + intercept, color="black")
-
-        ax.set_title(
-            f"$y={slope:0.3f}x+{intercept:0.3f}$ ($p={p_value:0.3f}$, $R^2={round(r_value ** 2, 3)}$, $n={N}$)",
-            size=13,
-        )
         epsilon = 10 ** -2
         ax.set_ylim(-epsilon, np.max(df["s_i"]) + epsilon)
         ax.set_xlabel(xlabel, fontsize=20)
