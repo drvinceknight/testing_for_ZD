@@ -172,8 +172,8 @@ or
     \tilde q=\alpha S_x + \beta S_y + \gamma
 \end{equation}
 
- where \(\tilde p = (1 - p_1, 1 - p_2, p_3, p_4)\) and
-\(\tilde q = (1 - q_1, 1 - q_2, q_3, q_4)\) then:
+where \(\tilde p = (p_1 - 1, p_2 - 1, p_3, p_4)\) and
+\(\tilde q = (q_1 - 1, q_3, q_2 - 1, q_4)\) then:
 
 \begin{equation}
     \alpha S_X + \beta S_Y + \gamma = 0
@@ -309,11 +309,10 @@ measure strategies in a sufficiently noisy environment.
 
 We can measure how close a strategy is to being zero determinant using standard
 linear algebraic approaches. Essentially we attempt to find \(x=(\alpha,
-\beta)\) and \(p^*=(\tilde p_1 - 1, \tilde p_2 - 1, \tilde p_3, \tilde p_4)\)
-such that
+\beta)\) such that:
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
-    Cx= p^*
+    Cx= \tilde p
 \end{equation}
 
 where \(C\) corresponds to equations
@@ -336,23 +335,23 @@ a solution it is unique since \(\text{rank}(C)=2\) which is the dimension of the
 variable \(x\). The best fitting \(x^*\) is defined by:
 
 \begin{equation}\label{eqn:x_star}
-    x^* = \text{argmin}_{x\in\mathbb{R}^2}\|C x- p^*\|_2^2
+    x^* = \text{argmin}_{x\in\mathbb{R}^2}\|C x- \tilde p\|_2^2
 \end{equation}
 
-Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian} yield
-$x^*$, corresponding to the nearest extortionate strategy to the
-measured \(p\). It is in fact an orthogonal projection of \(p\) on to the plane
-defined by (\ref{eqn:condition_for_p1}).
+Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian}
+yield $x^*$, corresponding to the nearest extortionate strategy to the measured
+\(\tilde p\). It is in fact an orthogonal projection of \(\tilde p\) on to the
+plane defined by (\ref{eqn:condition_for_p1}).
 
 \begin{equation}\label{eqn:x_star_formula}
-    x^* = {\left(C^{T}C\right)}^{-1}C^{T}p^{*}
+    x^* = {\left(C^{T}C\right)}^{-1}C^{T}\tilde p
 \end{equation}
 
 The squared norm of the remaining error is referred to as sum of squared errors
 of prediction (\(\SSe\)):
 
 \begin{equation}\label{eqn:r_squared}
-    \SSe = \|C x^*- p^*\|_2^2
+    \SSe = \|C x^*- \tilde p\|_2^2
 \end{equation}
 
 This gives expressions for \(\alpha, \beta\) as \(\alpha=x^*_1\) and
@@ -368,9 +367,9 @@ wakefield2013bayesian} gives an expression for
 \(\SSe\):
 
 \begin{equation}\label{eqn:x_SSError_formula}
-    \SSe = {p ^ *} ^ T p ^ * -
-           p ^ * C \left(C ^ T C \right) ^ {-1} C ^ T p ^ *
-         = {p ^ *} ^ T p ^ * - p ^ * C x ^ *
+    \SSe = {\tilde p} ^ T \tilde p
+           \tilde p C \left(C ^ T C \right) ^ {-1} C ^ T \tilde p
+         = {\tilde p} ^ T \tilde p - \tilde p C x ^ *
 \end{equation}
 
 Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
@@ -424,7 +423,7 @@ to wins which is due to its value of \(\chi\) being less than 1.
     \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
 
-Next, the results of a much larger tournament are presented. 
+Next, the results of a much larger tournament are presented.
 As a final validation of the proposed methodology here,
 Table~\ref{tbl:chi_versus_observed_chi_for_zd} shows the known values of
 \(\chi\) versus the measured values for all ZD strategies in the tournament. It
@@ -610,7 +609,7 @@ summary measures of \(\SSe\) and the mean (over population size \(N\) and
 opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
 as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
 As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
-other population sizes which is why it is presented in isolation. 
+other population sizes which is why it is presented in isolation.
 We note that there is a significant relationship between the skew of
 \(\SSe\) and the ability for a strategy to become fixed.
 A general linear model obtained through recursive feature elimination is shown
