@@ -23,6 +23,7 @@ def main():
 
     df = df[df["Name"].isin(selection_of_players)]
 
+    plt.rcParams.update({'font.size': 18})
     fig, axarr = plt.subplots(1, 3, figsize=(25, 5))
 
     for ax, name in zip(axarr, selection_of_players):

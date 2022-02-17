@@ -82,6 +82,7 @@ def main(process_data=False):
             path.mkdir(exist_ok=True, parents=True)
             np.savetxt(str(path / "main.csv"), sorted_chi_array)
 
+    plt.rcParams.update({'font.size': 16})
     fig, axarr = plt.subplots(nrows=1, ncols=4, figsize=(15, 15))
     for i, column in enumerate(["Win", "Score"]):
         sserror_array = np.loadtxt(f"./data/sserror_by_{column}/main.csv")
