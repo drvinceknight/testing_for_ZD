@@ -49,7 +49,7 @@ def main():
 
     df = df[df["Name"].isin(zd_player_names)]
 
-    df["Known chi"] = df.apply(
+    df["Theoretic chi"] = df.apply(
         lambda row: get_chi(
             four_vector=zd_player_names_to_chi[row["Name"]], p_c=row["P(C)"]
         ),
