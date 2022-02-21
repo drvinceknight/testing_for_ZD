@@ -78,10 +78,10 @@ may be crucial to maintaining cooperation in the long run.
 \end{abstract}
 
 The Iterated Prisoner's Dilemma (IPD) is a model for rational and evolutionary
-interactive behaviour, having applications in biology, the study of human
-social behaviour, and many other domains. A standard representation  of the game
-is given in equation~\ref{eqn:theipd}, where the constraints ensure a non cooperative
-equilibrium.
+interactive behaviour, having applications in biology, the study of human social
+behaviour, and many other domains. A standard representation  of the game is
+given in equation~\ref{eqn:theipd}, where the constraints ensure a non
+cooperative equilibrium.
 
 \begin{equation}
     \begin{pmatrix}
@@ -93,15 +93,22 @@ equilibrium.
     \label{eqn:theipd}
 \end{equation}
 
+The non cooperative behaviour is no longer necessary when the game is repeated.
+An initial major piece of research on this topic was the work
+of~\cite{Axelrod1980, Axelrod1980a} which show that a cooperative behaviour
+which was able to respond to uncooperative actions: Tit For Tat would perform
+strongly. The simplicity of Tit For Tat, which only requires knowledge of the
+opponents previous play lead to most research concentrating on these so called
+Memory 1 strategies.
 
-Since the introduction of
-zero-determinant (ZD) strategies in \cite{Press2012}, extortionate strategies have
-received considerable interest in the literature \cite{hilbe2015partners}.
-These strategies ``enforce'' a difference in stationary
-payouts between themselves and their opponents. The definition requires a
-precise algebraic relationship between the probabilities of cooperation given
-the outcome of the previous round of play and slight alterations to these
-probabilities can cause a strategy to no longer satisfy the necessary equations.
+One specific type of these strategies are zero-determinant (ZD) strategies which
+were introduced in \cite{Press2012}, extortionate strategies have received
+considerable interest in the literature \cite{hilbe2015partners}. These
+strategies ``enforce'' a difference in stationary payouts between themselves and
+their opponents. The definition requires a precise algebraic relationship
+between the probabilities of cooperation given the outcome of the previous round
+of play and slight alterations to these probabilities can cause a strategy to no
+longer satisfy the necessary equations.
 
 In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
 ichinose2018zero, Moran1707} the true effectiveness of these strategies in an
@@ -112,6 +119,9 @@ be designed that use longer memory to distinguish self from non-self'. In a non
 evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
 behaviour where statistical techniques are used to identify such behaviour.
+
+A bibliometric study of the literature on the IPD is available
+at~\cite{glynatsi2021bibliometric}.
 
 The algebraic relationships of extortion, discussed in
 Section~\ref{sec:sserror-zd-strategies}, define a subspace of
