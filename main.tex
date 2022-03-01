@@ -38,12 +38,29 @@
 
 \begin{abstract}
 
-Since the introduction of zero-determinant strategies, extortionate strategies
-have received considerable interest. While an interesting class of strategies,
-the definitions of extortionate strategies are algebraically rigid, apply only
-to memory-one strategies, and require complete knowledge of a strategy (memory-one
-cooperation probabilities). The contribution of this work  is a method to detect extortionate
-behaviour from the history of play of a strategy. When applied to a corpus of
+Establishing and maintaining mutual cooperation in agent to agent interactions
+can be considered as a question of direct reciprocity. This mechanism can be
+readily applied to the Iterated Prisoner's Dilemma. Agents cooperate, at a
+small cost to themselves, in the hope of obtaining a future benefit. In 2012
+a new type of strategy was introduced: zero-determinant strategies which
+made way for strategies that were provably extortionate.
+
+In the established literature, most of the studies of the effectiveness or lack
+thereof of zero-determinant strategies is done by placing some
+zero-determinant strategy in a specific scenario (collection of agents) and
+evaluating their performance either numerically or theoretically.
+
+While an interesting class of strategies, the definitions of extortionate
+strategies are algebraically rigid, apply only to memory-one strategies, and
+require complete knowledge of a strategy (memory-one cooperation
+probabilities). The contribution of this work is a method to detect
+extortionate behaviour from the history of play of a strategy. This inverts
+the paradigm of most studies: instead of observing the effectiveness of some
+theoretically extortionate strategies, the largest known collection of
+strategies will be observed and their performance compared to how
+theoretically extortionate they are.
+
+When applied to a corpus of
 \input{assets/tex/number_of_full_strategies/main.tex}strategies this method
 detects extortionate behaviour in well-known extortionate strategies as well
 others that do not fit the algebraic definition. The highest performing
@@ -60,11 +77,11 @@ need not prevent cooperation between stronger opponents, and this adaptability
 may be crucial to maintaining cooperation in the long run.
 \end{abstract}
 
-The Iterated Prisoner's Dilemma is a model for rational and evolutionary
-interactive behaviour, having applications in biology, the study of human
-social behaviour, and many other domains. A standard representation  of the game
-is given in equation~\ref{eqn:theipd}, where the constraints ensure a non cooperative
-equilibrium.
+The Iterated Prisoner's Dilemma (IPD) is a model for rational and evolutionary
+interactive behaviour, having applications in biology, the study of human social
+behaviour, and many other domains. A standard representation  of the game is
+given in equation~\ref{eqn:theipd}, where the constraints ensure a
+non-cooperative equilibrium.
 
 \begin{equation}
     \begin{pmatrix}
@@ -76,15 +93,21 @@ equilibrium.
     \label{eqn:theipd}
 \end{equation}
 
+The non-cooperative behaviour is no longer necessary when the game is repeated.
+Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that a cooperative behaviour
+which was able to respond to uncooperative actions: Tit For Tat would perform
+strongly. The simplicity of Tit For Tat, which only requires knowledge of the
+opponents previous play lead to most research concentrating on these so called
+memory-one strategies.
 
-Since the introduction of
-zero-determinant (ZD) strategies in \cite{Press2012}, extortionate strategies have
-received considerable interest in the literature \cite{hilbe2015partners}.
-These strategies ``enforce'' a difference in stationary
-payouts between themselves and their opponents. The definition requires a
-precise algebraic relationship between the probabilities of cooperation given
-the outcome of the previous round of play and slight alterations to these
-probabilities can cause a strategy to no longer satisfy the necessary equations.
+A subclass of memory-one strategies known as zero-determinant (ZD) strategies 
+were introduced in \cite{Press2012}. Of these, extortionate strategies have received
+considerable interest in the literature \cite{hilbe2015partners}. These
+strategies ``enforce'' a difference in stationary payouts between themselves and
+their opponents. The definition requires a precise algebraic relationship
+between the probabilities of cooperation given the outcome of the previous round
+of play and slight alterations to these probabilities can cause a strategy to no
+longer satisfy the necessary equations.
 
 In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
 ichinose2018zero, Moran1707} the true effectiveness of these strategies in an
@@ -96,8 +119,11 @@ evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
 behaviour where statistical techniques are used to identify such behaviour.
 
+A bibliometric study of the literature on the IPD is available
+at~\cite{glynatsi2021bibliometric}.
+
 The algebraic relationships of extortion, discussed in
-Section~\ref{sec:sec:sserror-zd-strategies}, define a subspace of
+Section~\ref{sec:sserror-zd-strategies}, define a subspace of
 \(p\in\mathbb{R}^4\) which can be used to broaden the definition of an extortionate
 strategy by requiring only that the defining four cooperation probabilities of a
 memory-one strategy are close to an algebraically extortionate strategy, by the usual
@@ -376,7 +402,8 @@ Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
 strategy against any other can can be measured and if
 (\ref{eqn:measured_condition_for_chi}) holds then (\ref{eqn:x_SSError_formula})
 can be used to identify if a strategy is acting extortionately. While the
-specific memory-one representation might not be one that acts extortionately, a
+specific memory-one representation might not be one that acts extortionately or
+is even feasible (as noted in~\cite{Press2012}), a
 high \(\SSe\) does imply that a strategy is not extortionate. For a measured
 \(p\), \(\SSe\) corresponds to the best fitting \(\alpha, \beta\). Suspicion of
 extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
@@ -415,7 +442,8 @@ to wins which is due to its value of \(\chi\) being less than 1.
     \caption{\(\SSe\) and best fitting \(\chi\) for~\cite{Stewart2012},
         ordered both by number of wins and overall score.
         The strategies with a positive skew
-        \(\SSe\) and high \(\chi\) win the most matches, although even the known
+        \(\SSe\) and high \(\chi\) win the most matches, although even the
+        theoretic
         extortionate strategy does not act in a perfectly extortionate manner in
         all matches. The strategies with a high score have a negatively skewed
         \(\SSe\).
@@ -425,9 +453,9 @@ to wins which is due to its value of \(\chi\) being less than 1.
 
 Next, the results of a much larger tournament are presented.
 As a final validation of the proposed methodology here,
-Table~\ref{tbl:chi_versus_observed_chi_for_zd} shows the known values of
-\(\chi\) versus the measured values for all ZD strategies in the tournament. It
-Clearly, the method accurately recovers \(\chi\) from the observed play of
+Table~\ref{tbl:chi_versus_observed_chi_for_zd} shows the theoretic values of
+\(\chi\) versus the measured values for all ZD strategies in the tournament.
+The method accurately recovers \(\chi\) from the observed play of
 the strategies. Furthermore, the \(\SSe\) value is low for all of these. The
 values of \(\SSe\) above 1 indicate that whilst these strategies are designed to
 act extortionately they do not do so in all cases. This will be discussed in
@@ -437,7 +465,8 @@ more detail in the next section.
     \begin{center}
    \input{./assets/tex/chi_versus_observed_chi_for_zd/main.tex}
     \end{center}
-    \caption{Validating the approach by comparing the measured values of \(\chi\) and the known values of
+    \caption{Validating the approach by comparing the measured values of
+    \(\chi\) and the theoretic values of
     \(\chi\) for all ZD strategies in the larger tournament. The value of
     \(\chi\) is effectively recovered from observed play and the \(\SSe\)
     indicates that not all strategies are able to play as expected all the

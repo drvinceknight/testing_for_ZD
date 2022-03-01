@@ -27,6 +27,7 @@ def main():
     summary_df = df.groupby("Player index")["Win", "Score"].sum()
     X = range(1, len(players) + 1)
 
+    plt.rcParams.update({'font.size': 14})
     fig, axarr = plt.subplots(2, 2, figsize=(10, 10))
 
     for axrow, var, var_title, in zip(axarr, ("residual", "chi"), ("SSE", "Mean $\chi$")):
