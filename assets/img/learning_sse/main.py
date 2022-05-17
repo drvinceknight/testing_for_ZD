@@ -59,7 +59,7 @@ def get_SSE_over_time(players, turns=1_000, seed=None):
 
 
 def main(player_pairs, repetitions=20, turns=1_000):
-    fig, axarr = plt.subplots(1, len(player_pairs), figsize=(17, 4))
+    fig, axarr = plt.subplots(1, len(player_pairs), figsize=(12, 4))
     for ax, players in zip(axarr, player_pairs):
         repeated_SSEs_over_time = []
         for seed in range(repetitions):
@@ -71,15 +71,15 @@ def main(player_pairs, repetitions=20, turns=1_000):
                 )
         mean_SSEs_over_time = [np.mean(SSEs, axis=0) for SSEs in zip(*repeated_SSEs_over_time)]
 
-        for player, mean in zip(players, mean_SSEs_over_time):
-            ax.plot(mean, label=f"{player.name}")
+        for player, mean, style, color in zip(players, mean_SSEs_over_time, ("-",  "--"), ("grey", "black")):
+            ax.plot(mean, label=f"{player.name}", linestyle=style, color=color)
         ax.legend()
-        ax.set_title(f"{players[0].name} versus {players[1].name} ({repetitions} repetitions)")
+        ax.set_title(f"{players[0].name} versus {players[1].name}")
         ax.set_xlabel("Turns")
-        ax.set_ylabel("Mean SSE")
+        ax.set_ylabel(f"Mean SSE per turn ({repetitions} repetitions)")
         ax.set_ylim(0, 1.05)
     plt.tight_layout()
-    plt.savefig("main.pdf")
+    plt.savefig("main.pdf", bbox_inches="tight")
 
 
 if __name__ == "__main__":

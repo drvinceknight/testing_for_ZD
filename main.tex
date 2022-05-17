@@ -60,22 +60,12 @@ theoretically extortionate strategies, the largest known collection of
 strategies will be observed and their performance compared to how
 theoretically extortionate they are.
 
-When applied to a corpus of
-\input{assets/tex/number_of_full_strategies/main.tex}strategies this method
-detects extortionate behaviour in well-known extortionate strategies as well
-others that do not fit the algebraic definition. The highest performing
-strategies in this corpus are able to exhibit selectively extortionate behavior,
-cooperating with strong strategies while exploiting weaker strategies, which no
-memory-one strategy can do. These strategies emerged from an evolutionary
-selection process and their existence contradicts widely-repeated folklore in
-the evolutionary game theory literature: complex strategies can be
-extraordinarily effective, zero-determinant strategies can be outperformed by
-non-zero determinant strategies, and longer memory strategies are able to
-outperform short memory strategies. Moreover, while resistance to extortion is
-critical for the evolution of cooperation, the extortion of weak opponents
-need not prevent cooperation between stronger opponents, and this adaptability
-may be crucial to maintaining cooperation in the long run.
+The main contribution of this paper is that extortionate strategies as defined
+in the original 2012 paper lack the ability to adapt which is fundamentally
+important to the evolutionary process.
 \end{abstract}
+
+\section{Introduction}
 
 The Iterated Prisoner's Dilemma (IPD) is a model for rational and evolutionary
 interactive behaviour, having applications in biology, the study of human social
@@ -93,6 +83,7 @@ non-cooperative equilibrium.
     \label{eqn:theipd}
 \end{equation}
 
+
 The non-cooperative behaviour is no longer necessary when the game is repeated.
 Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that a cooperative behaviour
 which was able to respond to uncooperative actions: Tit For Tat would perform
@@ -102,19 +93,24 @@ memory-one strategies.
 
 A subclass of memory-one strategies known as zero-determinant (ZD) strategies 
 were introduced in \cite{Press2012}. Of these, extortionate strategies have received
-considerable interest in the literature \cite{hilbe2015partners}. These
+considerable interest in the literature~\cite{hilbe2015partners}. These
 strategies ``enforce'' a difference in stationary payouts between themselves and
 their opponents. The definition requires a precise algebraic relationship
 between the probabilities of cooperation given the outcome of the previous round
 of play and slight alterations to these probabilities can cause a strategy to no
 longer satisfy the necessary equations.
 
-In~\cite{adami2013evolutionary, Hilbe2013, hilbe2013adaptive, hilbe2015partners,
-ichinose2018zero, Moran1707} the true effectiveness of these strategies in an
-evolutionary setting was discussed. For example~\cite{adami2013evolutionary}
-showed that ZD strategies were not evolutionarily stable. Furthermore, in that
-work it was also postulated that `evolutionarily successful ZD strategies could
-be designed that use longer memory to distinguish self from non-self'. In a non
+In~\cite{adami2013evolutionary, hilbe2018partners, Hilbe2013, hilbe2013adaptive,
+hilbe2015partners, ichinose2018zero, Moran1707} the true effectiveness of these
+strategies in an evolutionary setting was discussed. For
+example~\cite{adami2013evolutionary} showed that ZD strategies were not
+evolutionarily stable. Furthermore, in that work it was also postulated that
+`evolutionarily successful ZD strategies could be designed that use longer
+memory to distinguish self from non-self'.  In~\cite{hilbe2018partners} two sets
+of strategies are identified: partners and rivals and some discussion about the
+environments necessary for either to be evolutionary stable are given.
+
+In a non
 evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
 behaviour where statistical techniques are used to identify such behaviour.
@@ -124,7 +120,7 @@ at~\cite{glynatsi2021bibliometric}.
 
 The algebraic relationships of extortion, discussed in
 Section~\ref{sec:sserror-zd-strategies}, define a subspace of
-\(p\in\mathbb{R}^4\) which can be used to broaden the definition of an extortionate
+\(\textbf{p}\in\mathbb{R}^4\) which can be used to broaden the definition of an extortionate
 strategy by requiring only that the defining four cooperation probabilities of a
 memory-one strategy are close to an algebraically extortionate strategy, by the usual
 technique of orthogonal projection. Moreover, given the history of play of a
@@ -173,33 +169,42 @@ evolutionarily advantageous.
 
 \section{Methods: Recognising Extortion}\label{sec:sserror-zd-strategies}
 
-Zero-determinant strategies are a special case of memory-one strategies,
+The role of this section is to review the definition of ZD
+strategies from the literature, present the vector space in which such
+strategies exist and finally present a novel measure that allows for a measure
+of how far any memory one strategy is from the space of ZD
+strategies. Note that in this section no claims about the evolutionarily
+effectiveness of such strategies are made.
+
+ZD strategies are a special case of memory-one strategies,
 which are defined by elements of \(\mathbb{R}^4\) mapping a state of
 \({\{C, D\}}^2\), corresponding to the prior round of play, to a probability of
 cooperating in the next round. A match between two such strategies creates a
 Markov chain with transient states \({\{C, D\}}^2\). The main result
-of~\cite{Press2012} is that given two memory-one players \(p,
-q\in\mathbb{R}^4\), a linear relationship between the players' scores can, in
+of~\cite{Press2012} is that given two memory-one players \(\textbf{p},
+\textbf{q}\in\mathbb{R}^4\), a linear relationship between the players' scores can, in
 some cases, be forced by one of the players for specific choices of these
 probabilities.
 
-Using the notation of~\cite{Press2012}, the utilities for player \(p\)
-are given by \(S_x=(R, S, T, P)\) and for player \(q\) by \(S_y=(R, T, S, P)\)
+Using the notation of~\cite{Press2012}, the utilities for player \(X\) (playing
+the strategy \(\textbf{p}\))
+are given by \(\textbf{S}_x=(R, S, T, P)\) and for player \(Y\) (playing the
+strategy \(\textbf{q}\) by \(\textbf{S}_y=(R, T, S, P)\)
 and the stationary scores of each player are given by \(S_X\) and \(S_Y\)
 respectively. The main result of~\cite{Press2012} is that if
 
 \begin{equation}\label{eqn:linear_relationship_for_p}
-    \tilde p=\alpha S_x + \beta S_y + \gamma
+    \tilde{\textbf{p}}=\alpha \textbf{S}_x + \beta \textbf{S}_y + \gamma
 \end{equation}
 
 or
 
 \begin{equation}\label{eqn:linear_relationship_for_q}
-    \tilde q=\alpha S_x + \beta S_y + \gamma
+    \tilde{\textbf{q}}=\alpha \textbf{S}_x + \beta \textbf{S}_y + \gamma
 \end{equation}
 
-where \(\tilde p = (p_1 - 1, p_2 - 1, p_3, p_4)\) and
-\(\tilde q = (q_1 - 1, q_3, q_2 - 1, q_4)\) then:
+where \(\tilde{\textbf{p}} = (p_1 - 1, p_2 - 1, p_3, p_4)\) and
+\(\tilde{\textbf{q}} = (q_1 - 1, q_3, q_2 - 1, q_4)\) then:
 
 \begin{equation}
     \alpha S_X + \beta S_Y + \gamma = 0
@@ -221,7 +226,7 @@ then the player can ensure \((S_X - P)=\chi(S_Y-P)\) where:
 \noindent Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
 said to extort their opponent.
 In Section~\label{sec:subspace_of_extortionate_strategies}, the reverse problem is considered: given a
-\(p\in\mathbb{R}^4\) can one determine if the associated strategy is attempting
+\(\textbf{p}\in\mathbb{R}^4\) can one determine if the associated strategy is attempting
 to act in an extortionate way?
 
 \subsection{Subspace of Extortionate Strategies}\label{sec:subspace_of_extortionate_strategies}
@@ -277,7 +282,7 @@ condition for an extortionate strategy is that it cooperates on average less
 than 50\% of the time when in a state of disagreement with the opponent
 (\ref{eqn:condition_for_chi}).
 
-As an example, consider the known extortionate strategy \(p=(8 / 9, 1 / 2, 1 /
+As an example, consider the known extortionate strategy \(\textbf{p}=(8 / 9, 1 / 2, 1 /
 3, 0)\) from~\cite{Stewart2012} which is referred to as Extort-2. In
 this case, for the standard values of \((R, S, T, P) = (3, 0, 5, 1)\)
 constraint (\ref{eqn:condition_for_p1}) corresponds to:
@@ -289,7 +294,7 @@ constraint (\ref{eqn:condition_for_p1}) corresponds to:
 \end{equation}
 
 It is clear that in this case all constraints hold. As a counterexample,
-consider the strategy that cooperates 25\% of the time: \(p=(1 /4, 1 / 4, 1 / 4,
+consider the strategy that cooperates 25\% of the time: \(\textbf{p}=(1 /4, 1 / 4, 1 / 4,
 1 / 4)\) satisfies~(\ref{eqn:condition_for_chi}) but is not extortionate as:
 
 \begin{equation}
@@ -301,19 +306,19 @@ consider the strategy that cooperates 25\% of the time: \(p=(1 /4, 1 / 4, 1 / 4,
 \subsection{Measuring Extortion from the History of Play}
 
 Not all strategies are memory-one strategies but it is possible to
-measure a given \(p\) from any set of interactions between two strategies.
+measure a given \(\textbf{p}\) from any set of interactions between two strategies.
 This approach can then be used to confirm that a given strategy is acting
 in an extortionate manner even if it is not a memory-one strategy. However, in
-practice, if an exact form for \(p\) is not known but measured from observed
+practice, if an exact form for \(\textbf{p}\) is not known but measured from observed
 plays of the game then measurement and/or numerical error might lead to an
 extortionate strategy not being confirmed as such. \footnote{Comparing theoretic
 and actual plays of the IPD is not novel, see for example~\cite{Rand2013}.}
 
 
 As an example consider Table~\ref{tab:actual_plays_of_ZDextort-2} which shows
-some actual plays of Extort-2 (\(p=(8 / 9, 1 / 2, 1 / 3, 0)\)) against an
-alternating strategy (\(p=(0, 0, 1, 1)\)). In this particular instance the
-measured value of \(p\) for the known extortionate strategy would be:
+some actual plays of Extort-2 (\(\textbf{p}=(8 / 9, 1 / 2, 1 / 3, 0)\)) against an
+alternating strategy (\(\textbf{p}=(0, 0, 1, 1)\)). In this particular instance the
+measured value of \(\textbf{p}\) for the known extortionate strategy would be:
 \((2/2, 1/5, 3/8, 0/4)\) which does not fit the definition of a ZD strategy.
 
 
@@ -325,7 +330,7 @@ measured value of \(p\) for the known extortionate strategy would be:
 
 
 Note that measurement of behaviour might in some cases lead to missing values.
-For example the strategy \(p=(8 / 9, 1 / 2, 1 / 3, 0)\) when playing against an
+For example the strategy \(\textbf{p}=(8 / 9, 1 / 2, 1 / 3, 0)\) when playing against an
 opponent that always cooperates will in fact never visit any state which would allow measurement
 of \(p_3\) and \(p_4\). To overcome this, it is proposed that if \(s\) is a state
 that is not visited then \(p_s\) is approximated using a sensible prior or
@@ -334,11 +339,11 @@ rate is used. Another approach to overcoming this measurement error would be to
 measure strategies in a sufficiently noisy environment.
 
 We can measure how close a strategy is to being zero determinant using standard
-linear algebraic approaches. Essentially we attempt to find \(x=(\alpha,
+linear algebraic approaches. Essentially we attempt to find \(\textbf{x}=(\alpha,
 \beta)\) such that:
 
 \begin{equation}\label{eqn:linear_algebraic_equation_for_p}
-    Cx= \tilde p
+    C\textbf{x}= \tilde{\textbf{p}}
 \end{equation}
 
 where \(C\) corresponds to equations
@@ -358,19 +363,20 @@ given by:
 Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
 a solution it is unique since \(\text{rank}(C)=2\) which is the dimension of the
-variable \(x\). The best fitting \(x^*\) is defined by:
+variable \(\textbf{x}\). The best fitting \(\textbf{x}^*\) is defined by:
 
 \begin{equation}\label{eqn:x_star}
-    x^* = \text{argmin}_{x\in\mathbb{R}^2}\|C x- \tilde p\|_2^2
+    \textbf{x}^* = \text{argmin}_{\textbf{x}\in\mathbb{R}^2}\|C \textbf{x}- \tilde{\textbf{p}}\|_2^2
 \end{equation}
 
 Known results~\cite{kutner2004applied, rao1973linear, wakefield2013bayesian}
-yield $x^*$, corresponding to the nearest extortionate strategy to the measured
-\(\tilde p\). It is in fact an orthogonal projection of \(\tilde p\) on to the
+yield \(\textbf{x}^*\), corresponding to the nearest extortionate strategy to the measured
+\(\tilde{\textbf{p}}\). It is in fact an orthogonal projection of
+\(\tilde{\textbf{p}}\) on to the
 plane defined by (\ref{eqn:condition_for_p1}).
 
 \begin{equation}\label{eqn:x_star_formula}
-    x^* = {\left(C^{T}C\right)}^{-1}C^{T}\tilde p
+    \textbf{x}^* = {\left(C^{T}C\right)}^{-1}C^{T}\tilde{\textbf{p}}
 \end{equation}
 
 The squared norm of the remaining error is referred to as sum of squared errors
@@ -393,23 +399,28 @@ wakefield2013bayesian} gives an expression for
 \(\SSe\):
 
 \begin{equation}\label{eqn:x_SSError_formula}
-    \SSe = {\tilde p} ^ T \tilde p
-           \tilde p C \left(C ^ T C \right) ^ {-1} C ^ T \tilde p
-         = {\tilde p} ^ T \tilde p - \tilde p C x ^ *
+    \SSe = {\tilde{\textbf{p}}} ^ T \tilde{\textbf{p}}
+           \tilde{\textbf{p}} C \left(C ^ T C \right) ^ {-1} C ^ T
+           \tilde{\textbf{p}} = {\tilde{\textbf{p}}} ^ T \tilde{\textbf{p}} - \tilde{\textbf{p}} C \textbf{x}^*
 \end{equation}
 
-Using this approach, the memory-one representation \(p\in\mathbb{R}^4\) of any
+Using this approach, the memory-one representation \(\textbf{p}\in\mathbb{R}^4\) of any
 strategy against any other can can be measured and if
 (\ref{eqn:measured_condition_for_chi}) holds then (\ref{eqn:x_SSError_formula})
 can be used to identify if a strategy is acting extortionately. While the
 specific memory-one representation might not be one that acts extortionately or
 is even feasible (as noted in~\cite{Press2012}), a
 high \(\SSe\) does imply that a strategy is not extortionate. For a measured
-\(p\), \(\SSe\) corresponds to the best fitting \(\alpha, \beta\). Suspicion of
+\(\textbf{p}\), \(\SSe\) corresponds to the best fitting \(\alpha, \beta\). Suspicion of
 extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
 measured \(\chi=\frac{-\beta}{\alpha}\).
 
 \section{Results: Validation of approach and Numerical experiments}\label{sec:numerical-experiments}
+
+The role of this section is to validate the approach of the previous section and
+present a number of numerical experiments to identify if strategies that perform
+strongly in evolutionary settings are close or not to the space of
+ZD strategies.
 
 \subsection{Validation}
 
@@ -435,6 +446,11 @@ the always cooperating strategy Cooperator the \(\SSe\) is far from zero. It is
 also clear that ZD-GTFT2 defined as a ZD strategy does not act
 extortionately. This is evident by the fact that it does not rank highly according
 to wins which is due to its value of \(\chi\) being less than 1.
+
+ZD-GTFT2 is referred to as a ``generous'' ZD strategy, other examples of this
+include ZDGen2 and ZDSet2 defined in~\cite{sep-prisoner-dilemma}. The
+general performance of these will be discussed in
+Section~\ref{sec:numerical-experiments}.
 
 \begin{figure}[!htbp]
     \centering
@@ -547,23 +563,37 @@ with stronger ones. Indeed unconditional extortion is self defeating.
         \label{fig:sserror_in_std}
 \end{figure}
 
-\section{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
+\subsection{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
 
-\subsection{Replicator Dynamics}
+In the original work introducing ZD strategies~\cite{Press2012}, effectiveness
+in evolutionary settings was already considered. Since then, most work
+surrounding these strategies considers their performance in evolutionary
+settings. Examples include~\cite{adami2013evolutionary, hilbe2018partners,
+Hilbe2013, hilbe2013adaptive, hilbe2015partners, ichinose2018zero, Moran1707}.
+The main motivation for this consideration is to gain insights on to how
+behaviours might arise but also whether or not they are stable in various
+settings such as social and biological interactions. Most of such work
+considers the space of memory one strategies alone, in this paper a wider
+strategy space is considered and two models of evolution are investigated: the
+continuous replicator dynamics and the discrete Moran process.
 
-From the large number of interactions a payoff matrix \(S\)
-can be measured where \(S_{ij}\) denotes the score (using standard values of
-\((R, S, T, P) = (3, 0, 5, 1)\)) of the \(i\)th strategy against the \(j\)th
-strategy. This defines a fitness landscape for which the replicator equation
-describes the evolution of a population of strategies:
+\subsubsection{Replicator Dynamics}
+
+From the large number of interactions a payoff matrix \(S\) can be measured
+where \(S_{ij}\) denotes the score (using standard values of \((R, S, T, P) =
+(3, 0, 5, 1)\)) of the \(i\)th strategy against the \(j\)th strategy. Given a
+population of strategies represented by \(\boldsymbol{\gamma}\) where \(\gamma_i\)
+denotes the proportion of the population occupied by the \(i\)th strategy, the
+fitness landscape under evolution can be considered. This is traditionally done
+using the replicator equation which describes the evolution of the population:
 
 \begin{equation}\label{eqn:replicator_dynamics}
-     \frac{d x_i}{dt} = x_i ((Sx)_i - x^T S x)
+    \frac{d \gamma_i}{dt} = \gamma_i ((S\boldsymbol{\gamma})_i - x^T S \boldsymbol{\gamma})
 \end{equation}
 
 Equation (\ref{eqn:replicator_dynamics}) is solved numerically through an
 integration technique described in~\cite{Petzold1983} until a stationary vector
-\(x=s\) is found.
+\(\gamma=s\) is found.
 Figure~\ref{fig:replicator_dynamics} shows the stationary probabilities for each
 strategy ranked by score.
 It is clear to see that
@@ -575,7 +605,11 @@ probability value greater than \(10 ^ {-2}\)).
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
     \caption{Stationary distribution of the replicator dynamics
-    (\ref{eqn:replicator_dynamics}): strategies are ordered by score. Note that
+    (\ref{eqn:replicator_dynamics}): strategies are ordered by score (as given
+    in Table~\ref{tbl:overall_summary_results}). The 2
+    strategies with the highest stationary probability are:
+    EvolvedLookerUp2\_2\_2 and Evolved HMM 5.
+    Note that
     strategies that make use of the knowledge of the length of the game are
     removed from this analysis as they have an evolutionary advantage.}
     \label{fig:replicator_dynamics}
@@ -583,7 +617,7 @@ probability value greater than \(10 ^ {-2}\)).
 
 Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} plots the mean and
 skew (a standard statistical measure on a distribution) of \(\SSe\) against the
-stationary probabilities \(s\) of (\ref{eqn:replicator_dynamics}). Strategies
+stationary probabilities \(\textbf{s}\) of (\ref{eqn:replicator_dynamics}). Strategies
 that perform strongly according to equation (\ref{eqn:replicator_dynamics}) seem
 to be strategies that have a negative skew of \(\SSe\): indicating that they
 often have a high value of \(\SSe\) (i.e. do not act extortionately) but have a
@@ -629,20 +663,22 @@ and Tit For Tat have a wider distribution of values depending on the opponent
     \label{fig:sserror_distribution_for_selection_of_strategies}
 \end{figure}
 
-\subsection{Finite Population Dynamics: Moran Process}
+\subsubsection{Finite Population Dynamics: Moran Process}
 
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
 Moran process is made available at~\cite{vincent_knight_2017_1040129}
 Figure~\ref{fig:compare-fixation-to-sserror} shows linear models fitted to three
 summary measures of \(\SSe\) and the mean (over population size \(N\) and
-opponents) value of \(x_1\cdot N\). This specific measure of fixation is chosen
-as \(x_1\) is usually compared to the neutral fixation probability of \(1 / N\).
-As was noted in~\cite{Moran1707}, the specific case of \(N=2\) differs from all
-other population sizes which is why it is presented in isolation.
-We note that there is a significant relationship between the skew of
-\(\SSe\) and the ability for a strategy to become fixed.
-A general linear model obtained through recursive feature elimination is shown
-in Table~\ref{tbl:compare-fixation-to-sserror} which confirms the conclusions.
+opponents) value of \(\kappa_1\cdot N\) where \(\kappa_1\) denotes the
+probability of a single individual entrant to a population taking over. This
+specific measure of fixation is chosen as \(\kappa_1\) is usually compared to
+the neutral fixation probability of \(1 / N\).  As was noted
+in~\cite{Moran1707}, the specific case of \(N=2\) differs from all other
+population sizes which is why it is presented in isolation.  We note that there
+is a significant relationship between the skew of \(\SSe\) and the ability for a
+strategy to become fixed.  A general linear model obtained through recursive
+feature elimination is shown in Table~\ref{tbl:compare-fixation-to-sserror}
+which confirms the conclusions.
 
 \begin{figure}[!hbtp]
     \centering
@@ -728,6 +764,25 @@ reinforcement learning. It seems human difficulty in directly developing
 effective complex strategies has been incorrectly generalized to a weakness
 in complex strategies themselves, which is demonstrable not the case. In fact,
 complex strategies can be the most effective against a diverse set of opponents.
+
+There are various potential applications for \(\SSe\), one of which could be to
+devise an agent that learns during the interactions with another agent.
+Figure~\ref{fig:learning_sse} shows the average \(\SSe\) value over a number of
+iterations over a number of repetitions. More investigation would be required
+but in some cases it seems that a large number of interactions would be required
+to gain certainly about the play of an agent. An interesting investigation would
+be to compare this measure over time to the play of some of the trained
+strategies of~\cite{Harper2017} which are known to learn from early interactions
+and adapt their play.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=.8\textwidth]{./assets/img/learning_sse/main.pdf}
+    \caption{The average \(\SSe\) of a few strategies over a number of
+    repetitions and a number of turns.
+        }
+    \label{fig:learning_sse}
+\end{figure}
 
 In closing, the authors wish to emphasize the role of comprehensive simulations to temper
 theoretical results from overgeneralization, and perhaps more importantly, the

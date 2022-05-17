@@ -14,6 +14,7 @@ def main(process_data=False):
             "ZD-GTFT-2",
             "ZD-GEN-2",
             "ZD-Extort-2",
+            "ZD-SET-2",
             "EvolvedLookerUp2_2_2",
             "Evolved ANN 5",
             "Tit For Tat",

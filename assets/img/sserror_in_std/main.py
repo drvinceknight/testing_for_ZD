@@ -30,7 +30,7 @@ def main():
     skewness = per_opponent_df.groupby("Player index")["residual"].skew()
     df["Skew"] = skewness
 
-    fig, axarr = plt.subplots(1, 2, figsize=(20, 7))
+    fig, axarr = plt.subplots(1, 2, figsize=(10, 4))
     for ax, column in zip(axarr, ("Score per turn", "P(Win)")):
 
         ax.scatter(df[column], df["Skew"], color="black")
@@ -41,10 +41,10 @@ def main():
             title = f"Skew of SSE against score"
         else:
             title = f"Skew of SSE against number of wins"
-        ax.set_title(title, size=20)
+        ax.set_title(title)
     fig.tight_layout()
 
-    fig.savefig("main.pdf")
+    fig.savefig("main.pdf", bbox_inches="tight")
 
 
 if __name__ == "__main__":
