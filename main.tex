@@ -83,6 +83,14 @@ non-cooperative equilibrium.
     \label{eqn:theipd}
 \end{equation}
 
+The parameters of~(\ref{eqn:theipd}) correspond to:
+
+\begin{itemize}
+    \item \(R\): The reward for both players cooperating.
+    \item \(T\): The temptation value of defecting.
+    \item \(S\): The sucker value of cooperating against a defection.
+    \item \(P\): The punishment value when both players defect.
+\end{itemize}
 
 The non-cooperative behaviour is no longer necessary when the game is repeated.
 Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that a cooperative behaviour
@@ -91,7 +99,7 @@ strongly. The simplicity of Tit For Tat, which only requires knowledge of the
 opponents previous play lead to most research concentrating on these so called
 memory-one strategies.
 
-A subclass of memory-one strategies known as zero-determinant (ZD) strategies 
+A subclass of memory-one strategies known as zero-determinant (ZD) strategies
 were introduced in \cite{Press2012}. Of these, extortionate strategies have received
 considerable interest in the literature~\cite{hilbe2015partners}. These
 strategies ``enforce'' a difference in stationary payouts between themselves and
@@ -110,8 +118,7 @@ memory to distinguish self from non-self'.  In~\cite{hilbe2018partners} two sets
 of strategies are identified: partners and rivals and some discussion about the
 environments necessary for either to be evolutionary stable are given.
 
-In a non
-evolutionary context, the work of~\cite{becks2019extortion} uses social
+In a non-evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
 behaviour where statistical techniques are used to identify such behaviour.
 
@@ -169,7 +176,7 @@ evolutionarily advantageous.
 
 \section{Methods: Recognising Extortion}\label{sec:sserror-zd-strategies}
 
-The role of this section is to review the definition of ZD
+This section reviews the definition of ZD
 strategies from the literature, present the vector space in which such
 strategies exist and finally present a novel measure that allows for a measure
 of how far any memory one strategy is from the space of ZD
@@ -417,7 +424,7 @@ measured \(\chi=\frac{-\beta}{\alpha}\).
 
 \section{Results: Validation of approach and Numerical experiments}\label{sec:numerical-experiments}
 
-The role of this section is to validate the approach of the previous section and
+This section validates the approach of the previous section and
 present a number of numerical experiments to identify if strategies that perform
 strongly in evolutionary settings are close or not to the space of
 ZD strategies.
@@ -770,8 +777,8 @@ devise an agent that learns during the interactions with another agent.
 Figure~\ref{fig:learning_sse} shows the average \(\SSe\) value over a number of
 iterations over a number of repetitions. More investigation would be required
 but in some cases it seems that a large number of interactions would be required
-to gain certainly about the play of an agent. An interesting investigation would
-be to compare this measure over time to the play of some of the trained
+to gain certainly about the play of an agent. This approach seems to be in
+opposition of some of the trained
 strategies of~\cite{Harper2017} which are known to learn from early interactions
 and adapt their play.
 
