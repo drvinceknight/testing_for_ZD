@@ -60,9 +60,11 @@ theoretically extortionate strategies, the largest known collection of
 strategies will be observed and their performance compared to how
 theoretically extortionate they are.
 
-The main contribution of this paper is that extortionate strategies as defined
-in the original 2012 paper lack the ability to adapt which is fundamentally
-important to the evolutionary process.
+It is known that extortionate strategies as defined in the original 2012 paper
+lack the ability to adapt which is fundamentally important to the
+evolutionary process.  The main contribution of this paper is to expand the
+definition of extortionate to arbitrary strategies, and then to show that
+this known limitation still holds.
 \end{abstract}
 
 \section{Introduction}
@@ -114,9 +116,12 @@ strategies in an evolutionary setting was discussed. For
 example~\cite{adami2013evolutionary} showed that ZD strategies were not
 evolutionarily stable. Furthermore, in that work it was also postulated that
 `evolutionarily successful ZD strategies could be designed that use longer
-memory to distinguish self from non-self'.  In~\cite{hilbe2018partners} two sets
-of strategies are identified: partners and rivals and some discussion about the
-environments necessary for either to be evolutionary stable are given.
+memory to distinguish self from non-self'. In~\cite{lee2015art} long memory
+strategies are designed that are able to self recognise and in~\cite{Moran1707}
+evolutionary processes showed the emergence of similar abilities.
+In~\cite{hilbe2018partners} two sets of strategies are identified: partners and
+rivals and some discussion about the environments necessary for either to be
+evolutionary stable are given.
 
 In a non-evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
@@ -780,13 +785,19 @@ but in some cases it seems that a large number of interactions would be required
 to gain certainly about the play of an agent. This approach seems to be in
 opposition of some of the trained
 strategies of~\cite{Harper2017} which are known to learn from early interactions
-and adapt their play.
+and adapt their play. 
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=.8\textwidth]{./assets/img/learning_sse/main.pdf}
     \caption{The average \(\SSe\) of a few strategies over a number of
-    repetitions and a number of turns.
+    repetitions and a number of turns. The EvolvedLookerUp2\_2\_2 stragey is
+    recognisably not a ZD strategy after 10 turns against both opponents.  When
+    playing against the EvolvedLookerUp2\_2\_2 the generous ZD strategy ZDSet2
+    is also quickly recognisable as a ZD strategy after approximately 10 turns.
+    Interestingly, while the other ZD strategy, ZD-Extort-2 v2, is clearly a
+    acting as a ZD strategy early on against both opponents it would take longer
+    to confidently recognise that that ZDSet2 is a ZD strategy.
         }
     \label{fig:learning_sse}
 \end{figure}

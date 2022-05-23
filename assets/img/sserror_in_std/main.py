@@ -9,7 +9,6 @@ import imp
 
 parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 
-
 def main():
     player_names = [s.name for s in parameters.PLAYER_GROUPS["full"]]
     df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
@@ -33,7 +32,14 @@ def main():
     fig, axarr = plt.subplots(1, 2, figsize=(10, 4))
     for ax, column in zip(axarr, ("Score per turn", "P(Win)")):
 
-        ax.scatter(df[column], df["Skew"], color="black")
+        x = df[column]
+        y = df["Skew"]
+
+        curve = np.poly1d(np.polyfit(x=x, y=y, deg=1))
+        ax.scatter(x, y, color="black")
+
+        polyline = np.linspace(min(x), max(x), 500)
+        ax.plot(polyline, curve(polyline), color="grey")
         ax.axhline(0, color="black", linestyle="--")
 
         ax.set_xlabel(f"{column}")
