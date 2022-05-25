@@ -38,33 +38,26 @@
 
 \begin{abstract}
 
-Establishing and maintaining mutual cooperation in agent to agent interactions
-can be considered as a question of direct reciprocity. This mechanism can be
+Establishing and maintaining mutual cooperation in agent-to-agent interactions
+can be viewed as a question of direct reciprocity and
 readily applied to the Iterated Prisoner's Dilemma. Agents cooperate, at a
-small cost to themselves, in the hope of obtaining a future benefit. In 2012
-a new type of strategy was introduced: zero-determinant strategies which
-made way for strategies that were provably extortionate.
-
-In the established literature, most of the studies of the effectiveness or lack
+small cost to themselves, in the hope of obtaining a future benefit.
+Zero-determinant strategies, introduced in 2012, have a subclass of
+strategies that are provably extortionate. In the established literature,
+most of the studies of the effectiveness or lack
 thereof of zero-determinant strategies is done by placing some
 zero-determinant strategy in a specific scenario (collection of agents) and
-evaluating their performance either numerically or theoretically.
+evaluating its performance either numerically or theoretically.
 
-While an interesting class of strategies, the definitions of extortionate
-strategies are algebraically rigid, apply only to memory-one strategies, and
-require complete knowledge of a strategy (memory-one cooperation
+Extortionate strategies are algebraically rigid and memory-one by definition,
+and requires complete knowledge of a strategy (the memory-one cooperation
 probabilities). The contribution of this work is a method to detect
-extortionate behaviour from the history of play of a strategy. This inverts
+extortionate behaviour from the history of play of an arbitrary strategy. This inverts
 the paradigm of most studies: instead of observing the effectiveness of some
 theoretically extortionate strategies, the largest known collection of
-strategies will be observed and their performance compared to how
-theoretically extortionate they are.
-
-It is known that extortionate strategies as defined in the original 2012 paper
-lack the ability to adapt which is fundamentally important to the
-evolutionary process.  The main contribution of this paper is to expand the
-definition of extortionate to arbitrary strategies, and then to show that
-this known limitation still holds.
+strategies will be observed and their extortionateness quantified empirically.
+Moreover, we show that the lack of adaptability of extortionate strategies
+extends via this broader definition.
 \end{abstract}
 
 \section{Introduction}
@@ -94,12 +87,13 @@ The parameters of~(\ref{eqn:theipd}) correspond to:
     \item \(P\): The punishment value when both players defect.
 \end{itemize}
 
-The non-cooperative behaviour is no longer necessary when the game is repeated.
-Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that a cooperative behaviour
-which was able to respond to uncooperative actions: Tit For Tat would perform
-strongly. The simplicity of Tit For Tat, which only requires knowledge of the
-opponents previous play lead to most research concentrating on these so called
-memory-one strategies.
+Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that cooperative behaviour
+could be succesful in repeated interactions: Tit For Tat performed
+strongly in a tournament of strategies with various degrees of non-cooperation.
+The simplicity of Tit For Tat, which only requires knowledge of the
+opponents previous play, led to much research concentrating on these so called
+memory-one strategies. A bibliometric study of the literature on the IPD is available
+at~\cite{glynatsi2021bibliometric}.
 
 A subclass of memory-one strategies known as zero-determinant (ZD) strategies
 were introduced in \cite{Press2012}. Of these, extortionate strategies have received
@@ -107,11 +101,11 @@ considerable interest in the literature~\cite{hilbe2015partners}. These
 strategies ``enforce'' a difference in stationary payouts between themselves and
 their opponents. The definition requires a precise algebraic relationship
 between the probabilities of cooperation given the outcome of the previous round
-of play and slight alterations to these probabilities can cause a strategy to no
-longer satisfy the necessary equations.
+of play. Slight alterations to these probabilities can cause a strategy to no
+longer satisfy the necessary relations to be considered extortionate.
 
 In~\cite{adami2013evolutionary, hilbe2018partners, Hilbe2013, hilbe2013adaptive,
-hilbe2015partners, ichinose2018zero, Moran1707} the true effectiveness of these
+hilbe2015partners, ichinose2018zero, Moran1707} the effectiveness of these
 strategies in an evolutionary setting was discussed. For
 example~\cite{adami2013evolutionary} showed that ZD strategies were not
 evolutionarily stable. Furthermore, in that work it was also postulated that
@@ -121,14 +115,9 @@ strategies are designed that are able to self recognise and in~\cite{Moran1707}
 evolutionary processes showed the emergence of similar abilities.
 In~\cite{hilbe2018partners} two sets of strategies are identified: partners and
 rivals and some discussion about the environments necessary for either to be
-evolutionary stable are given.
-
-In a non-evolutionary context, the work of~\cite{becks2019extortion} uses social
+evolutionary stable are given. In a non-evolutionary context, the work of~\cite{becks2019extortion} uses social
 experiments to suggest that higher rewards promote extortionate
-behaviour where statistical techniques are used to identify such behaviour.
-
-A bibliometric study of the literature on the IPD is available
-at~\cite{glynatsi2021bibliometric}.
+behaviour, where statistical techniques are used to identify such behaviour.
 
 The algebraic relationships of extortion, discussed in
 Section~\ref{sec:sserror-zd-strategies}, define a subspace of
@@ -140,7 +129,7 @@ strategy in an actual matchup, we can empirically observe its four
 cooperation probabilities, measure the distance to the subspace of extortionate
 strategies, and use this distance as a measure of the extortionality of a
 strategy. This method can be applied to any strategy regardless of the memory
-depth and avoids the algebraic rigidity issues.
+depth and avoids the algebraic rigidity and instability issues.
 
 We apply this method to the largest known corpus of strategies for the iterated
 prisoner's dilemma (the Axelrod Python library~\cite{Knight2016, Knight2018})
@@ -235,7 +224,7 @@ then the player can ensure \((S_X - P)=\chi(S_Y-P)\) where:
     \chi=\frac{-\beta}{\alpha}
 \end{equation}
 
-\noindent Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) a player is
+\noindent Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) then a player is
 said to extort their opponent.
 In Section~\label{sec:subspace_of_extortionate_strategies}, the reverse problem is considered: given a
 \(\textbf{p}\in\mathbb{R}^4\) can one determine if the associated strategy is attempting
@@ -458,7 +447,6 @@ the always cooperating strategy Cooperator the \(\SSe\) is far from zero. It is
 also clear that ZD-GTFT2 defined as a ZD strategy does not act
 extortionately. This is evident by the fact that it does not rank highly according
 to wins which is due to its value of \(\chi\) being less than 1.
-
 ZD-GTFT2 is referred to as a ``generous'' ZD strategy, other examples of this
 include ZDGen2 and ZDSet2 defined in~\cite{sep-prisoner-dilemma}. The
 general performance of these will be discussed in
@@ -585,8 +573,8 @@ Hilbe2013, hilbe2013adaptive, hilbe2015partners, ichinose2018zero, Moran1707}.
 The main motivation for this consideration is to gain insights on to how
 behaviours might arise but also whether or not they are stable in various
 settings such as social and biological interactions. Most of such work
-considers the space of memory-one strategies alone, in this paper a wider
-strategy space is considered and two models of evolution are investigated: the
+considers the space of memory-one strategies alone. In constrast, this paper considers a wider
+strategy space and two models of evolution are investigated: the
 continuous replicator dynamics and the discrete Moran process.
 
 \subsubsection{Replicator Dynamics}
@@ -597,7 +585,8 @@ where \(S_{ij}\) denotes the score (using standard values of \((R, S, T, P) =
 population of strategies represented by \(\boldsymbol{\gamma}\) where \(\gamma_i\)
 denotes the proportion of the population occupied by the \(i\)th strategy, the
 fitness landscape under evolution can be considered. This is traditionally done
-using the replicator equation which describes the evolution of the population:
+using the replicator equation, describing the evolution of the population
+under selection:
 
 \begin{equation}\label{eqn:replicator_dynamics}
     \frac{d \gamma_i}{dt} = \gamma_i ((S\boldsymbol{\gamma})_i - x^T S \boldsymbol{\gamma})
