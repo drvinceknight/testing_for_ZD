@@ -9,7 +9,6 @@ import imp
 
 parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 
-
 def main():
     player_names = [s.name for s in parameters.PLAYER_GROUPS["full"]]
     df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
@@ -30,10 +29,17 @@ def main():
     skewness = per_opponent_df.groupby("Player index")["residual"].skew()
     df["Skew"] = skewness
 
-    fig, axarr = plt.subplots(1, 2, figsize=(20, 7))
+    fig, axarr = plt.subplots(1, 2, figsize=(10, 4))
     for ax, column in zip(axarr, ("Score per turn", "P(Win)")):
 
-        ax.scatter(df[column], df["Skew"], color="black")
+        x = df[column]
+        y = df["Skew"]
+
+        curve = np.poly1d(np.polyfit(x=x, y=y, deg=1))
+        ax.scatter(x, y, color="black")
+
+        polyline = np.linspace(min(x), max(x), 500)
+        ax.plot(polyline, curve(polyline), color="grey")
         ax.axhline(0, color="black", linestyle="--")
 
         ax.set_xlabel(f"{column}")
@@ -41,10 +47,10 @@ def main():
             title = f"Skew of SSE against score"
         else:
             title = f"Skew of SSE against number of wins"
-        ax.set_title(title, size=20)
+        ax.set_title(title)
     fig.tight_layout()
 
-    fig.savefig("main.pdf")
+    fig.savefig("main.pdf", bbox_inches="tight")
 
 
 if __name__ == "__main__":
