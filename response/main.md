@@ -133,6 +133,8 @@ This has been done.
 
 > 4. Although it is indicated in the title, Figs. 1 and 3 do not have an explicit label for the y-axis. I suggest including SSE as label of the y-axis.
 
+These have been added.
+
 > 5. A dot is missing in the first sentence of the subsection 3.3.2 before Figure 7.
 >    “In [24] a large data set of pairwise fixation probabilities in the Moran process is made available at [22]”
 

@@ -9,6 +9,7 @@ import imp
 
 parameters = imp.load_source("parameters", "../../../data/raw/parameters.py")
 
+
 def main():
     player_names = [s.name for s in parameters.PLAYER_GROUPS["full"]]
     df = pd.read_csv("../../../data/processed/full/std/overall/main.csv")
@@ -31,7 +32,6 @@ def main():
 
     fig, axarr = plt.subplots(1, 2, figsize=(10, 4))
     for ax, column in zip(axarr, ("Score per turn", "P(Win)")):
-
         x = df[column]
         y = df["Skew"]
 
@@ -48,6 +48,7 @@ def main():
         else:
             title = f"Skew of SSE against number of wins"
         ax.set_title(title)
+        ax.set_ylabel("Skew of SSE")
     fig.tight_layout()
 
     fig.savefig("main.pdf", bbox_inches="tight")
