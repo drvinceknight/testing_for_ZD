@@ -100,9 +100,7 @@ These have all been addressed.
 - Below Eq.(15) "triangular (15) plane (13) in 3 dimensions (14)":
   This is not a reader-friendly way of citing equations.
 
-We do not entirely understand what was implied here. We feel that having the
-equation references immediately with each property is in fact reader friendly
-and not an uncommon approach in mathematics publications.
+We have modified this sentence.
 
 - Below Eq.(15) "from [33] which is" -> "from [33], which is"
 - Section 2.2, 2nd paragraph: "Table 1 which shows" -> "Table 1, which shows"
