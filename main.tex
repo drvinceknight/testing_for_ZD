@@ -1,45 +1,225 @@
-\documentclass[a4paper]{article}
+% Template for PLoS
+% Version 3.5 March 2018
+%
+% % % % % % % % % % % % % % % % % % % % % %
+%
+% -- IMPORTANT NOTE
+%
+% This template contains comments intended 
+% to minimize problems and delays during our production 
+% process. Please follow the template instructions
+% whenever possible.
+%
+% % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Once your paper is accepted for publication, 
+% PLEASE REMOVE ALL TRACKED CHANGES in this file 
+% and leave only the final text of your manuscript. 
+% PLOS recommends the use of latexdiff to track changes during review, as this will help to maintain a clean tex file.
+% Visit https://www.ctan.org/pkg/latexdiff?lang=en for info or contact us at latex@plos.org.
+%
+%
+% There are no restrictions on package use within the LaTeX files except that 
+% no packages listed in the template may be deleted.
+%
+% Please do not include colors or graphics in the text.
+%
+% The manuscript LaTeX source should be contained within a single file (do not use \input, \externaldocument, or similar commands).
+%
+% % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- FIGURES AND TABLES
+%
+% Please include tables/figure captions directly after the paragraph where they are first cited in the text.
+%
+% DO NOT INCLUDE GRAPHICS IN YOUR MANUSCRIPT
+% - Figures should be uploaded separately from your manuscript file. 
+% - Figures generated using LaTeX should be extracted and removed from the PDF before submission. 
+% - Figures containing multiple panels/subfigures must be combined into one image file before submission.
+% For figure citations, please use "Fig" instead of "Figure".
+% See http://journals.plos.org/plosone/s/figures for PLOS figure guidelines.
+%
+% Tables should be cell-based and may not contain:
+% - spacing/line breaks within cells to alter layout or alignment
+% - do not nest tabular environments (no tabular environments within tabular environments)
+% - no graphics or colored text (cell background color/shading OK)
+% See http://journals.plos.org/plosone/s/tables for table guidelines.
+%
+% For tables that exceed the width of the text column, use the adjustwidth environment as illustrated in the example table in text below.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
+%
+% -- EQUATIONS, MATH SYMBOLS, SUBSCRIPTS, AND SUPERSCRIPTS
+%
+% IMPORTANT
+% Below are a few tips to help format your equations and other special characters according to our specifications. For more tips to help reduce the possibility of formatting errors during conversion, please see our LaTeX guidelines at http://journals.plos.org/plosone/s/latex
+%
+% For inline equations, please be sure to include all portions of an equation in the math environment.  For example, x$^2$ is incorrect; this should be formatted as $x^2$ (or $\mathrm{x}^2$ if the romanized font is desired).
+%
+% Do not include text that is not math in the math environment. For example, CO2 should be written as CO\textsubscript{2} instead of CO$_2$.
+%
+% Please add line breaks to long display equations when possible in order to fit size of the column. 
+%
+% For inline equations, please do not include punctuation (commas, etc) within the math environment unless this is part of the equation.
+%
+% When adding superscript or subscripts outside of brackets/braces, please group using {}.  For example, change "[U(D,E,\gamma)]^2" to "{[U(D,E,\gamma)]}^2". 
+%
+% Do not use \cal for caligraphic font.  Instead, use \mathcal{}
+%
+% % % % % % % % % % % % % % % % % % % % % % % % 
+%
+% Please contact latex@plos.org with any questions.
+%
+% % % % % % % % % % % % % % % % % % % % % % % %
 
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage[margin=1.5cm,
-            includefoot,
-            footskip=30pt]{geometry}
-\usepackage{layout}
-\usepackage{graphicx}
-\usepackage{subcaption}
+\documentclass[10pt,letterpaper]{article}
+\usepackage[top=0.85in,left=2.75in,footskip=0.75in]{geometry}
 
-\usepackage{biblatex}
-\usepackage{pdfpages}
-\usepackage{booktabs}
+% amsmath and amssymb packages, useful for mathematical formulas and symbols
+\usepackage{amsmath,amssymb}
 
-\usepackage{lscape}
+% Use adjustwidth environment to exceed column width (see example table in text)
+\usepackage{changepage}
 
-\usepackage{authblk}
+% Use Unicode characters when possible
+\usepackage[utf8x]{inputenc}
 
-\bibliography{main.bib}
+% textcomp package and marvosym package for additional characters
+\usepackage{textcomp,marvosym}
+
+% cite package, to clean up citations in the main text. Do not remove.
+\usepackage{cite}
+
+% Use nameref to cite supporting information files (see Supporting Information section for more info)
+\usepackage{nameref,hyperref}
+
+% line numbers
+\usepackage[right]{lineno}
+
+% ligatures disabled
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% color can be used to apply background shading to table cells only
+\usepackage[table]{xcolor}
+
+% array package and thick rules for tables
+\usepackage{array}
+
+% create "+" rule type for thick vertical lines
+\newcolumntype{+}{!{\vrule width 2pt}}
+
+% create \thickcline for thick horizontal lines of variable length
+\newlength\savedwidth
+\newcommand\thickcline[1]{%
+  \noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+  \cline{#1}%
+  \noalign{\vskip\arrayrulewidth}%
+  \noalign{\global\arrayrulewidth\savedwidth}%
+}
+
+% \thickhline command for thick horizontal lines that span the table
+\newcommand\thickhline{\noalign{\global\savedwidth\arrayrulewidth\global\arrayrulewidth 2pt}%
+\hline
+\noalign{\global\arrayrulewidth\savedwidth}}
+
+
+% Remove comment for double spacing
+%\usepackage{setspace} 
+%\doublespacing
+
+% Text layout
+\raggedright
+\setlength{\parindent}{0.5cm}
+\textwidth 5.25in 
+\textheight 8.75in
+
+% Bold the 'Figure #' in the caption and separate it from the title/caption with a period
+% Captions will be left justified
+\usepackage[aboveskip=1pt,labelfont=bf,labelsep=period,justification=raggedright,singlelinecheck=off]{caption}
+\renewcommand{\figurename}{Fig}
+
+% Use the PLoS provided BiBTeX style
+\bibliographystyle{plos2015}
+
+% Remove brackets from numbering in List of References
+\makeatletter
+\renewcommand{\@biblabel}[1]{\quad#1.}
+\makeatother
+
+
+
+% Header and Footer with logo
+\usepackage{lastpage,fancyhdr,graphicx}
+\usepackage{epstopdf}
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+\fancyhf{}
+%\setlength{\headheight}{27.023pt}
+%\lhead{\includegraphics[width=2.0in]{PLOS-submission.eps}}
+\rfoot{\thepage/\pageref{LastPage}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrule}{\hrule height 2pt \vspace{2mm}}
+\fancyheadoffset[L]{2.25in}
+\fancyfootoffset[L]{2.25in}
+\lfoot{\today}
+
+%% Include all macros below
+
+\newcommand{\lorem}{{\bf LOREM}}
+\newcommand{\ipsum}{{\bf IPSUM}}
+
+%% END MACROS SECTION
+
 \newcommand{\SSe}{\text{SSE}}
-
-\title{Recognising and evaluating the effectiveness
-       of extortion in the Iterated Prisoner's Dilemma}
-\author[1]{Vincent A. Knight*}
-\author[2]{Marc Harper}
-\author[3]{Nikoleta E. Glynatsi}
-\author[1]{Jonathan Gillard}
-\affil[1]{Cardiff University, School of Mathematics, Cardiff, United Kingdom}
-\affil[2]{Google Inc., Mountain View, CA, United States of America}
-\affil[3]{Max Planck Research Group on the Dynamics of Social Behavior, Max
-Planck Institute for Evolutionary Biology, Pl\"on, Germany}
-\date{\today}
-
 
 
 \begin{document}
+\vspace*{0.2in}
 
-\maketitle
+% Title must be 250 characters or less.
+\begin{flushleft}
+{\Large
+\textbf\newline{Recognising and evaluating the effectiveness
+       of extortion in the Iterated Prisoner's Dilemma} % Please use "sentence case" for title and headings (capitalize only the first word in a title (or heading), the first word in a subtitle (or subheading), and any proper nouns).
+}
+\newline
+% Insert author names, affiliations and corresponding author email (do not include titles, positions, or degrees).
+\\
+Vincent A. Knight\textsuperscript{1,\Yinyang *},
+Marc Harper\textsuperscript{2\Yinyang},
+Nikoleta E. Glynatsi\textsuperscript{3\Yinyang},
+Jonathan Gillard\textsuperscript{2\ddag},
+% Name6 Surname\textsuperscript{2\ddag},
+% Name7 Surname\textsuperscript{1,2,3*},
+% with the Lorem Ipsum Consortium\textsuperscript{\textpilcrow}
+\\
+\bigskip
+\textbf{1} Cardiff University, School of Mathematics, Cardiff, United Kingdom
+\\
+\textbf{2} Google Inc., Mountain View, CA, United States of America
+\\
+\textbf{3} Max Planck Research Group on the Dynamics of Social Behavior, Max Planck Institute for Evolutionary Biology, Pl\"on, Germany
+\\
+\bigskip
 
-\begin{abstract}
+% Insert additional author notes using the symbols described below. Insert symbol callouts after author names as necessary.
+% 
+% Remove or comment out the author notes below if they aren't used.
+%
+% Primary Equal Contribution Note
+\Yinyang These authors contributed equally to this work.
 
+% Additional Equal Contribution Note
+% Also use this double-dagger symbol for special authorship notes, such as senior authorship.
+\ddag These authors also contributed equally to this work.
+
+% Use the asterisk to denote corresponding authorship and provide email address in note below.
+* knightva@cardiff.ac.uk
+
+\end{flushleft}
+% Please keep the abstract below 300 words
+\section*{Abstract}
 Establishing and maintaining mutual cooperation in agent-to-agent interactions
 can be viewed as a question of direct reciprocity and
 readily applied to the Iterated Prisoner's Dilemma. Agents cooperate, at a
@@ -60,14 +240,17 @@ theoretically extortionate strategies, the largest known collection of
 strategies will be observed and their intensity of extortion quantified empirically.
 Moreover, we show that the lack of adaptability of extortionate strategies
 extends via this broader definition.
-\end{abstract}
 
-\section{Introduction}
+
+\linenumbers
+
+% Use "Eq" instead of "Equation" for equation citations.
+\section*{Introduction}
 
 The Iterated Prisoner's Dilemma (IPD) is a model for rational and evolutionary
 interactive behaviour, having applications in biology, the study of human social
 behaviour, and many other domains. A standard representation  of the game is
-given in equation~\ref{eqn:theipd}, where the constraints ensure a
+given in Eq~\ref{eqn:theipd}, where the constraints ensure a
 non-cooperative equilibrium.
 
 \begin{equation}
@@ -90,7 +273,7 @@ The parameters of~(\ref{eqn:theipd}) correspond to:
 \end{itemize}
 
 Early work in the field~\cite{Axelrod1980, Axelrod1980a} showed that cooperative behaviour
-could be succesful in repeated interactions: Tit For Tat performed
+could be successful in repeated interactions: Tit For Tat performed
 strongly in a tournament of strategies with various degrees of non-cooperation.
 The simplicity of Tit For Tat, which only requires knowledge of the
 opponent's previous play, led to much research concentrating on these so called
@@ -122,7 +305,7 @@ experiments to suggest that higher rewards promote extortionate
 behaviour, where statistical techniques are used to identify such behaviour.
 
 The algebraic relationships of extortion, discussed in
-Section~\ref{sec:sserror-zd-strategies}, define a subspace of
+the Methods section, define a subspace of
 \(\textbf{p}\in\mathbb{R}^4\) which can be used to broaden the definition of an extortionate
 strategy by requiring only that the defining four cooperation probabilities of a
 memory-one strategy are close to an algebraically extortionate strategy, by the usual
@@ -136,18 +319,16 @@ depth and avoids the algebraic rigidity and instability issues.
 We apply this method to the largest known corpus of strategies for the iterated
 prisoner's dilemma (the Axelrod Python library~\cite{Knight2016, Knight2018})
 and validate empirically that the method in fact detects extortionate strategies.
-A large tournament with \input{assets/tex/number_of_full_strategies/main.tex}
-strategies demonstrates that sophisticated
+A large tournament with 204 strategies demonstrates that sophisticated
 strategies can in fact recognise extortionate behaviour and adapt to their
 opponents. Further, statistical analysis of these strategies in the context of
 evolutionary dynamics demonstrates the importance of adaptability to achieve
 evolutionary stability. All of the code and data discussed in
-Section~\ref{sec:numerical-experiments} is open sourced, archived, and written
+Results section is open sourced, archived, and written
 according to best scientific principles~\cite{Wilson2014}. The data archive can
 be found at~\cite{vincent_knight_2018_1297075} and the source code was developed
 at~\url{https://github.com/drvinceknight/testing_for_ZD/} and has been archived
-at~\cite{vincent_knight_2019_2598534}. In
-Section~\ref{sec:evolutionary-dynamics}, this large tournament is complemented
+at~\cite{vincent_knight_2019_2598534}. This large tournament is complemented
 with evolutionary dynamics that offer some insight into the
 effectiveness of extortionate strategies.
 
@@ -169,8 +350,8 @@ critical to the evolution of cooperation, there is no prohibition on selectively
 extorting weaker opponents, even in population dynamics, and this behavior is
 evolutionarily advantageous.
 
-
-\section{Methods: Recognising Extortion}\label{sec:sserror-zd-strategies}
+\section*{Materials and methods}
+\subsection*{Recognising extortion}
 
 This section reviews the definition of ZD
 strategies from the literature, present the vector space in which such
@@ -226,13 +407,13 @@ then the player can ensure \((S_X - P)=\chi(S_Y-P)\) where:
     \chi=\frac{-\beta}{\alpha}
 \end{equation}
 
-\noindent Thus, if (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) then a player is
+\noindent Thus, if Eq (\ref{eqn:constraint_for_extortion}) holds and \(\chi >1\) then a player is
 said to extort their opponent.
-In Section~\ref{sec:subspace_of_extortionate_strategies}, the reverse problem is considered: given a
+Next, the reverse problem is considered: given a
 \(\textbf{p}\in\mathbb{R}^4\) can one determine if the associated strategy is attempting
 to act in an extortionate way?
 
-\subsection{Subspace of Extortionate Strategies}\label{sec:subspace_of_extortionate_strategies}
+\subsection*{Subspace of Extortionate Strategies}
 
 Constraints (\ref{eqn:linear_relationship_for_p}) and
 (\ref{eqn:constraint_for_extortion}) correspond to:
@@ -248,8 +429,8 @@ Constraints (\ref{eqn:linear_relationship_for_p}) and
             \label{eqn:condition_for_tilde_p4}
 \end{align}
 
-Equation (\ref{eqn:condition_for_tilde_p4}) ensures that \(p_4=\tilde p_4=0\).
-Equations (\ref{eqn:condition_for_tilde_p1}-\ref{eqn:condition_for_tilde_p3})
+Eq(\ref{eqn:condition_for_tilde_p4}) ensures that \(p_4=\tilde p_4=0\).
+Eqs (\ref{eqn:condition_for_tilde_p1}-\ref{eqn:condition_for_tilde_p3})
 can be used to eliminate \(\alpha, \beta\), giving:
 
 \begin{equation}\label{eqn:planar_definition_of_extortion}
@@ -263,7 +444,7 @@ with:
                 {\tilde p_2 (P - S) + \tilde p_3 (T - P)}
 \end{equation}
 
-Given a strategy \(p\in\mathbb{R}^{4}\) equations
+Given a strategy \(p\in\mathbb{R}^{4}\) Eqs
 (\ref{eqn:condition_for_tilde_p4}-\ref{eqn:definition_of_chi}) can be used to
 check if a strategy is extortionate. The conditions correspond to:
 
@@ -278,7 +459,7 @@ The algebraic steps necessary to prove these results are available in the
 supporting materials, and note that an equivalent formulation was obtained
 in~\cite{adami2013evolutionary}.
 
-Based on Equations (\ref{eqn:condition_for_chi}-\ref{eqn:condition_for_p4}), 
+Based on Eqs (\ref{eqn:condition_for_p1}-\ref{eqn:condition_for_chi}), 
 it is evident that all extortionate strategies
 reside on a triangular plane within a three-dimensional space.
 Using this formulation it can be seen that a necessary (but not sufficient)
@@ -307,7 +488,7 @@ consider the strategy that cooperates 25\% of the time: \(\textbf{p}=(1 /4, 1 / 
         = \frac{2}{3}
 \end{equation}
 
-\subsection{Measuring Extortion from the History of Play}
+\subsection*{Measuring Extortion from the History of Play}
 
 Not all strategies are memory-one strategies but it is possible to
 measure a given \(\textbf{p}\) from any set of interactions between two strategies.
@@ -326,10 +507,19 @@ measured value of \(\textbf{p}\) for the known extortionate strategy would be:
 \((2/2, 1/5, 3/8, 0/4)\) which does not fit the definition of a ZD strategy.
 
 
-\begin{table}[!hbtp]
-    \input{./assets/tex/actual_plays_of_ZDextort2/main.tex}
-    \caption{A seeded play of 20 turns of two strategies.}
+\begin{table}[!ht]
+    \begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+    \centering
+    \caption{
+        {\bf A seeded play of 20 turns of two strategies.}}
     \label{tab:actual_plays_of_ZDextort-2}
+        \begin{tabular}{lllllllllllllllllllll}
+            \hline
+            Turn               &  1 &  2 &  3 &  4 &  5 &  6 &  7 &  8 &  9 & 10 &  11 &  12 &  13 &  14 &  15 &  16 &  17 &  18 &  19 &  20 \\ \thickhline
+            (8/9, 1/2, 1/3, 0) &  C &  C &  D &  D &  D &  C &  D &  D &  D & D &   D &   C &   C &   C &   D &   D &   D &   C &   D &   D \\ \hline
+            Alternator         &  C &  D &  C &  D &  C &  D &  C &  D &  C & D &   C &   D &   C &   D &   C &   D &   C &   D &   C &   D \\\hline
+        \end{tabular}
+    \end{adjustwidth}
 \end{table}
 
 
@@ -350,7 +540,7 @@ linear algebraic approaches. Essentially we attempt to find \(\textbf{x}=(\alpha
     C\textbf{x}= \tilde{\textbf{p}}
 \end{equation}
 
-where \(C\) corresponds to equations
+where \(C\) corresponds to Eqs
 (\ref{eqn:condition_for_tilde_p1}-\ref{eqn:condition_for_tilde_p3}) and is
 given by:
 
@@ -364,7 +554,7 @@ given by:
     \end{bmatrix}
 \end{equation}
 
-Note that in general, equation (\ref{eqn:linear_algebraic_equation_for_p}) will
+Note that in general, Eq (\ref{eqn:linear_algebraic_equation_for_p}) will
 not necessarily have a solution. From the Rouch\'{e}-Capelli theorem if there is
 a solution it is unique since \(\text{rank}(C)=2\) which is the dimension of the
 variable \(\textbf{x}\). The best fitting \(\textbf{x}^*\) is defined by:
@@ -421,30 +611,30 @@ high \(\SSe\) does imply that a strategy is not extortionate. For a measured
 extortion then corresponds to a threshold on \(\SSe\) and a comparison of the
 measured \(\chi=\frac{-\beta}{\alpha}\).
 
-\section{Results: Validation of approach and Numerical experiments}\label{sec:numerical-experiments}
+\section*{Results}
 
 This section validates the approach of the previous section and
 present a number of numerical experiments to identify if strategies that perform
 strongly in evolutionary settings are close or not to the space of
 ZD strategies.
 
-\subsection{Validation}
+\subsection*{Validation}
 
 To validate the method described, we use~\cite{Stewart2012} which
 presents results from a tournament with
-\input{./assets/tex/number_of_stewart_plotkin_strategies/main.tex}strategies
+19 strategies
 with specific consideration given to ZD strategies. This
 tournament is reproduced here using the Axelrod-Python
 library~\cite{Knight2016}. To obtain a good measure of the corresponding
 transition rates for each strategy all matches have been run for
-\input{assets/tex/number_of_turns/main.tex}turns and every match has been
-repeated \input{assets/tex/number_of_repetitions/main.tex}times. All of this
+2000 turns and every match has been
+repeated 60 times. All of this
 interaction data is available at~\cite{vincent_knight_2018_1297075}. Note that
 in the interest of open scientific practice,~\cite{vincent_knight_2018_1297075}
 also contains interaction data for noisy and probabilistic ending interactions
 which are not investigated here.
 
-Figure~\ref{fig:sserror_in_stewart_plotkin} shows the
+Fig~\ref{fig:sserror_in_stewart_plotkin} shows the
 \(\SSe\) values for all the strategies in the tournament, as
 reported in~\cite{Stewart2012} the extortionate strategy Extort-2 gains a large number of
 wins. Notice that the mean \(\SSe\) for Extort-2 is approximately zero, while for
@@ -455,12 +645,11 @@ to wins which is due to its value of \(\chi\) being less than 1.
 ZD-GTFT2 is referred to as a ``generous'' ZD strategy, other examples of this
 include ZDGen2 and ZDSet2 defined in~\cite{sep-prisoner-dilemma}. The
 general performance of these will be discussed in
-Section~\ref{sec:numerical-experiments}.
+the Results section.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/sserror_in_stewart_plotkin/main.pdf}
-    \caption{\(\SSe\) and best fitting \(\chi\) for~\cite{Stewart2012},
+    \caption{{\bf\(\SSe\) and best fitting \(\chi\) for~\cite{Stewart2012},
         ordered (in descending order) both by number of wins and overall score.
         A win is when a strategy obtains a higher score than the player it is
         interacting with.
@@ -470,7 +659,7 @@ Section~\ref{sec:numerical-experiments}.
         extortionate strategy does not act in a perfectly extortionate manner in
         all matches. The strategies with a high score have a negatively skewed
         \(\SSe\).
-        }
+        }}
     \label{fig:sserror_in_stewart_plotkin}
 \end{figure}
 
@@ -484,24 +673,47 @@ values of \(\SSe\) above 1 indicate that whilst these strategies are designed to
 act extortionately they do not do so in all cases. This will be discussed in
 more detail in the next section.
 
-\begin{table}[!hbtp]
-    \begin{center}
-   \input{./assets/tex/chi_versus_observed_chi_for_zd/main.tex}
-    \end{center}
-    \caption{Validating the approach by comparing the measured values of
+\begin{table}[!ht]
+    \centering
+    \caption{
+        {\bf Validating the approach by comparing the measured values of
     \(\chi\) and the theoretic values of
     \(\chi\) for all ZD strategies in the larger tournament. The value of
     \(\chi\) is effectively recovered from observed play and the \(\SSe\)
     indicates that not all strategies are able to play as expected all the
-time.}
+time.}}
     \label{tbl:chi_versus_observed_chi_for_zd}
+
+\begin{tabular}{lrrr}
+\hline
+                  Name &  Measured chi &  Theoretic chi &     SSE \\
+\thickhline
+         Firm But Fair &        1.0000 &     1.0000 &  0.4446 \\
+                  GTFT &        0.6999 &     0.7000 &  0.1373 \\
+                  Joss &        1.2428 &     1.2431 &  0.0006 \\
+             Soft Joss &        0.9110 &     0.9112 &  0.0123 \\
+ Stochastic Cooperator &        3.0248 &     3.0276 &  0.2158 \\
+       Stochastic WSLS &       12.6105 &    12.6000 &  1.0627 \\
+   Win-Shift Lose-Stay &        1.8333 &     1.8333 &  1.4706 \\
+   Win-Stay Lose-Shift &       16.0000 &    16.0000 &  1.2353 \\
+          ZD-Extortion &       10.0067 &    10.0000 &  0.0000 \\
+           ZD-Extort-2 &        1.9978 &     2.0000 &  0.0000 \\
+            ZD-Extort3 &        3.0022 &     3.0000 &  0.0000 \\
+        ZD-Extort-2 v2 &        2.0020 &     2.0000 &  0.0000 \\
+           ZD-Extort-4 &        3.9998 &     4.0000 &  0.0000 \\
+             ZD-GTFT-2 &        0.8887 &     0.8889 &  0.0662 \\
+              ZD-GEN-2 &        0.8892 &     0.8889 &  0.0165 \\
+              ZD-SET-2 &        2.4022 &     2.4000 &  0.0661 \\
+\hline
+        \end{tabular}
 \end{table}
 
-\subsection{Numerical experiments}
+
+\subsection*{Numerical experiments}
 
 Next we investigate a tournament with
-\input{assets/tex/number_of_full_strategies/main.tex}strategies. The results of
-this analysis are shown in Figure~\ref{fig:sse_chi_probabilities_in_full}. The
+204 strategies. The results of
+this analysis are shown in Fig\ref{fig:sse_chi_probabilities_in_full}. The
 top ranking strategies by number of wins act in an extortionate way (but not
 against all opponents) and it can be seen that a small subgroup of strategies
 achieve mutual defection.  All the top ranking strategies according to score
@@ -511,8 +723,7 @@ strategies.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.95\textwidth]{./assets/img/sse_chi_probabilities_in_full/main.pdf}
-    \caption{\(\SSe\) and probability of mutual defection (\(P(DD)\)) 
+    \caption{{\bf \(\SSe\) and probability of mutual defection (\(P(DD)\)) 
         for the strategies for
         the full tournament. The strategies with high number of wins
         have a low \(\SSe\) however are often locked in mutual defection as
@@ -520,23 +731,23 @@ strategies.
         have a high \(\SSe\) against the other high scoring strategies
         indicating that fixed linear relationship is being enforced. However
         against the low scoring strategies they have a lower \(\SSe\) and
-        against the very lowest scoring strategies a high \(P(DD)\).}
+        against the very lowest scoring strategies a high \(P(DD)\).}}
     \label{fig:sse_chi_probabilities_in_full}
 \end{figure}
 
 Note that while a strategy may attempt to act extortionately, not all opponents
 can be effectively extorted. For example, a strategy that always defects never
-receives a lower score than its opponent. As defined by \cite{Press2012}, an
+receives a lower score than its opponent. As defined by~\cite{Press2012}, an
 extortionate ZD strategy will mutually defect with such an opponent which
 corresponds to the high values of \(P(DD)\) seen in
-Figure~\ref{fig:sse_chi_probabilities_in_full} the top left quadrant.
+Fig~\ref{fig:sse_chi_probabilities_in_full} the top left quadrant.
 
 A detailed look at selected strategies is given in
 Table~\ref{tbl:overall_summary_results}. The high scoring strategies presented
 have a negatively skewed \(\SSe\) whilst the ZD strategies have a low score but
 high probability of winning and higher probability of mutual defection.
 The skew of \(\SSe\) of all strategies is shown in
-Figure~\ref{fig:sserror_in_std} and supports the
+Fig~\ref{fig:sserror_in_std} and supports the
 same conclusion. This evidences an idea proposed
 in~\cite{adami2013evolutionary}: sophisticated strategies are able to recognise
 their opponent and defend themselves against extortion.  The high ranking
@@ -545,33 +756,67 @@ to have created strategies able to extort weaker strategies whilst cooperating
 with stronger ones. Indeed unconditional extortion is self defeating.
 
 \begin{table}[!hbtp]
-    \begin{center}
-    \small
-    \input{./assets/tex/overall_summary_results/main.tex}
-    \end{center}
-    \caption{Summary of results for a selected list of strategies. Similarly to
-        Figure~\ref{fig:sserror_in_stewart_plotkin}, the high scoring strategies
+    \begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+    \centering
+    \caption{
+        {\bf Summary of results for a selected list of strategies. Similarly to
+        Fig~\ref{fig:sserror_in_stewart_plotkin}, the high scoring strategies
         have a negatively skewed \(\SSe\). The strategies with a
         large number of wins have a low \(\SSe\) and positively skewed
         \(\SSe\). Note that a value of \(\chi=0.063\) and \(\SSe=1.235\)
         corresponds to a vector \(p=(1,1,1,1)\) which highlights that the high
-        scoring strategies, adapt and in fact cooperate often.}
+        scoring strategies, adapt and in fact cooperate often.}}
     \label{tbl:overall_summary_results}
+    \small
+\begin{tabular}{rlrrrrrrr}
+\hline
+ Rank &                  Name &  Score per turn &  $P($Win$)$ &  P(DD) &  Median $\chi$ &  Mean SSE &  Skew SSE &  Var SSE \\
+\thickhline
+    1 &  EvolvedLookerUp2\_2\_2 &           2.944 &       0.230 &  0.092 &          0.062 &     1.057 &    -0.857 &    0.160 \\
+    2 &         Evolved HMM 5 &           2.944 &       0.205 &  0.110 &          0.062 &     0.796 &    -0.448 &    0.294 \\
+    3 &     PSO Gambler 2\_2\_2 &           2.913 &       0.204 &  0.128 &          0.062 &     0.899 &    -0.508 &    0.255 \\
+    4 &      PSO Gambler Mem1 &           2.908 &       0.211 &  0.128 &          0.062 &     0.705 &    -0.186 &    0.333 \\
+    5 &     PSO Gambler 1\_1\_1 &           2.906 &       0.221 &  0.145 &          0.062 &     0.737 &    -0.209 &    0.296 \\
+    7 &         Evolved ANN 5 &           2.893 &       0.225 &  0.185 &          0.062 &     0.804 &    -0.608 &    0.334 \\
+   31 &             ZD-GTFT-2 &           2.721 &       0.000 &  0.081 &          0.062 &     0.786 &    -0.502 &    0.289 \\
+   45 &              ZD-GEN-2 &           2.689 &       0.016 &  0.096 &          0.062 &     0.694 &    -0.227 &    0.358 \\
+   69 &           Tit For Tat &           2.638 &       0.000 &  0.157 &          0.062 &     0.773 &    -0.507 &    0.301 \\
+   75 &                Grumpy &           2.630 &       0.075 &  0.100 &          0.062 &     0.978 &    -1.438 &    0.245 \\
+   88 &   Win-Stay Lose-Shift &           2.616 &       0.099 &  0.122 &          0.062 &     1.172 &    -4.501 &    0.027 \\
+  103 & Eventual Cycle Hunter &           2.565 &       0.067 &  0.052 &          0.062 &     0.728 &    -0.338 &    0.357 \\
+  127 &              Adaptive &           2.272 &       0.500 &  0.314 &         -1.000 &     0.084 &     2.171 &    0.010 \\
+  168 &              ZD-SET-2 &           1.975 &       0.451 &  0.418 &          2.407 &     0.081 &     5.244 &    0.006 \\
+  169 &                 Bully &           1.970 &       0.381 &  0.141 &         -1.000 &     1.373 &    -2.221 &    0.140 \\
+  179 &            Alternator &           1.945 &       0.392 &  0.259 &          3.857 &     1.332 &    -1.021 &    0.120 \\
+  181 &              Negation &           1.941 &       0.356 &  0.141 &         -1.000 &     1.470 &    -3.204 &    0.083 \\
+  182 &    CollectiveStrategy &           1.931 &       0.915 &  0.762 &         -2.888 &     0.085 &     6.082 &    0.028 \\
+  183 &             Cycler DC &           1.931 &       0.324 &  0.256 &          3.857 &     1.279 &    -0.900 &    0.140 \\
+  188 &              Hopeless &           1.908 &       0.352 &  0.048 &          1.833 &     2.247 &    -1.694 &    0.139 \\
+  194 &        Gradual Killer &           1.892 &       0.354 &  0.367 &          0.062 &     0.254 &     1.669 &    0.106 \\
+  196 &            Aggravater &           1.879 &       0.930 &  0.739 &         -2.889 &     0.163 &     2.951 &    0.066 \\
+  200 &           ZD-Extort-2 &           1.821 &       0.851 &  0.652 &          2.005 &     0.019 &     5.435 &    0.009 \\
+  201 &           ZD-Extort-4 &           1.820 &       0.865 &  0.697 &          4.003 &     0.021 &     3.677 &    0.005 \\
+  202 &            ZD-Extort3 &           1.810 &       0.862 &  0.687 &          3.028 &     0.015 &     5.066 &    0.005 \\
+  203 &              Defector &           1.808 &       0.929 &  0.800 &         -2.889 &     0.059 &     0.000 &    0.000 \\
+  204 &             Handshake &           1.806 &       0.870 &  0.737 &         -2.888 &     0.126 &     3.825 &    0.083 \\
+\hline
+\end{tabular}
+    \end{adjustwidth}
 \end{table}
+
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/sserror_in_std/main.pdf}
-    \caption{Skew of \(\SSe\) for all strategies considered over all opponents.
+    \caption{{\bf Skew of \(\SSe\) for all strategies considered over all opponents.
         A similar conclusion to that of
-        Figure~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
+        Fig~\ref{fig:sserror_in_stewart_plotkin} can be made: the strategies
         that score highly have a negatively skewed \(\SSe\) highlighting their
         ability to adapt to their opponent. The auxiliary materials include a
-        version of this graphic with strategy names.}
+        version of this graphic with strategy names.}}
         \label{fig:sserror_in_std}
 \end{figure}
 
-\subsection{Evolutionary dynamics}\label{sec:evolutionary-dynamics}
+\subsection*{Evolutionary dynamics}
 
 In the original work introducing ZD strategies~\cite{Press2012}, effectiveness
 in evolutionary settings was already considered. Since then, most work
@@ -581,11 +826,11 @@ Hilbe2013, hilbe2013adaptive, hilbe2015partners, ichinose2018zero, Moran1707}.
 The main motivation for this consideration is to gain insights on to how
 behaviours might arise but also whether or not they are stable in various
 settings such as social and biological interactions. Most of such work
-considers the space of memory-one strategies alone. In constrast, this paper considers a wider
+considers the space of memory-one strategies alone. In contrast, this paper considers a wider
 strategy space and two models of evolution are investigated: the
 continuous replicator dynamics and the discrete Moran process.
 
-\subsubsection{Replicator Dynamics}
+\subsubsection*{Replicator Dynamics}
 
 From the large number of interactions a payoff matrix \(S\) can be measured
 where \(S_{ij}\) denotes the score (using standard values of \((R, S, T, P) =
@@ -600,35 +845,34 @@ under selection:
     \frac{d \gamma_i}{dt} = \gamma_i ((S\boldsymbol{\gamma})_i - x^T S \boldsymbol{\gamma})
 \end{equation}
 
-Equation (\ref{eqn:replicator_dynamics}) is solved numerically for an initial
+Eq (\ref{eqn:replicator_dynamics}) is solved numerically for an initial
 population with a uniform distribution of the strategies. This is done using an
 integration technique described in~\cite{Petzold1983} until a stationary vector
 \(\gamma=s\) is found.
-Figure~\ref{fig:replicator_dynamics} shows the stationary probabilities for each
+Fig~\ref{fig:replicator_dynamics} shows the stationary probabilities for each
 strategy ranked by score.
 It is clear to see that
 only the high ranking strategies survive the evolutionary process (in fact,
-only \input{./assets/img/replicator_dynamics/main.tex}have a stationary
+only 39 have a stationary
 probability value greater than \(10 ^ {-2}\)).
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/replicator_dynamics/main.pdf}
-    \caption{Stationary distribution of the replicator dynamics
+    \caption{{\bf Stationary distribution of the replicator dynamics
     (\ref{eqn:replicator_dynamics}): strategies are ordered by score (as given
     in Table~\ref{tbl:overall_summary_results}). The 2
     strategies with the highest stationary probability are:
     EvolvedLookerUp2\_2\_2 and Evolved HMM 5.
     Note that
     strategies that make use of the knowledge of the length of the game are
-    removed from this analysis as they have an evolutionary advantage.}
+    removed from this analysis as they have an evolutionary advantage.}}
     \label{fig:replicator_dynamics}
 \end{figure}
 
-Figure~\ref{fig:compare-evolutionary-dynamics-to-sserror} plots the mean and
+Fig~\ref{fig:compare-evolutionary-dynamics-to-sserror} plots the mean and
 skew (a standard statistical measure on a distribution) of \(\SSe\) against the
 stationary probabilities \(\textbf{s}\) of (\ref{eqn:replicator_dynamics}). Strategies
-that perform strongly according to equation (\ref{eqn:replicator_dynamics}) seem
+that perform strongly according to Eq (\ref{eqn:replicator_dynamics}) seem
 to be strategies that have a negative skew of \(\SSe\): indicating that they
 often have a high value of \(\SSe\) (i.e. do not act extortionately) but have a
 long left tail allowing them to adapt when necessary. A general linear model
@@ -638,27 +882,58 @@ predictive power and confirming these conclusions.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/compare-evolutionary-dynamics-to-sserror/main.pdf}
-    \caption{Mean, variance and skew of \(\SSe\) versus the stationary
+    \caption{{\bf Mean, variance and skew of \(\SSe\) versus the stationary
     probabilities of (\ref{eqn:replicator_dynamics}). The plot of the skew
-    clearly shows that all high probabilities have a negative skew.}
+    clearly shows that all high probabilities have a negative skew.}}
     \label{fig:compare-evolutionary-dynamics-to-sserror}
 \end{figure}
 
 \begin{table}[!hbtp]
-    \begin{center}
-    \tiny
-    \input{./assets/tex/compare-evolutionary-dynamics-to-sserror/main.tex}
-    \end{center}
-    \caption{General linear model predicting the stationary probability as a
+    %\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+    \centering
+        \caption{{\bf General linear model predicting the stationary probability as a
     function of the mean, median and variance of the \(\SSe\). This shows that strategies with a low mean
     and high median are more likely to survive the evolutionary dynamics. This
     corresponds to negatively skewed distributions of \(\SSe\) which again
-    highlights the importance of adaptability.}
+        highlights the importance of adaptability.}}
     \label{tbl:compare-evolutionary-dynamics-to-sserror}
+    %\end{adjustwidth}
+\begin{tabular}{lclc}
+\thickhline
+\textbf{Dep. Variable:}    &      $s_i$       & \textbf{  R-squared:         } &    0.648  \\
+\textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &    0.642  \\
+\textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &    117.0  \\
+                           &                  & \textbf{  Prob (F-statistic):} & 5.00e-43  \\
+                           &                  & \textbf{  Log-Likelihood:    } &   851.41  \\
+\textbf{No. Observations:} &         195      & \textbf{  AIC:               } &   -1695.  \\
+\textbf{Df Residuals:}     &         191      & \textbf{  BIC:               } &   -1682.  \\
+\textbf{Df Model:}         &           3      & \textbf{                     } &           \\
+\textbf{Covariance Type:}  &    nonrobust     & \textbf{                     } &           \\
+\hline
+\end{tabular}
+%\caption{OLS Regression Results}
+\begin{tabular}{lcccccc}
+\hline
+                                & \textbf{coef} & \textbf{std err} & \textbf{t} & \textbf{P$>$$|$t$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\thickhline
+\textbf{const}                  &       0.0007  &        0.001     &     1.137  &         0.257        &       -0.000    &        0.002     \\
+\textbf{('SSE', 'mean')}   &      -0.0134  &        0.002     &    -8.369  &         0.000        &       -0.017    &       -0.010     \\
+\textbf{('SSE', 'median')} &       0.0139  &        0.001     &    10.433  &         0.000        &        0.011    &        0.017     \\
+\textbf{('SSE', 'var')}    &       0.0069  &        0.003     &     2.402  &         0.017        &        0.001    &        0.013     \\
+\hline
+\end{tabular}
+\begin{tabular}{lclc}
+\thickhline
+\textbf{Omnibus:}       & 17.190 & \textbf{  Durbin-Watson:     } &    1.664  \\
+\textbf{Prob(Omnibus):} &  0.000 & \textbf{  Jarque-Bera (JB):  } &   25.453  \\
+\textbf{Skew:}          &  0.530 & \textbf{  Prob(JB):          } & 2.97e-06  \\
+\textbf{Kurtosis:}      &  4.418 & \textbf{  Cond. No.          } &     23.7  \\
+\hline
+\end{tabular}
 \end{table}
 
-Figure~\ref{fig:sserror_distribution_for_selection_of_strategies} shows the
+
+Fig~\ref{fig:sserror_distribution_for_selection_of_strategies} shows the
 distribution of the \(\SSe\) for three selected strategies. It is evident that
 Extort-2 almost always has the same low value of \(\SSe\) against all opponents
 (which gives a positively skewed distribution), whereas EvolvedLookerUp2\_2\_2
@@ -667,14 +942,13 @@ and Tit For Tat have a wider distribution of values depending on the opponent
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/sserror_distribution_for_selection_of_strategies/main.pdf}
-    \caption{Distribution of \(\SSe\) values for 3 selected strategies. The
+    \caption{{\bf Distribution of \(\SSe\) values for 3 selected strategies. The
     first two distributions are negatively skewed and the third has a positive
-    skew.}
+    skew.}}
     \label{fig:sserror_distribution_for_selection_of_strategies}
 \end{figure}
 
-\subsubsection{Finite Population Dynamics: Moran Process}
+\subsubsection*{Finite Population Dynamics: Moran Process}
 
 The Moran Process is an evolutionary model of evolutionary in a finite
 population. Of specific interest is the probability of a single 
@@ -682,7 +956,7 @@ individual entrant to a population taking over the population.
 This is referred to as the fixation probability denoted by \(\kappa_1\).
 In~\cite{Moran1707} a large data set of pairwise fixation probabilities in the
 Moran process is made available at~\cite{vincent_knight_2017_1040129}.
-Figure~\ref{fig:compare-fixation-to-sserror} shows linear models fitted to three
+Fig~\ref{fig:compare-fixation-to-sserror} shows linear models fitted to three
 summary measures of \(\SSe\) and the mean (over population size \(N\) and
 opponents) value of \(\kappa_1\cdot N\). This
 specific measure of fixation is chosen as \(\kappa_1\) is usually compared to
@@ -696,28 +970,57 @@ which confirms the conclusions.
 
 \begin{figure}[!hbtp]
     \centering
-    \includegraphics[width=\textwidth]{./assets/img/compare-fixation-to-sserror/main.pdf}
-    \caption{The mean, variance and skew of
+    \caption{{\bf The mean, variance and skew of
     \(\SSe\) against the normalised pairwise fixation probabilities
     from~\cite{Moran1707} (for a given strategy averaged over all opponents and
     population sizes). The clustering either side of a value of skew equal to
     0 show that strategies with above neutral
-    fixation (\(N\cdot x_1>1\)) negative skew.}
+    fixation (\(N\cdot x_1>1\)) negative skew.}}
     \label{fig:compare-fixation-to-sserror}
 \end{figure}
 
 \begin{table}[!hbtp]
-    \begin{center}
-    \tiny
-    \input{./assets/tex/compare-fixation-to-sserror/main.tex}
-    \end{center}
-    \caption{General linear model predicting the mean fixation probability as a
+    %\begin{adjustwidth}{-2.25in}{0in} % Comment out/remove adjustwidth environment if table fits in text column.
+    \centering
+        \caption{{\bf General linear model predicting the mean fixation probability as a
     function of the mean, median and variance of the \(\SSe\). This shows that strategies with a high mean
         and low median are likely to be evolutionarily stable. This corresponds
         to negatively skewed distributions of \(\SSe\) which again highlights
-        the importance of adaptability.}
+        the importance of adaptability.}}
     \label{tbl:compare-fixation-to-sserror}
+\begin{tabular}{lclc}
+\hline
+\textbf{Dep. Variable:}    &       mean       & \textbf{  R-squared:         } &    0.319  \\
+\textbf{Model:}            &       OLS        & \textbf{  Adj. R-squared:    } &    0.310  \\
+\textbf{Method:}           &  Least Squares   & \textbf{  F-statistic:       } &    36.53  \\
+                           &                  & \textbf{  Prob (F-statistic):} & 9.74e-14  \\
+                           &                  & \textbf{  Log-Likelihood:    } &  -42.272  \\
+\textbf{No. Observations:} &         159      & \textbf{  AIC:               } &    90.54  \\
+\textbf{Df Residuals:}     &         156      & \textbf{  BIC:               } &    99.75  \\
+\textbf{Df Model:}         &           2      & \textbf{                     } &           \\
+\textbf{Covariance Type:}  &    nonrobust     & \textbf{                     } &           \\
+\hline
+\end{tabular}
+\begin{tabular}{lcccccc}
+\hline
+                                & \textbf{coef} & \textbf{std err} & \textbf{t} & \textbf{P$>$$|$t$|$} & \textbf{[0.025} & \textbf{0.975]}  \\
+\thickhline
+\textbf{const}                  &       1.2815  &        0.056     &    22.993  &         0.000        &        1.171    &        1.392     \\
+\textbf{('SSE', 'mean')}   &      -1.0620  &        0.145     &    -7.323  &         0.000        &       -1.348    &       -0.776     \\
+\textbf{('SSE', 'median')} &       0.9037  &        0.106     &     8.535  &         0.000        &        0.695    &        1.113     \\
+\hline
+\end{tabular}
+\begin{tabular}{lclc}
+\hline
+\textbf{Omnibus:}       &  2.302 & \textbf{  Durbin-Watson:     } &    1.716  \\
+\textbf{Prob(Omnibus):} &  0.316 & \textbf{  Jarque-Bera (JB):  } &    1.850  \\
+\textbf{Skew:}          & -0.199 & \textbf{  Prob(JB):          } &    0.397  \\
+\textbf{Kurtosis:}      &  3.348 & \textbf{  Cond. No.          } &     11.2  \\
+\hline
+\end{tabular}
+    %\end{adjustwidth}
 \end{table}
+
 
 These findings confirm the work of~\cite{Moran1707} in which sophisticated
 strategies resist evolutionary invasion of shorter memory strategies. This also
@@ -736,10 +1039,12 @@ of~\cite{darwin1869origin}:
     \textit{``It is not the most intellectual of the species that survives; it is not the
 strongest that survives; but the species that survives is the one that is able
 to adapt to and to adjust best to the changing environment in which it finds
-    itself.''}
+itself.''
+}
+
 \end{quote}
 
-\section{Discussion}\label{sec:conclusion}
+\section*{Discussion}
 
 This work defines an approach to measure whether or not a player is using an
 extortionate strategy as defined in~\cite{Press2012}, or a strategy that behaves
@@ -787,7 +1092,7 @@ methodology proposed here to consider other theoretic models of control of
 opponent utility such as~\cite{Akin2015, hao2018, chen2022}. There are however,
 various potential immediate applications for \(\SSe\), one of which could be to
 devise an agent that learns during the interactions with another agent.
-Figure~\ref{fig:learning_sse} shows the average \(\SSe\) value over a number of
+Fig~\ref{fig:learning_sse} shows the average \(\SSe\) value over a number of
 iterations over a number of repetitions. More investigation would be required
 but in some cases it seems that a large number of interactions would be required
 to gain certainly about the play of an agent. This approach seems to be in
@@ -796,8 +1101,7 @@ known to learn from early interactions and adapt their play.
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=.8\textwidth]{./assets/img/learning_sse/main.pdf}
-    \caption{The average \(\SSe\) of a few strategies over a number of
+    \caption{{\bf The average \(\SSe\) of a few strategies over a number of
     repetitions and a number of turns. The EvolvedLookerUp2\_2\_2 stragey is
     recognisably not a ZD strategy after 10 turns against both opponents.  When
     playing against the EvolvedLookerUp2\_2\_2 the generous ZD strategy ZDSet2
@@ -805,13 +1109,29 @@ known to learn from early interactions and adapt their play.
     Interestingly, while the other ZD strategy, ZD-Extort-2 v2, is clearly a
     acting as a ZD strategy early on against both opponents it would take longer
     to confidently recognise that that ZDSet2 is a ZD strategy.
-        }
+        }}
     \label{fig:learning_sse}
 \end{figure}
 
 In closing, the authors wish to emphasize the role of comprehensive simulations to temper
 theoretical results from overgeneralization, and perhaps more importantly, the
 ability of simulations to provide insights that are difficult to obtain from theory.
+
+
+\section*{Supporting information}
+
+% Include only the SI item label in the paragraph heading. Use the \nameref{label} command to cite SI items in the text.
+\paragraph*{S1 Appendix.}
+\label{proof_of_algebraic_condition_for_extortionate_strategies}
+{\bf Proof of algebraic condition for extortionate strategies.} 
+
+\paragraph*{S2 Appendix.}
+\label{sse_error_in_std_for_auxiliary}
+{\bf Skew of SSe for all strategies.} The skew for all the strategies in the larger tournament.
+
+\paragraph*{S3 Appendix.}
+\label{list_of_strategies}
+{\bf List of all strategies}
 
 \section*{Acknowledgements}
 
@@ -832,15 +1152,223 @@ The following open source software libraries were used in this research:
 This work was performed using the computational facilities of the Advanced
 Research Computing @ Cardiff (ARCCA) Division, Cardiff University.
 
-\section*{Author contributions}
+\nolinenumbers
 
-VK and NG conceived the idea. MH, JG, NG and VK were all involved in carrying
-out the research and writing the manuscript.
+\begin{thebibliography}{10}
 
-\printbibliography
+\bibitem{Axelrod1980}
+Axelrod R.
+\newblock Effective Choice in the Prisoner{\textquotesingle}s Dilemma.
+\newblock Journal of Conflict Resolution. 1980;24(1):3--25.
+\newblock doi:{10.1177/002200278002400101}.
 
-\includepdf{assets/pdf/proof_of_form_of_extortionate_strategies/main.pdf}
-\includepdf{assets/img/sse_error_in_std_for_auxiliary/main.pdf}
-\includepdf[pages={1-}]{assets/pdf/list_of_strategies/main.pdf}
+\bibitem{Axelrod1980a}
+Axelrod R.
+\newblock More Effective Choice in the Prisoner{\textquotesingle}s Dilemma.
+\newblock Journal of Conflict Resolution. 1980;24(3):379--403.
+\newblock doi:{10.1177/002200278002400301}.
+
+\bibitem{glynatsi2021bibliometric}
+Glynatsi NE, Knight VA.
+\newblock A bibliometric study of research topics, collaboration, and
+  centrality in the iterated prisoner’s dilemma.
+\newblock Humanities and Social Sciences Communications. 2021;8(1):1--12.
+
+\bibitem{Press2012}
+Press WH, Dyson FJ.
+\newblock Iterated Prisoner{\textquotesingle}s Dilemma contains strategies that
+  dominate any evolutionary opponent.
+\newblock Proceedings of the National Academy of Sciences.
+  2012;109(26):10409--10413.
+\newblock doi:{10.1073/pnas.1206569109}.
+
+\bibitem{hilbe2015partners}
+Hilbe C, Traulsen A, Sigmund K.
+\newblock Partners or rivals? Strategies for the iterated prisoner's dilemma.
+\newblock Games and economic behavior. 2015;92:41--52.
+
+\bibitem{adami2013evolutionary}
+Adami C, Hintze A.
+\newblock Evolutionary instability of zero-determinant strategies demonstrates
+  that winning is not everything.
+\newblock Nature communications. 2013;4:2193.
+
+\bibitem{hilbe2018partners}
+Hilbe C, Chatterjee K, Nowak MA.
+\newblock Partners and rivals in direct reciprocity.
+\newblock Nature human behaviour. 2018;2(7):469--477.
+
+\bibitem{Hilbe2013}
+Hilbe C, Nowak MA, Sigmund K.
+\newblock Evolution of extortion in Iterated Prisoner{\textquotesingle}s
+  Dilemma games.
+\newblock Proceedings of the National Academy of Sciences.
+  2013;110(17):6913--6918.
+\newblock doi:{10.1073/pnas.1214834110}.
+
+\bibitem{hilbe2013adaptive}
+Hilbe C, Nowak MA, Traulsen A.
+\newblock Adaptive dynamics of extortion and compliance.
+\newblock PlOS ONE. 2013;8(11):e77886.
+
+\bibitem{ichinose2018zero}
+Ichinose G, Masuda N.
+\newblock Zero-determinant strategies in finitely repeated games.
+\newblock Journal of theoretical biology. 2018;438:61--77.
+
+\bibitem{Moran1707}
+Knight V, Harper M, Glynatsi NE, Campbell O.
+\newblock Evolution Reinforces Cooperation with the Emergence of
+  Self-Recognition Mechanisms: an empirical study of the Moran process for the
+  iterated Prisoner's dilemma; 2017.
+
+\bibitem{lee2015art}
+Lee C, Harper M, Fryer D.
+\newblock The art of war: Beyond memory-one strategies in population games.
+\newblock PloS one. 2015;10(3):e0120625.
+
+\bibitem{becks2019extortion}
+Becks L, Milinski M.
+\newblock Extortion strategies resist disciplining when higher competitiveness
+  is rewarded with extra gain.
+\newblock Nature communications. 2019;10(1):783.
+
+\bibitem{Knight2016}
+Knight V, Campbell O, Harper M, Langner KM, Campbell J, Campbell T, et~al.
+\newblock An Open Framework for the Reproducible Study of the Iterated
+  Prisoner's Dilemma.
+\newblock Journal of Open Research Software. 2016;4.
+\newblock doi:{10.5334/jors.125}.
+
+\bibitem{Knight2018}
+Knight V, Campbell O, Marc, {Eric-S-S}, {VSN Reddy Janga}, Campbell J, et~al..
+  Axelrod-Python/Axelrod: V4.2.0; 2018.
+
+\bibitem{Wilson2014}
+Wilson G, Aruliah DA, Brown CT, Hong NPC, Davis M, Guy RT, et~al.
+\newblock Best Practices for Scientific Computing.
+\newblock {PLOS} Biology. 2014;12(1):e1001745.
+\newblock doi:{10.1371/journal.pbio.1001745}.
+
+\bibitem{vincent_knight_2018_1297075}
+Knight V. {Raw data for: "Suspicion: Recognising and evaluating the
+  effectiveness of extortion in the Iterated Prisoner's Dilemma"}; 2018.
+\newblock Available from: \url{https://doi.org/10.5281/zenodo.1297075}.
+
+\bibitem{vincent_knight_2019_2598534}
+Knight V. {Source code for paper on recognising zero determinant strategies};
+  2019.
+\newblock Available from: \url{https://doi.org/10.5281/zenodo.2598534}.
+
+\bibitem{Stewart2012}
+Stewart AJ, Plotkin JB.
+\newblock Extortion and cooperation in the Prisoner{\textquotesingle}s Dilemma.
+\newblock Proceedings of the National Academy of Sciences.
+  2012;109(26):10134--10135.
+\newblock doi:{10.1073/pnas.1208087109}.
+
+\bibitem{Rand2013}
+Rand DG, Nowak MA.
+\newblock Human cooperation.
+\newblock Trends in Cognitive Sciences. 2013;17(8):413--425.
+\newblock doi:{10.1016/j.tics.2013.06.003}.
+
+\bibitem{kutner2004applied}
+Kutner MH, Nachtsheim C, Neter J.
+\newblock Applied linear regression models.
+\newblock McGraw-Hill/Irwin; 2004.
+
+\bibitem{rao1973linear}
+Rao CR.
+\newblock Linear statistical inference and its applications. vol.~2.
+\newblock Wiley New York; 1973.
+
+\bibitem{wakefield2013bayesian}
+Wakefield J.
+\newblock Bayesian and frequentist regression methods.
+\newblock Springer Science \& Business Media; 2013.
+
+\bibitem{sep-prisoner-dilemma}
+Kuhn S.
+\newblock {Prisoner’s Dilemma}.
+\newblock In: Zalta EN, editor. The {Stanford} Encyclopedia of Philosophy.
+  {W}inter 2019 ed. Metaphysics Research Lab, Stanford University; 2019.
+
+\bibitem{Harper2017}
+Harper M, Knight V, Jones M, Koutsovoulos G, Glynatsi NE, Campbell O.
+\newblock Reinforcement learning produces dominant strategies for the Iterated
+  Prisoner's Dilemma.
+\newblock {PLOS} {ONE}. 2017;12(12):e0188046.
+\newblock doi:{10.1371/journal.pone.0188046}.
+
+\bibitem{Petzold1983}
+Petzold L.
+\newblock Automatic Selection of Methods for Solving Stiff and Nonstiff Systems
+  of Ordinary Differential Equations.
+\newblock {SIAM} Journal on Scientific and Statistical Computing.
+  1983;4(1):136--148.
+\newblock doi:{10.1137/0904010}.
+
+\bibitem{vincent_knight_2017_1040129}
+Knight V, Harper M, Glynatsi NE. {Data for: Evolution Reinforces Cooperation
+  with the Emergence of Self-Recognition Mechanisms: an empirical study of the
+  Moran process for the iterated Prisoner's dilemma using reinforcement
+  learning}; 2017.
+\newblock Available from: \url{https://doi.org/10.5281/zenodo.1040129}.
+
+\bibitem{darwin1869origin}
+Darwin C.
+\newblock ORIGIN OF SPECIES.
+\newblock The Athenaeum. 1869;(2174):861--861.
+
+\bibitem{Akin2015}
+Akin E.
+\newblock What you gotta know to play good in the iterated prisoner’s
+  dilemma.
+\newblock Games. 2015;6(3):175--190.
+
+\bibitem{hao2018}
+Hao D, Li K, Zhou T.
+\newblock Payoff Control in the Iterated Prisoner's Dilemma.
+  2018;doi:{10.48550/ARXIV.1807.06666}.
+
+\bibitem{chen2022}
+Chen X, Fu F. Outlearning Extortioners by Fair-minded Unbending Strategies;
+  2022.
+\newblock Available from: \url{https://arxiv.org/abs/2201.04198}.
+
+\bibitem{Meurer2017}
+Meurer A, Smith CP, Paprocki M, {\v{C}}ert{\'{\i}}k O, Kirpichev SB, Rocklin M,
+  et~al.
+\newblock {SymPy}: symbolic computing in Python.
+\newblock {PeerJ} Computer Science. 2017;3:e103.
+\newblock doi:{10.7717/peerj-cs.103}.
+
+\bibitem{Droettboom2018}
+Droettboom M, Caswell TA, Hunter J, Firing E, Nielsen JH, Lee A, et~al..
+  Matplotlib/Matplotlib V2.2.2; 2018.
+
+\bibitem{Structures2010}
+Structures D, for Statistical, in~Python C, McKinney W.
+\newblock PROC. OF THE 9th PYTHON IN SCIENCE CONF. (SCIPY 2010); 2010.
+
+\bibitem{Dask2016}
+{Dask Development Team}. Dask: Library for dynamic task scheduling; 2016.
+\newblock Available from: \url{http://dask.pydata.org}.
+
+\bibitem{Oliphant2015}
+Oliphant TE.
+\newblock Guide to NumPy: 2nd Edition.
+\newblock CreateSpace Independent Publishing Platform; 2015.
+\newblock Available from:
+  \url{https://www.amazon.com/Guide-NumPy-Travis-Oliphant-PhD/dp/151730007X?SubscriptionId=0JYN1NVW651KCA56C102&tag=techkie-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=151730007X}.
+
+\bibitem{Jones2001}
+Jones E, Oliphant T, Peterson P, et~al.. {SciPy}: Open source scientific tools
+  for {Python}; 2001--.
+\newblock Available from: \url{http://www.scipy.org/}.
+
+\end{thebibliography}
 
 \end{document}
+

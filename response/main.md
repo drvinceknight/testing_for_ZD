@@ -1,5 +1,18 @@
 # Response to reviewers
 
+We would like to thank both reviewers for their comments on the manscript.
+
+We attach a point by point response to each of their points, and in the case of
+reviewer 1 a point by point response to each of the points raised by the editor
+for a previous review.
+
+We also include a marked up document showing the changes since our original submission to PLOS
+One.
+Although we not that this was done prior to changing the style of the manuscript
+to match the style of PLOS One: this is to simplify how the marked up document
+looks. Note that this marked up document does not include changes to any of the
+mathematical equations.
+
 ## Reviewer 1
 
 > I reviewed this manuscript in another journal before and finally gave "Accept" in their revision 1.
